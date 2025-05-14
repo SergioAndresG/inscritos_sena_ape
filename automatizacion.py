@@ -36,7 +36,7 @@ load_dotenv()
 # --- Configuración inicial ---
 
 
-RUTA_EXCEL = 'C:/Users/Adminsena/Downloads/Reporte de Aprendices Ficha 3198019.xls'
+RUTA_EXCEL = 'C:/Users/SENA/Documents/Reporte de Aprendices Ficha 3199341.xls'
 
 URL_LOGIN = 'https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/login'
 URL_VERIFICACION = 'https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta'
@@ -1134,14 +1134,17 @@ def experiencia_laboral(driver, perfil_excel):
             print(f"Buscando el botón 'Seleccionar' para el perfil: '{perfil_excel}'...")
             try:
                 # Primero intentar encontrar la fila que contiene el texto del perfil
-                fila_perfil = WebDriverWait(driver, 10).until(
-                    EC.presence_of_element_located((By.XPATH, f"//table[@id='int-ocu-table']//td[contains(text(), '{perfil_excel}')]/parent::tr"))
+                fila_perfil = WebDriverWait(driver, 15).until(
+                    EC.presence_of_element_located((By.XPATH, 
+                        f"//table[@id='int-ocu-table']/tbody/tr[td[contains(text(), '{perfil_excel}')]]"))
                 )
                 boton = fila_perfil.find_element(By.CSS_SELECTOR, "button.btn-primary")
+                driver.execute_script("arguments[0].scrollIntoView(true);", boton)
+                time.sleep(0.5)  # Dar tiempo para que el scroll termine
                 driver.execute_script("arguments[0].click();", boton)
-                print(f"✅ Se hizo clic en el botón 'Seleccionar' para: '{perfil_excel}'")
-                print(f"✅ Se hizo clic en el botón 'Seleccionar' para: '{perfil_excel}'")
                 time.sleep(1)  # Espera a que se cargue el siguiente paso
+                
+                print(f"✅ Se hizo clic en el botón 'Seleccionar' para: '{perfil_excel}'")
 
                 # --- Esperar a que aparezca el formulario de agregar interés y hacer clic en "Agregar" ---
                 print("Esperando a que aparezca el formulario 'Agregar interés ocupacional'...")
