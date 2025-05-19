@@ -13,28 +13,29 @@ from dotenv import load_dotenv
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
-import traceback
 from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
-import xlrd
-import xlwt
 from xlutils.copy import copy
 from URLS.urls import URL_LOGIN
 
-# --- Credenciales de login desde variables de entorno ---
-USUARIO_LOGIN = os.getenv('USUARIO_LOGIN')
-CONTRASENA_LOGIN = os.getenv('CONTRASENA_LOGIN')
-if not USUARIO_LOGIN or not CONTRASENA_LOGIN:
-    error_msg = "Error: Las credenciales de login no están configuradas en el archivo .env"
-    logging.error(error_msg)
-    print(error_msg)
-    exit()
+
 
 
 # -- Funcion que Permite el Logueo del Funcionario APE (Agencia Publica de Empleo)
-def login(driver, wait):
+def login(driver):
+    
+    # --- Credenciales de login desde variables de entorno ---
+    USUARIO_LOGIN = os.getenv('USUARIO_LOGIN')
+    CONTRASENA_LOGIN = os.getenv('CONTRASENA_LOGIN')
+    if not USUARIO_LOGIN or not CONTRASENA_LOGIN:
+        error_msg = "Error: Las credenciales de login no están configuradas en el archivo .env"
+        logging.error(error_msg)
+        print(error_msg)
+        exit()
     """Realiza el proceso de login en la aplicación"""
     try:
+
+        wait = WebDriverWait(driver, 10)
 
         driver.get(URL_LOGIN)
         logging.info("Abriendo página de login...")

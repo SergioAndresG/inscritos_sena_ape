@@ -18,7 +18,7 @@ from openpyxl import load_workbook
 import xlrd
 import xlwt
 from xlutils.copy import copy
-from functions.driver_setup import chrome
+
 from functions.login import login
 from functions.campo_estrato import llenar_estrato
 from functions.campo_sueldo import llenar_formulario_sueldo
@@ -44,19 +44,9 @@ logging.basicConfig(
 # Cargar variables de entorno
 load_dotenv()
 
-
-RUTA_EXCEL = 'C:/Users/SENA/Documents/Reporte de Aprendices Ficha 3199341.xls'
-
+RUTA_EXCEL = 'C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3204166.xls'
 
 
-# --- Credenciales de login desde variables de entorno ---
-USUARIO_LOGIN = os.getenv('USUARIO_LOGIN')
-CONTRASENA_LOGIN = os.getenv('CONTRASENA_LOGIN')
-if not USUARIO_LOGIN or not CONTRASENA_LOGIN:
-    error_msg = "Error: Las credenciales de login no están configuradas en el archivo .env"
-    logging.error(error_msg)
-    print(error_msg)
-    exit()
 
 # Mapeo de tipos de documento
 TIPOS_DOCUMENTO = {
@@ -67,6 +57,19 @@ TIPOS_DOCUMENTO = {
     "PEP": "8",
     "PPT": "9"
 }
+
+
+chrome_options = Options()
+
+# Descomentar la siguiente línea para modo headless (sin interfaz gráfica), para visualizar el funcionamiento del aplicativo
+# chrome_options.add_argument("--headless")
+chrome_options.add_argument("--window-size=1920,1080")
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+
+driver = webdriver.Chrome(options=chrome_options)
+wait = WebDriverWait(driver, 10)  # Espera explícita de 10 segundos
 
 
 # --- Cargar el archivo Excel con pandas y preparar para colorear celdas ---
@@ -172,11 +175,10 @@ except Exception as e:
 
 
 def main():
-    driver, wait = chrome()
-    
+
     try:
         # Realizar login
-        if not login():
+        if not login(driver):
             logging.error("No se pudo completar el login. Abortando proceso.")
             return
             
@@ -298,7 +300,7 @@ def main():
                             print("Esperando respuesta")
                             logging.info("Se hizo click en el boton de Guardar")
                             time.sleep(10)
-                            experiencia_laboral(driver,wait, perfil_ocupacional)
+                            experiencia_laboral(driver,  perfil_ocupacional)
                             time.sleep(10)
                             
                             # Colorear fila como procesado exitosamente

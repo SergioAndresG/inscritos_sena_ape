@@ -11,11 +11,10 @@ from selenium.webdriver.chrome.options import Options
 
 
 #funcion para llenar el estrato en el formulario principal
-# No crees un nuevo wait aquí, usa el que recibes como parámetro# Función para llenar el estrato en el formulario principal
-def llenar_estrato(driver, wait):
+def llenar_estrato(driver):
     """Llena el campo de estrato"""
     try:   
-        # No crees un nuevo wait aquí, usa el que recibes como parámetro
+        wait = WebDriverWait(driver, 10)
         
         estrato = wait.until(EC.presence_of_element_located((By.ID, 'estrato')))
         selector_suelddo = Select(estrato)
@@ -26,7 +25,7 @@ def llenar_estrato(driver, wait):
         return True
 
     except Exception as e:
-        error_msg = f"Error al llenar el formulario estrato: {str(e)}"  # Corregí la sintaxis del f-string
+        error_msg = f"Error al llenar el formulario estrato: {str(e)}"
         logging.error(error_msg)
         print(f"❌ {error_msg}")
         return False
