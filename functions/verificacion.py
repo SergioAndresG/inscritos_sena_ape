@@ -46,7 +46,7 @@ def verificar_estudiante_con_CC_primero(tipo_doc, num_doc, nombres, apellidos, d
     else:
         # Primero intentamos con CC
         print(f"Intentando verificar primero con CC para documento {num_doc}...")
-        encontrado_con_cc = verificar_estudiante("CC", num_doc, nombres, apellidos)
+        encontrado_con_cc = verificar_estudiante("CC", num_doc, nombres, apellidos, driver, wait)
         
         # Si lo encontramos con CC, retornamos True
         if encontrado_con_cc is True:
@@ -56,7 +56,7 @@ def verificar_estudiante_con_CC_primero(tipo_doc, num_doc, nombres, apellidos, d
         # Si la verificación con CC es None (error) o False (no encontrado),
         # intentamos con el tipo de documento original
         print(f"No se encontró con CC, intentando con tipo original {tipo_doc}")
-        return verificar_estudiante(tipo_doc, num_doc, nombres, apellidos)
+        return verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait)
 
 def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait):
     """Verifica si un estudiante ya está registrado en el sistema"""

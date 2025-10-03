@@ -31,6 +31,7 @@ from functions.form_campos_ubicacion_identificacion import llenar_formulario_ubi
 from functions.pre_inscripcion import llenar_datos_antes_de_inscripcion
 from functions.verificacion import verificar_estudiante_con_CC_primero, verificar_estudiante
 from functions.form_datos_residencia import llenar_formulario_ubicacion_residencia
+from functions.meses
 from URLS.urls import URL_FORMULARIO, URL_LOGIN, URL_VERIFICACION
 
 # Configurar logging
@@ -44,8 +45,7 @@ logging.basicConfig(
 # Cargar variables de entorno
 load_dotenv()
 
-RUTA_EXCEL = 'C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3204166.xls'
-
+RUTA_EXCEL = 'C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3343084.xls'
 
 
 # Mapeo de tipos de documento
@@ -171,9 +171,6 @@ except Exception as e:
     print(error_msg)
     exit()
 
-
-
-
 def main():
 
     try:
@@ -191,6 +188,12 @@ def main():
         COLUMNA_CORREO = 'Correo Electrónico'
         COLUMNA_ESTADO = 'Estado'
         COLUMNA_PERFIL = 'Perfil Ocupacional'
+        
+        # Contadores para estadísticas
+        contador_procesados_exitosamente = 0
+        contador_ya_existentes = 0
+        contador_errores = 0
+        contador_saltados = 0
         
         # Procesar cada registro en el DataFrame de pandas
         total_registros = len(df)
@@ -251,6 +254,7 @@ def main():
                         except Exception as e:
                             print(f"Error al colorear celda {col_name}: {str(e)}")
                     wb.save(RUTA_EXCEL)
+                    contador_saltados += 1
                     continue
                     
                 # Si el estudiante ya existe, pasar al siguiente
@@ -265,6 +269,7 @@ def main():
                         except Exception as e:
                             print(f"Error al colorear celda {col_name}: {str(e)}")
                     wb.save(RUTA_EXCEL)
+                    contador_ya_existentes += 1
                     continue
                 
                 # Si llegamos aquí, el estudiante no existe
@@ -279,11 +284,26 @@ def main():
                         print("Pre-inscripción completada. Esperando formulario completo...")
                         # Esperar a que cargue el formulario completo
                         time.sleep(3)
+                        
+                        ya_registrado = verificar_meses_busqueda()
+                        if ya_registrado:
+                            logging.info(f"El estudiante {nombres} {apellidos} ya está registrado (mesesBusqueda > 1). Pasando al siguiente.")
+                            print(f"✅ El estudiante {nombres} {apellidos} ya está registrado. Pasando al siguiente.")
+                            
+                            # Colorear fila como ya existente
+                            for col_name, col_idx in column_indices.items():
+                                try:
+                                    sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_ya_existe)
+                                except Exception as e:
+                                    print(f"Error al colorear celda {col_name}: {str(e)}")
+                            wb.save(RUTA_EXCEL)
+                            contador_ya_existentes += 1
+                            continue  # Pasar al siguiente estudiante
                         # Verificar si estamos en la página del formulario completo
                         if driver.current_url == URL_FORMULARIO or "formulario" in driver.current_url.lower():
                             print("Formulario completo detectado. Procediendo a llenar...")
                             llenar_formulario_ubicaciones(driver)
-                            llenar_formulario_ubicaciones_nacimiento(driver)
+                            llenar_formulario_ubicaciones_nacimiento(driver, wait)
                             llenar_formulario_ubicacion_residencia(driver)
                             llenar_formulario_estado_civil(driver)
                             llenar_formulario_sueldo(driver)
