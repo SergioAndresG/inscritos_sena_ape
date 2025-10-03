@@ -1,0 +1,310 @@
+2025-10-03 11:45:38,832 - INFO - Información de ficha: {'Ficha': nan, 'Estado': nan, 'Fecha': nan}
+2025-10-03 11:45:38,837 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3346006.xls
+2025-10-03 11:45:38,837 - INFO - Total de registros: 21
+2025-10-03 11:45:38,841 - INFO - Índices de columnas encontrados: {'Tipo de Documento': 0, 'Número de Documento': 1, 'Nombre': 2, 'Apellidos': 3, 'Celular': 4, 'Correo Electrónico': 5, 'Estado': 6, 'Perfil Ocupacional': 8}
+2025-10-03 11:45:38,841 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3346006.xls
+2025-10-03 11:45:38,842 - INFO - Total de registros: 21
+2025-10-03 11:45:39,038 - INFO - Abriendo página de login...
+2025-10-03 11:45:40,555 - INFO - Login exitoso
+2025-10-03 11:45:40,563 - INFO - Procesando estudiante 1/21: DEIVYS YOLIMA PEÑA PEÑA
+2025-10-03 11:45:40,723 - INFO - Verificando estudiante: DEIVYS YOLIMA PEÑA PEÑA - Documento: 1015439355 - Tipo Doc: CC
+2025-10-03 11:45:52,310 - INFO - El estudiante DEIVYS YOLIMA PEÑA PEÑA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:45:52,314 - INFO - Procesando estudiante 2/21: MARIXA FERNANDA LEON HERRERA
+2025-10-03 11:45:52,402 - INFO - Verificando estudiante: MARIXA FERNANDA LEON HERRERA - Documento: 1051954081 - Tipo Doc: CC
+2025-10-03 11:46:04,301 - INFO - El estudiante MARIXA FERNANDA LEON HERRERA no existe. Procediendo con el registro.
+2025-10-03 11:46:04,315 - INFO - Intentando llenar los campos antes de la inscripción con: MARIXA FERNANDA LEON HERRERA
+2025-10-03 11:46:04,324 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:46:06,501 - INFO - Se llenó el campo Nombres con: MARIXA FERNANDA
+2025-10-03 11:46:07,620 - INFO - Se llenó el campo Primer apellido con: LEON
+2025-10-03 11:46:09,041 - INFO - Se llenó el campo Segundo apellido con: HERRERA
+2025-10-03 11:46:09,766 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:46:09,852 - WARNING - No se pudo determinar el género para: MARIXA FERNANDA, se seleccionó Masculino por defecto
+2025-10-03 11:46:10,420 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:46:13,365 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:46:16,589 - INFO - El estudiante MARIXA FERNANDA LEON HERRERA ya está registrado (mesesBusqueda > 1). Pasando al siguiente.
+2025-10-03 11:46:16,596 - INFO - Procesando estudiante 3/21: GERALDIN RODRIGUEZ LAGOS
+2025-10-03 11:46:16,720 - INFO - Verificando estudiante: GERALDIN RODRIGUEZ LAGOS - Documento: 1053513100 - Tipo Doc: CC
+2025-10-03 11:46:28,613 - INFO - El estudiante GERALDIN RODRIGUEZ LAGOS no existe. Procediendo con el registro.
+2025-10-03 11:46:28,634 - INFO - Intentando llenar los campos antes de la inscripción con: GERALDIN RODRIGUEZ LAGOS
+2025-10-03 11:46:28,648 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:46:30,302 - INFO - Se llenó el campo Nombres con: GERALDIN
+2025-10-03 11:46:31,905 - INFO - Se llenó el campo Primer apellido con: RODRIGUEZ
+2025-10-03 11:46:33,135 - INFO - Se llenó el campo Segundo apellido con: LAGOS
+2025-10-03 11:46:33,888 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:46:33,983 - WARNING - No se pudo determinar el género para: GERALDIN, se seleccionó Masculino por defecto
+2025-10-03 11:46:34,550 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:46:37,402 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:46:40,849 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:46:41,972 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:46:43,100 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:46:47,839 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:46:48,980 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:46:50,099 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:46:50,196 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:46:50,317 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:46:51,398 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:46:52,510 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:46:53,623 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:46:54,705 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:46:55,844 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:46:56,964 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:46:58,090 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:47:00,384 - INFO - Se llenó el campo telefono con: 3101234567
+2025-10-03 11:47:04,391 - INFO - Se llenó el campo Correo con: rodriguezgeraldin2023@gmail.com
+2025-10-03 11:47:11,299 - INFO - Se llenó el campo Perfil Ocupacional con: FUNDAMENTOS DEL SISTEMA DE GESTION DE SEGURIDAD Y SALUD EN EL TRABAJO
+2025-10-03 11:47:11,483 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:47:21,486 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:47:49,872 - INFO - Procesando estudiante 4/21: ERIKA MARCELA SAAVEDRA CONTRERAS
+2025-10-03 11:47:50,146 - INFO - Verificando estudiante: ERIKA MARCELA SAAVEDRA CONTRERAS - Documento: 1054683578 - Tipo Doc: CC
+2025-10-03 11:48:01,908 - INFO - El estudiante ERIKA MARCELA SAAVEDRA CONTRERAS ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:48:01,914 - INFO - Procesando estudiante 5/21: ANGIE MARCELA LIMA PEDROZO
+2025-10-03 11:48:02,068 - INFO - Verificando estudiante: ANGIE MARCELA LIMA PEDROZO - Documento: 1065830307 - Tipo Doc: CC
+2025-10-03 11:48:19,067 - INFO - El estudiante ANGIE MARCELA LIMA PEDROZO no existe. Procediendo con el registro.
+2025-10-03 11:48:19,073 - INFO - Intentando llenar los campos antes de la inscripción con: ANGIE MARCELA LIMA PEDROZO
+2025-10-03 11:48:19,080 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:48:21,139 - INFO - Se llenó el campo Nombres con: ANGIE MARCELA
+2025-10-03 11:48:22,201 - INFO - Se llenó el campo Primer apellido con: LIMA
+2025-10-03 11:48:23,507 - INFO - Se llenó el campo Segundo apellido con: PEDROZO
+2025-10-03 11:48:24,296 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:48:24,408 - WARNING - No se pudo determinar el género para: ANGIE MARCELA, se seleccionó Masculino por defecto
+2025-10-03 11:48:24,990 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:48:27,844 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:48:31,296 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:48:32,457 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:48:33,578 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:48:38,521 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:48:39,637 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:48:40,791 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:48:40,868 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:48:40,995 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:48:42,091 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:48:43,233 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:48:44,397 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:48:45,485 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:48:46,614 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:48:47,719 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:48:48,822 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:48:51,228 - INFO - Se llenó el campo telefono con: 3126804748
+2025-10-03 11:48:54,721 - INFO - Se llenó el campo Correo con: ANGIELIMA2912@GMAIL.COM
+2025-10-03 11:49:01,921 - INFO - Se llenó el campo Perfil Ocupacional con: FUNDAMENTOS DEL SISTEMA DE GESTION DE SEGURIDAD Y SALUD EN EL TRABAJO
+2025-10-03 11:49:02,040 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:49:12,052 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:49:40,486 - INFO - Procesando estudiante 6/21: CANDY NAHOMY ANGEL OBANDO
+2025-10-03 11:49:40,658 - INFO - Verificando estudiante: CANDY NAHOMY ANGEL OBANDO - Documento: 1070386615 - Tipo Doc: CC
+2025-10-03 11:49:57,635 - INFO - El estudiante CANDY NAHOMY ANGEL OBANDO no existe. Procediendo con el registro.
+2025-10-03 11:49:57,639 - INFO - Intentando llenar los campos antes de la inscripción con: CANDY NAHOMY ANGEL OBANDO
+2025-10-03 11:49:57,647 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:49:59,547 - INFO - Se llenó el campo Nombres con: CANDY NAHOMY
+2025-10-03 11:50:00,652 - INFO - Se llenó el campo Primer apellido con: ANGEL
+2025-10-03 11:50:01,944 - INFO - Se llenó el campo Segundo apellido con: OBANDO
+2025-10-03 11:50:02,705 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:50:02,831 - WARNING - No se pudo determinar el género para: CANDY NAHOMY, se seleccionó Masculino por defecto
+2025-10-03 11:50:03,414 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:50:06,246 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:50:09,440 - INFO - El estudiante CANDY NAHOMY ANGEL OBANDO ya está registrado (mesesBusqueda > 1). Pasando al siguiente.
+2025-10-03 11:50:09,446 - INFO - Procesando estudiante 7/21: JUANITA CARAVANTE CARAVANTE
+2025-10-03 11:50:09,595 - INFO - Verificando estudiante: JUANITA CARAVANTE CARAVANTE - Documento: 1070951687 - Tipo Doc: CC
+2025-10-03 11:50:26,491 - INFO - El estudiante JUANITA CARAVANTE CARAVANTE no existe. Procediendo con el registro.
+2025-10-03 11:50:26,498 - INFO - Intentando llenar los campos antes de la inscripción con: JUANITA CARAVANTE CARAVANTE
+2025-10-03 11:50:26,505 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:50:27,980 - INFO - Se llenó el campo Nombres con: JUANITA
+2025-10-03 11:50:29,434 - INFO - Se llenó el campo Primer apellido con: CARAVANTE
+2025-10-03 11:50:30,970 - INFO - Se llenó el campo Segundo apellido con: CARAVANTE
+2025-10-03 11:50:31,722 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:50:31,838 - WARNING - No se pudo determinar el género para: JUANITA, se seleccionó Masculino por defecto
+2025-10-03 11:50:32,420 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:50:35,082 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:50:38,757 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:50:39,878 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:50:40,990 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:50:45,878 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:50:46,998 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:50:48,125 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:50:48,237 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:50:48,374 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:50:49,446 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:50:50,600 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:50:51,745 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:50:52,816 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:50:53,973 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:50:55,107 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:50:56,245 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:50:58,655 - INFO - Se llenó el campo telefono con: 3101234567
+2025-10-03 11:51:02,018 - INFO - Se llenó el campo Correo con: marcecy0623@hotmail.com
+2025-10-03 11:51:08,728 - INFO - Se llenó el campo Perfil Ocupacional con: FUNDAMENTOS DEL SISTEMA DE GESTION DE SEGURIDAD Y SALUD EN EL TRABAJO
+2025-10-03 11:51:08,862 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:51:18,866 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:51:47,348 - INFO - Procesando estudiante 8/21: JENNIFFER YISED MUÑOZ SANCHEZ
+2025-10-03 11:51:47,487 - INFO - Verificando estudiante: JENNIFFER YISED MUÑOZ SANCHEZ - Documento: 1070952555 - Tipo Doc: CC
+2025-10-03 11:51:59,299 - INFO - El estudiante JENNIFFER YISED MUÑOZ SANCHEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:51:59,304 - INFO - Procesando estudiante 9/21: LEIDY YULIETH SANTANA MONCADA
+2025-10-03 11:51:59,406 - INFO - Verificando estudiante: LEIDY YULIETH SANTANA MONCADA - Documento: 1070954679 - Tipo Doc: CC
+2025-10-03 11:52:11,199 - INFO - El estudiante LEIDY YULIETH SANTANA MONCADA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:52:11,202 - INFO - Procesando estudiante 10/21: YERALDIN AYALA GALINDO
+2025-10-03 11:52:11,333 - INFO - Verificando estudiante: YERALDIN AYALA GALINDO - Documento: 1070964812 - Tipo Doc: CC
+2025-10-03 11:52:23,252 - INFO - El estudiante YERALDIN AYALA GALINDO ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:52:23,257 - INFO - Procesando estudiante 11/21: NANCY LUCILA YEPES GOMEZ
+2025-10-03 11:52:23,390 - INFO - Verificando estudiante: NANCY LUCILA YEPES GOMEZ - Documento: 1073604141 - Tipo Doc: CC
+2025-10-03 11:52:35,154 - INFO - El estudiante NANCY LUCILA YEPES GOMEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:52:35,158 - INFO - Procesando estudiante 12/21: DANIELA CAROLINA MARRIAGA CASTAÑEDA
+2025-10-03 11:52:35,260 - INFO - Verificando estudiante: DANIELA CAROLINA MARRIAGA CASTAÑEDA - Documento: 1079656744 - Tipo Doc: CC
+2025-10-03 11:52:47,031 - INFO - El estudiante DANIELA CAROLINA MARRIAGA CASTAÑEDA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:52:47,035 - INFO - Procesando estudiante 13/21: MAIKOL STIVEN SAAVEDRA CONTRERAS
+2025-10-03 11:52:47,136 - INFO - Verificando estudiante: MAIKOL STIVEN SAAVEDRA CONTRERAS - Documento: 1093298810 - Tipo Doc: CC
+2025-10-03 11:53:04,033 - INFO - El estudiante MAIKOL STIVEN SAAVEDRA CONTRERAS no existe. Procediendo con el registro.
+2025-10-03 11:53:04,041 - INFO - Intentando llenar los campos antes de la inscripción con: MAIKOL STIVEN SAAVEDRA CONTRERAS
+2025-10-03 11:53:04,050 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:53:06,146 - INFO - Se llenó el campo Nombres con: MAIKOL STIVEN
+2025-10-03 11:53:07,600 - INFO - Se llenó el campo Primer apellido con: SAAVEDRA
+2025-10-03 11:53:09,225 - INFO - Se llenó el campo Segundo apellido con: CONTRERAS
+2025-10-03 11:53:10,038 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:53:10,171 - WARNING - No se pudo determinar el género para: MAIKOL STIVEN, se seleccionó Masculino por defecto
+2025-10-03 11:53:10,740 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:53:13,585 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:53:16,773 - INFO - El estudiante MAIKOL STIVEN SAAVEDRA CONTRERAS ya está registrado (mesesBusqueda > 1). Pasando al siguiente.
+2025-10-03 11:53:16,778 - INFO - Procesando estudiante 14/21: ELVIS RICARDO BUITRAGO SANCHEZ
+2025-10-03 11:53:16,906 - INFO - Verificando estudiante: ELVIS RICARDO BUITRAGO SANCHEZ - Documento: 11437772 - Tipo Doc: CC
+2025-10-03 11:53:28,485 - INFO - El estudiante ELVIS RICARDO BUITRAGO SANCHEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:53:28,488 - INFO - Procesando estudiante 15/21: GELVER RAUL CORREDOR CHIVARA
+2025-10-03 11:53:28,586 - INFO - Verificando estudiante: GELVER RAUL CORREDOR CHIVARA - Documento: 11438484 - Tipo Doc: CC
+2025-10-03 11:53:45,237 - INFO - El estudiante GELVER RAUL CORREDOR CHIVARA no existe. Procediendo con el registro.
+2025-10-03 11:53:45,241 - INFO - Intentando llenar los campos antes de la inscripción con: GELVER RAUL CORREDOR CHIVARA
+2025-10-03 11:53:45,251 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:53:47,012 - INFO - Se llenó el campo Nombres con: GELVER RAUL
+2025-10-03 11:53:48,539 - INFO - Se llenó el campo Primer apellido con: CORREDOR
+2025-10-03 11:53:49,836 - INFO - Se llenó el campo Segundo apellido con: CHIVARA
+2025-10-03 11:53:50,607 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:53:50,732 - WARNING - No se pudo determinar el género para: GELVER RAUL, se seleccionó Masculino por defecto
+2025-10-03 11:53:51,295 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:53:54,081 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:53:57,572 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:53:58,713 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:53:59,824 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:54:04,716 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:54:05,849 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:54:07,016 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:54:07,107 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:54:07,223 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:54:08,328 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:54:09,469 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:54:10,637 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:54:11,719 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:54:12,869 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:54:13,965 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:54:15,103 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:54:17,581 - INFO - Se llenó el campo telefono con: 3132956477
+2025-10-03 11:54:21,458 - INFO - Se llenó el campo Correo con: corredorlaura11@gmail.com
+2025-10-03 11:54:28,632 - INFO - Se llenó el campo Perfil Ocupacional con: FUNDAMENTOS DEL SISTEMA DE GESTION DE SEGURIDAD Y SALUD EN EL TRABAJO
+2025-10-03 11:54:28,813 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:54:38,819 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:55:07,383 - INFO - Procesando estudiante 16/21: PEDRO ANDRES ACHURY MORA
+2025-10-03 11:55:07,547 - INFO - Verificando estudiante: PEDRO ANDRES ACHURY MORA - Documento: 11443838 - Tipo Doc: CC
+2025-10-03 11:55:19,275 - INFO - El estudiante PEDRO ANDRES ACHURY MORA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:55:19,279 - INFO - Procesando estudiante 17/21: YOLIMA SOLORZANO POSADA
+2025-10-03 11:55:19,388 - INFO - Verificando estudiante: YOLIMA SOLORZANO POSADA - Documento: 52221751 - Tipo Doc: CC
+2025-10-03 11:55:31,081 - INFO - El estudiante YOLIMA SOLORZANO POSADA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:55:31,087 - INFO - Procesando estudiante 18/21: JARITH DAYANNA VALDERRAMA GUTIERREZ
+2025-10-03 11:55:31,201 - INFO - Verificando estudiante: JARITH DAYANNA VALDERRAMA GUTIERREZ - Documento: 1032941087 - Tipo Doc: CC
+2025-10-03 11:55:48,518 - INFO - Verificando estudiante: JARITH DAYANNA VALDERRAMA GUTIERREZ - Documento: 1032941087 - Tipo Doc: TI
+2025-10-03 11:56:00,521 - INFO - El estudiante JARITH DAYANNA VALDERRAMA GUTIERREZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:56:00,528 - INFO - Procesando estudiante 19/21: YULI ESMERALDA ROMERO MACIAS
+2025-10-03 11:56:00,636 - INFO - Verificando estudiante: YULI ESMERALDA ROMERO MACIAS - Documento: 1069645762 - Tipo Doc: CC
+2025-10-03 11:56:17,868 - INFO - Verificando estudiante: YULI ESMERALDA ROMERO MACIAS - Documento: 1069645762 - Tipo Doc: TI
+2025-10-03 11:56:35,037 - INFO - El estudiante YULI ESMERALDA ROMERO MACIAS no existe. Procediendo con el registro.
+2025-10-03 11:56:35,050 - INFO - Intentando llenar los campos antes de la inscripción con: YULI ESMERALDA ROMERO MACIAS
+2025-10-03 11:56:35,067 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:56:37,344 - INFO - Se llenó el campo Nombres con: YULI ESMERALDA
+2025-10-03 11:56:38,687 - INFO - Se llenó el campo Primer apellido con: ROMERO
+2025-10-03 11:56:39,989 - INFO - Se llenó el campo Segundo apellido con: MACIAS
+2025-10-03 11:56:40,711 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:56:40,791 - WARNING - No se pudo determinar el género para: YULI ESMERALDA, se seleccionó Masculino por defecto
+2025-10-03 11:56:41,354 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:56:44,188 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:56:47,671 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:56:48,879 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:56:50,071 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:56:54,789 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:56:55,944 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:56:57,130 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:56:57,205 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:56:57,329 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:56:58,423 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:56:59,537 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:57:00,691 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:57:01,806 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:57:02,937 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:57:04,064 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:57:05,216 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:57:07,652 - INFO - Se llenó el campo telefono con: 3101234567
+2025-10-03 11:57:12,082 - INFO - Se llenó el campo Correo con: yuliesmeraldaromero.2024@gmail.com
+2025-10-03 11:57:18,673 - INFO - Se llenó el campo Perfil Ocupacional con: FUNDAMENTOS DEL SISTEMA DE GESTION DE SEGURIDAD Y SALUD EN EL TRABAJO
+2025-10-03 11:57:18,754 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:57:28,763 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:57:57,187 - INFO - Procesando estudiante 20/21: RAESCHEL EILEEN GONZALEZ BALLESTEROS
+2025-10-03 11:57:57,306 - INFO - Verificando estudiante: RAESCHEL EILEEN GONZALEZ BALLESTEROS - Documento: 1070961519 - Tipo Doc: CC
+2025-10-03 11:58:14,390 - INFO - Verificando estudiante: RAESCHEL EILEEN GONZALEZ BALLESTEROS - Documento: 1070961519 - Tipo Doc: TI
+2025-10-03 11:58:31,351 - INFO - El estudiante RAESCHEL EILEEN GONZALEZ BALLESTEROS no existe. Procediendo con el registro.
+2025-10-03 11:58:31,358 - INFO - Intentando llenar los campos antes de la inscripción con: RAESCHEL EILEEN GONZALEZ BALLESTEROS
+2025-10-03 11:58:31,367 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:58:33,662 - INFO - Se llenó el campo Nombres con: RAESCHEL EILEEN
+2025-10-03 11:58:35,107 - INFO - Se llenó el campo Primer apellido con: GONZALEZ
+2025-10-03 11:58:36,862 - INFO - Se llenó el campo Segundo apellido con: BALLESTEROS
+2025-10-03 11:58:37,650 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:58:37,742 - WARNING - No se pudo determinar el género para: RAESCHEL EILEEN, se seleccionó Masculino por defecto
+2025-10-03 11:58:38,294 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:58:41,119 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:58:44,606 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:58:45,722 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:58:46,899 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:58:51,836 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:58:52,931 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:58:54,079 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:58:54,147 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:58:54,258 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:58:55,340 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:58:56,519 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:58:57,721 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:58:58,819 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:58:59,923 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:59:01,023 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:59:02,122 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:59:04,518 - INFO - Se llenó el campo telefono con: 3101234567
+2025-10-03 11:59:08,242 - INFO - Se llenó el campo Correo con: raeschelgon93@gmail.com
+2025-10-03 11:59:15,542 - INFO - Se llenó el campo Perfil Ocupacional con: FUNDAMENTOS DEL SISTEMA DE GESTION DE SEGURIDAD Y SALUD EN EL TRABAJO
+2025-10-03 11:59:15,729 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:59:25,740 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:59:54,204 - INFO - Procesando estudiante 21/21: SHARITH VANESSA VILLALOBOS MANRIQUE
+2025-10-03 11:59:54,359 - INFO - Verificando estudiante: SHARITH VANESSA VILLALOBOS MANRIQUE - Documento: 1170963294 - Tipo Doc: CC
+2025-10-03 12:00:11,647 - INFO - Verificando estudiante: SHARITH VANESSA VILLALOBOS MANRIQUE - Documento: 1170963294 - Tipo Doc: TI
+2025-10-03 12:00:28,608 - INFO - El estudiante SHARITH VANESSA VILLALOBOS MANRIQUE no existe. Procediendo con el registro.
+2025-10-03 12:00:28,623 - INFO - Intentando llenar los campos antes de la inscripción con: SHARITH VANESSA VILLALOBOS MANRIQUE
+2025-10-03 12:00:28,633 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 12:00:30,953 - INFO - Se llenó el campo Nombres con: SHARITH VANESSA
+2025-10-03 12:00:32,752 - INFO - Se llenó el campo Primer apellido con: VILLALOBOS
+2025-10-03 12:00:34,306 - INFO - Se llenó el campo Segundo apellido con: MANRIQUE
+2025-10-03 12:00:35,073 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 12:00:35,232 - WARNING - No se pudo determinar el género para: SHARITH VANESSA, se seleccionó Masculino por defecto
+2025-10-03 12:00:35,779 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 12:00:38,648 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 12:00:42,158 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 12:00:43,269 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 12:00:44,370 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 12:00:49,210 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 12:00:50,339 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 12:00:51,482 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 12:00:51,549 - INFO - Se coloco Mosquea en el input
+2025-10-03 12:00:51,640 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 12:00:52,710 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 12:00:53,916 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 12:00:55,027 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 12:00:56,153 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 12:00:57,318 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 12:00:58,419 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 12:00:59,613 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 12:01:02,008 - INFO - Se llenó el campo telefono con: 3045674035
+2025-10-03 12:01:06,782 - INFO - Se llenó el campo Correo con: svillalobosmanrique32@gmail.com
+2025-10-03 12:01:14,613 - INFO - Se llenó el campo Perfil Ocupacional con: FUNDAMENTOS DEL SISTEMA DE GESTION DE SEGURIDAD Y SALUD EN EL TRABAJO
+2025-10-03 12:01:14,864 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 12:01:24,875 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 12:01:53,803 - INFO - \u2705 Proceso completado exitosamente
+2025-10-03 12:01:56,105 - INFO - Navegador cerrado

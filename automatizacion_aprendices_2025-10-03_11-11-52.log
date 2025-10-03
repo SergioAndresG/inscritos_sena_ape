@@ -1,0 +1,579 @@
+2025-10-03 11:11:53,216 - INFO - Información de ficha: {'Ficha': nan, 'Estado': nan, 'Fecha': nan}
+2025-10-03 11:11:53,221 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3346907.xls
+2025-10-03 11:11:53,221 - INFO - Total de registros: 28
+2025-10-03 11:11:53,225 - INFO - Índices de columnas encontrados: {'Tipo de Documento': 0, 'Número de Documento': 1, 'Nombre': 2, 'Apellidos': 3, 'Celular': 4, 'Correo Electrónico': 5, 'Estado': 6, 'Perfil Ocupacional': 8}
+2025-10-03 11:11:53,225 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3346907.xls
+2025-10-03 11:11:53,226 - INFO - Total de registros: 28
+2025-10-03 11:11:53,419 - INFO - Abriendo página de login...
+2025-10-03 11:11:55,279 - INFO - Login exitoso
+2025-10-03 11:11:55,285 - INFO - Procesando estudiante 1/28: DANIEL FELIPE FARIAS VELANDIA
+2025-10-03 11:11:55,496 - INFO - Verificando estudiante: DANIEL FELIPE FARIAS VELANDIA - Documento: 1000350644 - Tipo Doc: CC
+2025-10-03 11:12:07,178 - INFO - El estudiante DANIEL FELIPE FARIAS VELANDIA no existe. Procediendo con el registro.
+2025-10-03 11:12:07,185 - INFO - Intentando llenar los campos antes de la inscripción con: DANIEL FELIPE FARIAS VELANDIA
+2025-10-03 11:12:07,192 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:12:08,876 - INFO - Se llenó el campo Nombres con: DANIEL FELIPE
+2025-10-03 11:12:09,955 - INFO - Se llenó el campo Primer apellido con: FARIAS
+2025-10-03 11:12:11,222 - INFO - Se llenó el campo Segundo apellido con: VELANDIA
+2025-10-03 11:12:11,962 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:12:14,118 - INFO - Se seleccionó el género: 0 (Masculino)
+2025-10-03 11:12:14,680 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:12:17,612 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:12:20,855 - INFO - El estudiante DANIEL FELIPE FARIAS VELANDIA ya está registrado (mesesBusqueda > 1). Pasando al siguiente.
+2025-10-03 11:12:20,861 - INFO - Procesando estudiante 2/28: BRANDON STIVEN RUEDA SARMIENTO
+2025-10-03 11:12:20,994 - INFO - Verificando estudiante: BRANDON STIVEN RUEDA SARMIENTO - Documento: 1001287627 - Tipo Doc: CC
+2025-10-03 11:12:32,838 - INFO - El estudiante BRANDON STIVEN RUEDA SARMIENTO no existe. Procediendo con el registro.
+2025-10-03 11:12:32,846 - INFO - Intentando llenar los campos antes de la inscripción con: BRANDON STIVEN RUEDA SARMIENTO
+2025-10-03 11:12:32,851 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:12:35,025 - INFO - Se llenó el campo Nombres con: BRANDON STIVEN
+2025-10-03 11:12:36,145 - INFO - Se llenó el campo Primer apellido con: RUEDA
+2025-10-03 11:12:37,627 - INFO - Se llenó el campo Segundo apellido con: SARMIENTO
+2025-10-03 11:12:38,412 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:12:38,533 - WARNING - No se pudo determinar el género para: BRANDON STIVEN, se seleccionó Masculino por defecto
+2025-10-03 11:12:39,102 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:12:41,771 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:12:45,411 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:12:46,544 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:12:47,686 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:12:52,553 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:12:53,676 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:12:54,784 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:12:54,858 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:12:55,006 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:12:56,138 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:12:57,266 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:12:58,386 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:12:59,471 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:13:00,620 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:13:01,712 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:13:02,884 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:13:05,248 - INFO - Se llenó el campo telefono con: 3123568209
+2025-10-03 11:13:09,464 - INFO - Se llenó el campo Correo con: brandonsarmiento489@hotmail.com
+2025-10-03 11:13:14,088 - INFO - Se llenó el campo Perfil Ocupacional con: COMPETENCIAS CIUDADANAS EN LA SEGURIDAD VIAL.
+2025-10-03 11:13:14,186 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:13:24,194 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:13:52,674 - INFO - Procesando estudiante 3/28: GERARDO ANDRES GIL APONTE
+2025-10-03 11:13:52,833 - INFO - Verificando estudiante: GERARDO ANDRES GIL APONTE - Documento: 1003700136 - Tipo Doc: CC
+2025-10-03 11:14:09,767 - INFO - El estudiante GERARDO ANDRES GIL APONTE no existe. Procediendo con el registro.
+2025-10-03 11:14:09,794 - INFO - Intentando llenar los campos antes de la inscripción con: GERARDO ANDRES GIL APONTE
+2025-10-03 11:14:09,800 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:14:11,861 - INFO - Se llenó el campo Nombres con: GERARDO ANDRES
+2025-10-03 11:14:12,891 - INFO - Se llenó el campo Primer apellido con: GIL
+2025-10-03 11:14:14,231 - INFO - Se llenó el campo Segundo apellido con: APONTE
+2025-10-03 11:14:15,019 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:14:15,147 - WARNING - No se pudo determinar el género para: GERARDO ANDRES, se seleccionó Masculino por defecto
+2025-10-03 11:14:15,721 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:14:18,546 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:14:21,717 - INFO - El estudiante GERARDO ANDRES GIL APONTE ya está registrado (mesesBusqueda > 1). Pasando al siguiente.
+2025-10-03 11:14:21,721 - INFO - Procesando estudiante 4/28: EDISON ANDRES VARELA ESPINOSA
+2025-10-03 11:14:21,867 - INFO - Verificando estudiante: EDISON ANDRES VARELA ESPINOSA - Documento: 1018404560 - Tipo Doc: CC
+2025-10-03 11:14:38,834 - INFO - El estudiante EDISON ANDRES VARELA ESPINOSA no existe. Procediendo con el registro.
+2025-10-03 11:14:38,837 - INFO - Intentando llenar los campos antes de la inscripción con: EDISON ANDRES VARELA ESPINOSA
+2025-10-03 11:14:38,846 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:14:40,861 - INFO - Se llenó el campo Nombres con: EDISON ANDRES
+2025-10-03 11:14:42,136 - INFO - Se llenó el campo Primer apellido con: VARELA
+2025-10-03 11:14:43,570 - INFO - Se llenó el campo Segundo apellido con: ESPINOSA
+2025-10-03 11:14:44,334 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:14:44,446 - WARNING - No se pudo determinar el género para: EDISON ANDRES, se seleccionó Masculino por defecto
+2025-10-03 11:14:45,016 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:14:47,921 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:14:51,429 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:14:52,582 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:14:53,708 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:14:58,610 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:14:59,747 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:15:00,876 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:15:00,972 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:15:01,108 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:15:02,211 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:15:03,337 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:15:04,448 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:15:05,534 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:15:06,687 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:15:07,838 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:15:08,958 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:15:11,353 - INFO - Se llenó el campo telefono con: 3143222455
+2025-10-03 11:15:14,859 - INFO - Se llenó el campo Correo con: Andresvarela569@gmail.com
+2025-10-03 11:15:19,346 - INFO - Se llenó el campo Perfil Ocupacional con: COMPETENCIAS CIUDADANAS EN LA SEGURIDAD VIAL.
+2025-10-03 11:15:19,479 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:15:29,497 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:15:57,861 - INFO - Procesando estudiante 5/28: EDISSON JAIR CASTAÑEDA MENDEZ
+2025-10-03 11:15:57,985 - INFO - Verificando estudiante: EDISSON JAIR CASTAÑEDA MENDEZ - Documento: 1022364862 - Tipo Doc: CC
+2025-10-03 11:16:14,963 - INFO - El estudiante EDISSON JAIR CASTAÑEDA MENDEZ no existe. Procediendo con el registro.
+2025-10-03 11:16:14,974 - INFO - Intentando llenar los campos antes de la inscripción con: EDISSON JAIR CASTAÑEDA MENDEZ
+2025-10-03 11:16:14,980 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:16:16,916 - INFO - Se llenó el campo Nombres con: EDISSON JAIR
+2025-10-03 11:16:18,464 - INFO - Se llenó el campo Primer apellido con: CASTAÑEDA
+2025-10-03 11:16:19,674 - INFO - Se llenó el campo Segundo apellido con: MENDEZ
+2025-10-03 11:16:20,381 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:16:20,496 - WARNING - No se pudo determinar el género para: EDISSON JAIR, se seleccionó Masculino por defecto
+2025-10-03 11:16:21,062 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:16:23,735 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:16:27,410 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:16:28,566 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:16:29,660 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:16:34,563 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:16:35,712 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:16:36,836 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:16:36,927 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:16:37,061 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:16:38,172 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:16:39,319 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:16:40,427 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:16:41,520 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:16:42,621 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:16:43,715 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:16:44,846 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:16:47,243 - INFO - Se llenó el campo telefono con: 3104857366
+2025-10-03 11:16:50,827 - INFO - Se llenó el campo Correo con: COOTRANSFUNZA@HOTMAIL.COM
+2025-10-03 11:16:55,315 - INFO - Se llenó el campo Perfil Ocupacional con: COMPETENCIAS CIUDADANAS EN LA SEGURIDAD VIAL.
+2025-10-03 11:16:55,447 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:17:05,454 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:17:33,963 - INFO - Procesando estudiante 6/28: LUIS EDUARDO GUIZA GONZALEZ
+2025-10-03 11:17:34,105 - INFO - Verificando estudiante: LUIS EDUARDO GUIZA GONZALEZ - Documento: 1024521638 - Tipo Doc: CC
+2025-10-03 11:17:51,430 - INFO - El estudiante LUIS EDUARDO GUIZA GONZALEZ no existe. Procediendo con el registro.
+2025-10-03 11:17:51,436 - INFO - Intentando llenar los campos antes de la inscripción con: LUIS EDUARDO GUIZA GONZALEZ
+2025-10-03 11:17:51,446 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:17:53,304 - INFO - Se llenó el campo Nombres con: LUIS EDUARDO
+2025-10-03 11:17:54,425 - INFO - Se llenó el campo Primer apellido con: GUIZA
+2025-10-03 11:17:55,830 - INFO - Se llenó el campo Segundo apellido con: GONZALEZ
+2025-10-03 11:17:56,589 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:17:58,745 - INFO - Se seleccionó el género: 0 (Masculino)
+2025-10-03 11:17:59,327 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:18:02,134 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:18:05,659 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:18:06,796 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:18:07,948 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:18:12,845 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:18:13,933 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:18:15,065 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:18:15,137 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:18:15,259 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:18:16,345 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:18:17,479 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:18:18,678 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:18:19,768 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:18:20,899 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:18:22,022 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:18:23,168 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:18:25,577 - INFO - Se llenó el campo telefono con: 3101234567
+2025-10-03 11:18:30,103 - INFO - Se llenó el campo Correo con: talentohumano@cootransfunza.com
+2025-10-03 11:18:34,871 - INFO - Se llenó el campo Perfil Ocupacional con: COMPETENCIAS CIUDADANAS EN LA SEGURIDAD VIAL.
+2025-10-03 11:18:35,076 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:18:45,092 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:19:13,461 - INFO - Procesando estudiante 7/28: CARLOS ANDRES CHIA PARRA
+2025-10-03 11:19:13,603 - INFO - Verificando estudiante: CARLOS ANDRES CHIA PARRA - Documento: 1058430862 - Tipo Doc: CC
+2025-10-03 11:19:30,588 - INFO - El estudiante CARLOS ANDRES CHIA PARRA no existe. Procediendo con el registro.
+2025-10-03 11:19:30,593 - INFO - Intentando llenar los campos antes de la inscripción con: CARLOS ANDRES CHIA PARRA
+2025-10-03 11:19:30,597 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:19:32,658 - INFO - Se llenó el campo Nombres con: CARLOS ANDRES
+2025-10-03 11:19:33,687 - INFO - Se llenó el campo Primer apellido con: CHIA
+2025-10-03 11:19:34,943 - INFO - Se llenó el campo Segundo apellido con: PARRA
+2025-10-03 11:19:35,713 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:19:37,893 - INFO - Se seleccionó el género: 0 (Masculino)
+2025-10-03 11:19:38,448 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:19:41,138 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:19:44,803 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:19:45,944 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:19:47,114 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:19:51,839 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:19:52,958 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:19:54,092 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:19:54,181 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:19:54,355 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:19:55,438 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:19:56,603 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:19:57,704 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:19:58,776 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:19:59,903 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:20:01,011 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:20:02,170 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:20:04,525 - INFO - Se llenó el campo telefono con: 3112916038
+2025-10-03 11:20:07,651 - INFO - Se llenó el campo Correo con: 1058430862a@gmail.com
+2025-10-03 11:20:12,172 - INFO - Se llenó el campo Perfil Ocupacional con: COMPETENCIAS CIUDADANAS EN LA SEGURIDAD VIAL.
+2025-10-03 11:20:12,285 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:20:22,302 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:20:50,674 - INFO - Procesando estudiante 8/28: ROBINSON ALEXANDER AREVALO URREA
+2025-10-03 11:20:50,812 - INFO - Verificando estudiante: ROBINSON ALEXANDER AREVALO URREA - Documento: 1069738120 - Tipo Doc: CC
+2025-10-03 11:21:02,748 - INFO - El estudiante ROBINSON ALEXANDER AREVALO URREA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:21:02,752 - INFO - Procesando estudiante 9/28: DANIEL ALEJANDRO VILLALBA AUSIQUE
+2025-10-03 11:21:02,865 - INFO - Verificando estudiante: DANIEL ALEJANDRO VILLALBA AUSIQUE - Documento: 1070464342 - Tipo Doc: CC
+2025-10-03 11:21:19,800 - INFO - El estudiante DANIEL ALEJANDRO VILLALBA AUSIQUE no existe. Procediendo con el registro.
+2025-10-03 11:21:19,820 - INFO - Intentando llenar los campos antes de la inscripción con: DANIEL ALEJANDRO VILLALBA AUSIQUE
+2025-10-03 11:21:19,830 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:21:22,088 - INFO - Se llenó el campo Nombres con: DANIEL ALEJANDRO
+2025-10-03 11:21:23,663 - INFO - Se llenó el campo Primer apellido con: VILLALBA
+2025-10-03 11:21:24,924 - INFO - Se llenó el campo Segundo apellido con: AUSIQUE
+2025-10-03 11:21:25,631 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:21:27,803 - INFO - Se seleccionó el género: 0 (Masculino)
+2025-10-03 11:21:28,377 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:21:31,068 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:21:34,771 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:21:35,930 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:21:37,085 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:21:41,876 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:21:42,999 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:21:44,142 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:21:44,228 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:21:44,350 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:21:45,451 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:21:46,596 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:21:47,686 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:21:48,753 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:21:49,871 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:21:50,969 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:21:52,111 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:21:54,409 - INFO - Se llenó el campo telefono con: 3003068776
+2025-10-03 11:21:58,361 - INFO - Se llenó el campo Correo con: danielvillalba105@hotmail.com
+2025-10-03 11:22:02,442 - INFO - Se llenó el campo Perfil Ocupacional con: COMPETENCIAS CIUDADANAS EN LA SEGURIDAD VIAL.
+2025-10-03 11:22:02,563 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:22:12,570 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:22:41,044 - INFO - Procesando estudiante 10/28: PEDRO PABLO BERMUDEZ ARGUMERO
+2025-10-03 11:22:41,178 - INFO - Verificando estudiante: PEDRO PABLO BERMUDEZ ARGUMERO - Documento: 1070983444 - Tipo Doc: CC
+2025-10-03 11:22:53,233 - INFO - El estudiante PEDRO PABLO BERMUDEZ ARGUMERO ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:22:53,237 - INFO - Procesando estudiante 11/28: DIEGO ARMANDO MARTIN BATISTA
+2025-10-03 11:22:53,343 - INFO - Verificando estudiante: DIEGO ARMANDO MARTIN BATISTA - Documento: 1073235938 - Tipo Doc: CC
+2025-10-03 11:23:10,311 - INFO - El estudiante DIEGO ARMANDO MARTIN BATISTA no existe. Procediendo con el registro.
+2025-10-03 11:23:10,315 - INFO - Intentando llenar los campos antes de la inscripción con: DIEGO ARMANDO MARTIN BATISTA
+2025-10-03 11:23:10,317 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:23:12,222 - INFO - Se llenó el campo Nombres con: DIEGO ARMANDO
+2025-10-03 11:23:13,366 - INFO - Se llenó el campo Primer apellido con: MARTIN
+2025-10-03 11:23:14,634 - INFO - Se llenó el campo Segundo apellido con: BATISTA
+2025-10-03 11:23:15,439 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:23:17,596 - INFO - Se seleccionó el género: 0 (Masculino)
+2025-10-03 11:23:18,217 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:23:21,098 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:23:24,710 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:23:25,888 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:23:27,032 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:23:32,182 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:23:33,360 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:23:34,698 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:23:34,765 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:23:34,832 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:23:35,908 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:23:37,068 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:23:38,227 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:23:39,320 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:23:40,459 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:23:41,551 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:23:42,720 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:23:45,135 - INFO - Se llenó el campo telefono con: 3002326688
+2025-10-03 11:23:49,121 - INFO - Se llenó el campo Correo con: conductores@hotmail.com
+2025-10-03 11:23:54,085 - INFO - Se llenó el campo Perfil Ocupacional con: COMPETENCIAS CIUDADANAS EN LA SEGURIDAD VIAL.
+2025-10-03 11:23:54,311 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:24:04,315 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:24:32,795 - INFO - Procesando estudiante 12/28: YEFERSON MACEDONIO BARBOSA LEAL
+2025-10-03 11:24:32,920 - INFO - Verificando estudiante: YEFERSON MACEDONIO BARBOSA LEAL - Documento: 1073524268 - Tipo Doc: CC
+2025-10-03 11:24:50,085 - INFO - El estudiante YEFERSON MACEDONIO BARBOSA LEAL no existe. Procediendo con el registro.
+2025-10-03 11:24:50,116 - INFO - Intentando llenar los campos antes de la inscripción con: YEFERSON MACEDONIO BARBOSA LEAL
+2025-10-03 11:24:50,119 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:24:52,888 - INFO - Se llenó el campo Nombres con: YEFERSON MACEDONIO
+2025-10-03 11:24:54,380 - INFO - Se llenó el campo Primer apellido con: BARBOSA
+2025-10-03 11:24:55,568 - INFO - Se llenó el campo Segundo apellido con: LEAL
+2025-10-03 11:24:56,330 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:24:56,482 - WARNING - No se pudo determinar el género para: YEFERSON MACEDONIO, se seleccionó Masculino por defecto
+2025-10-03 11:24:57,069 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:24:59,862 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:25:03,448 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:25:04,615 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:25:05,775 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:25:10,880 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:25:12,009 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:25:13,153 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:25:13,281 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:25:13,364 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:25:14,450 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:25:15,688 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:25:16,785 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:25:17,840 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:25:19,018 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:25:20,169 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:25:21,375 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:25:23,944 - INFO - Se llenó el campo telefono con: 3123123971
+2025-10-03 11:25:28,461 - INFO - Se llenó el campo Correo con: Barbosajeferson318@gmail.com
+2025-10-03 11:25:33,470 - INFO - Se llenó el campo Perfil Ocupacional con: COMPETENCIAS CIUDADANAS EN LA SEGURIDAD VIAL.
+2025-10-03 11:25:33,671 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:25:43,679 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:26:12,305 - INFO - Procesando estudiante 13/28: LUIS EDUARDO GUZMAN RAMIREZ
+2025-10-03 11:26:12,451 - INFO - Verificando estudiante: LUIS EDUARDO GUZMAN RAMIREZ - Documento: 11227425 - Tipo Doc: CC
+2025-10-03 11:26:24,468 - INFO - El estudiante LUIS EDUARDO GUZMAN RAMIREZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:26:24,472 - INFO - Procesando estudiante 14/28: EDGAR ORLANDO CRUZ MUÑOZ
+2025-10-03 11:26:24,579 - INFO - Verificando estudiante: EDGAR ORLANDO CRUZ MUÑOZ - Documento: 11437812 - Tipo Doc: CC
+2025-10-03 11:26:41,410 - INFO - El estudiante EDGAR ORLANDO CRUZ MUÑOZ no existe. Procediendo con el registro.
+2025-10-03 11:26:41,415 - INFO - Intentando llenar los campos antes de la inscripción con: EDGAR ORLANDO CRUZ MUÑOZ
+2025-10-03 11:26:41,417 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:26:43,654 - INFO - Se llenó el campo Nombres con: EDGAR ORLANDO
+2025-10-03 11:26:44,886 - INFO - Se llenó el campo Primer apellido con: CRUZ
+2025-10-03 11:26:46,167 - INFO - Se llenó el campo Segundo apellido con: MUÑOZ
+2025-10-03 11:26:47,005 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:26:47,145 - WARNING - No se pudo determinar el género para: EDGAR ORLANDO, se seleccionó Masculino por defecto
+2025-10-03 11:26:47,748 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:26:50,584 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:26:54,032 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:26:55,210 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:26:56,405 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:27:01,350 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:27:02,477 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:27:03,672 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:27:03,771 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:27:03,865 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:27:04,951 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:27:06,149 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:27:07,334 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:27:08,461 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:27:09,680 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:27:10,798 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:27:11,969 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:27:14,422 - INFO - Se llenó el campo telefono con: 3101234567
+2025-10-03 11:27:19,029 - INFO - Se llenó el campo Correo con: talentohumano@transgalaxia.com
+2025-10-03 11:27:23,742 - INFO - Se llenó el campo Perfil Ocupacional con: COMPETENCIAS CIUDADANAS EN LA SEGURIDAD VIAL.
+2025-10-03 11:27:23,839 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:27:33,859 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:28:02,409 - INFO - Procesando estudiante 15/28: CARLOS ANDRES RUBIO VILLAMIL
+2025-10-03 11:28:02,526 - INFO - Verificando estudiante: CARLOS ANDRES RUBIO VILLAMIL - Documento: 11442749 - Tipo Doc: CC
+2025-10-03 11:28:14,334 - INFO - El estudiante CARLOS ANDRES RUBIO VILLAMIL ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:28:14,338 - INFO - Procesando estudiante 16/28: MARIO ALEXANDER ACERO HERRERA
+2025-10-03 11:28:14,443 - INFO - Verificando estudiante: MARIO ALEXANDER ACERO HERRERA - Documento: 11446793 - Tipo Doc: CC
+2025-10-03 11:28:26,316 - INFO - El estudiante MARIO ALEXANDER ACERO HERRERA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:28:26,320 - INFO - Procesando estudiante 17/28: JULIO CESAR GOMEZ CARDENAS
+2025-10-03 11:28:26,408 - INFO - Verificando estudiante: JULIO CESAR GOMEZ CARDENAS - Documento: 19398204 - Tipo Doc: CC
+2025-10-03 11:28:43,266 - INFO - El estudiante JULIO CESAR GOMEZ CARDENAS no existe. Procediendo con el registro.
+2025-10-03 11:28:43,301 - INFO - Intentando llenar los campos antes de la inscripción con: JULIO CESAR GOMEZ CARDENAS
+2025-10-03 11:28:43,322 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:28:45,412 - INFO - Se llenó el campo Nombres con: JULIO CESAR
+2025-10-03 11:28:46,699 - INFO - Se llenó el campo Primer apellido con: GOMEZ
+2025-10-03 11:28:48,331 - INFO - Se llenó el campo Segundo apellido con: CARDENAS
+2025-10-03 11:28:49,122 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:28:51,346 - INFO - Se seleccionó el género: 0 (Masculino)
+2025-10-03 11:28:51,970 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:28:54,797 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:28:58,368 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:28:59,480 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:29:00,660 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:29:05,752 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:29:06,933 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:29:08,089 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:29:08,156 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:29:08,226 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:29:09,353 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:29:10,499 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:29:11,713 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:29:12,820 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:29:13,994 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:29:15,095 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:29:16,297 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:29:18,795 - INFO - Se llenó el campo telefono con: 3101234567
+2025-10-03 11:29:23,743 - INFO - Se llenó el campo Correo con: talentohumano@cootransfunza.com
+2025-10-03 11:29:28,819 - INFO - Se llenó el campo Perfil Ocupacional con: COMPETENCIAS CIUDADANAS EN LA SEGURIDAD VIAL.
+2025-10-03 11:29:29,013 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:29:39,022 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:30:07,585 - INFO - Procesando estudiante 18/28: JORGE ALFREDO YOMAYUSA CIFUENTES
+2025-10-03 11:30:07,712 - INFO - Verificando estudiante: JORGE ALFREDO YOMAYUSA CIFUENTES - Documento: 3174230 - Tipo Doc: CC
+2025-10-03 11:30:19,331 - INFO - El estudiante JORGE ALFREDO YOMAYUSA CIFUENTES ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:30:19,335 - INFO - Procesando estudiante 19/28: FELIX TARAZONA CORREA
+2025-10-03 11:30:19,452 - INFO - Verificando estudiante: FELIX TARAZONA CORREA - Documento: 7220690 - Tipo Doc: CC
+2025-10-03 11:30:36,020 - INFO - El estudiante FELIX TARAZONA CORREA no existe. Procediendo con el registro.
+2025-10-03 11:30:36,023 - INFO - Intentando llenar los campos antes de la inscripción con: FELIX TARAZONA CORREA
+2025-10-03 11:30:36,026 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:30:37,344 - INFO - Se llenó el campo Nombres con: FELIX
+2025-10-03 11:30:38,848 - INFO - Se llenó el campo Primer apellido con: TARAZONA
+2025-10-03 11:30:40,226 - INFO - Se llenó el campo Segundo apellido con: CORREA
+2025-10-03 11:30:41,055 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:30:41,177 - WARNING - No se pudo determinar el género para: FELIX, se seleccionó Masculino por defecto
+2025-10-03 11:30:41,750 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:30:44,556 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:30:48,016 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:30:49,149 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:30:50,294 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:30:55,349 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:30:56,496 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:30:57,637 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:30:57,743 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:30:57,992 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:30:59,090 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:31:00,332 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:31:01,446 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:31:02,518 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:31:03,703 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:31:04,823 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:31:05,934 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:31:08,452 - INFO - Se llenó el campo telefono con: 3115326513
+2025-10-03 11:31:11,889 - INFO - Se llenó el campo Correo con: FTARAZONAC@HOTMAIL.COM
+2025-10-03 11:31:17,042 - INFO - Se llenó el campo Perfil Ocupacional con: COMPETENCIAS CIUDADANAS EN LA SEGURIDAD VIAL.
+2025-10-03 11:31:17,184 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:31:27,195 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:31:55,795 - INFO - Procesando estudiante 20/28: JOAQUIN NARANJO MALAVER
+2025-10-03 11:31:55,922 - INFO - Verificando estudiante: JOAQUIN NARANJO MALAVER - Documento: 74270692 - Tipo Doc: CC
+2025-10-03 11:32:07,700 - INFO - El estudiante JOAQUIN NARANJO MALAVER ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:32:07,704 - INFO - Procesando estudiante 21/28: CARLOS ARTURO VARGAS MORA
+2025-10-03 11:32:07,817 - INFO - Verificando estudiante: CARLOS ARTURO VARGAS MORA - Documento: 74428317 - Tipo Doc: CC
+2025-10-03 11:32:19,685 - INFO - El estudiante CARLOS ARTURO VARGAS MORA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:32:19,694 - INFO - Procesando estudiante 22/28: EDWIN ORLANDO GOMEZ RINCON
+2025-10-03 11:32:19,806 - INFO - Verificando estudiante: EDWIN ORLANDO GOMEZ RINCON - Documento: 79575815 - Tipo Doc: CC
+2025-10-03 11:32:31,589 - INFO - El estudiante EDWIN ORLANDO GOMEZ RINCON ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:32:31,594 - INFO - Procesando estudiante 23/28: FABIO NELSON ASTUDILLO BARRERA
+2025-10-03 11:32:31,700 - INFO - Verificando estudiante: FABIO NELSON ASTUDILLO BARRERA - Documento: 80217829 - Tipo Doc: CC
+2025-10-03 11:32:48,446 - INFO - El estudiante FABIO NELSON ASTUDILLO BARRERA no existe. Procediendo con el registro.
+2025-10-03 11:32:48,452 - INFO - Intentando llenar los campos antes de la inscripción con: FABIO NELSON ASTUDILLO BARRERA
+2025-10-03 11:32:48,461 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:32:50,165 - INFO - Se llenó el campo Nombres con: FABIO NELSON
+2025-10-03 11:32:51,516 - INFO - Se llenó el campo Primer apellido con: ASTUDILLO
+2025-10-03 11:32:52,831 - INFO - Se llenó el campo Segundo apellido con: BARRERA
+2025-10-03 11:32:53,515 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:32:53,605 - WARNING - No se pudo determinar el género para: FABIO NELSON, se seleccionó Masculino por defecto
+2025-10-03 11:32:54,188 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:32:56,990 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:33:00,464 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:33:01,610 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:33:02,788 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:33:07,803 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:33:08,942 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:33:10,108 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:33:10,179 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:33:10,264 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:33:11,377 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:33:12,549 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:33:13,739 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:33:14,836 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:33:15,972 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:33:17,117 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:33:18,327 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:33:20,755 - INFO - Se llenó el campo telefono con: 3138898950
+2025-10-03 11:33:24,267 - INFO - Se llenó el campo Correo con: quiquecelis@hotmail.com
+2025-10-03 11:33:28,951 - INFO - Se llenó el campo Perfil Ocupacional con: COMPETENCIAS CIUDADANAS EN LA SEGURIDAD VIAL.
+2025-10-03 11:33:29,056 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:33:39,077 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:34:07,539 - INFO - Procesando estudiante 24/28: ORLANDO VALBUENA GOMEZ
+2025-10-03 11:34:07,683 - INFO - Verificando estudiante: ORLANDO VALBUENA GOMEZ - Documento: 80383845 - Tipo Doc: CC
+2025-10-03 11:34:19,569 - INFO - El estudiante ORLANDO VALBUENA GOMEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 11:34:19,572 - INFO - Procesando estudiante 25/28: HECTOR ORLANDO PRIETO FUENTES
+2025-10-03 11:34:19,680 - INFO - Verificando estudiante: HECTOR ORLANDO PRIETO FUENTES - Documento: 80654147 - Tipo Doc: CC
+2025-10-03 11:34:36,560 - INFO - El estudiante HECTOR ORLANDO PRIETO FUENTES no existe. Procediendo con el registro.
+2025-10-03 11:34:36,573 - INFO - Intentando llenar los campos antes de la inscripción con: HECTOR ORLANDO PRIETO FUENTES
+2025-10-03 11:34:36,583 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:34:38,983 - INFO - Se llenó el campo Nombres con: HECTOR ORLANDO
+2025-10-03 11:34:40,347 - INFO - Se llenó el campo Primer apellido con: PRIETO
+2025-10-03 11:34:41,773 - INFO - Se llenó el campo Segundo apellido con: FUENTES
+2025-10-03 11:34:42,576 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:34:42,703 - WARNING - No se pudo determinar el género para: HECTOR ORLANDO, se seleccionó Masculino por defecto
+2025-10-03 11:34:43,310 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:34:46,136 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:34:49,674 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:34:50,877 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:34:52,001 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:34:57,156 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:34:58,343 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:34:59,486 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:34:59,647 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:34:59,781 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:35:00,914 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:35:02,102 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:35:03,287 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:35:04,374 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:35:05,560 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:35:06,687 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:35:07,877 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:35:10,486 - INFO - Se llenó el campo telefono con: 3101234567
+2025-10-03 11:35:14,001 - INFO - Se llenó el campo Correo con: bienestar@coomofu.com
+2025-10-03 11:35:19,339 - INFO - Se llenó el campo Perfil Ocupacional con: COMPETENCIAS CIUDADANAS EN LA SEGURIDAD VIAL.
+2025-10-03 11:35:19,484 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:35:29,501 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:35:58,080 - INFO - Procesando estudiante 26/28: JOSE HUMBERTO BARRETO MARTINEZ
+2025-10-03 11:35:58,231 - INFO - Verificando estudiante: JOSE HUMBERTO BARRETO MARTINEZ - Documento: 80655287 - Tipo Doc: CC
+2025-10-03 11:36:15,190 - INFO - El estudiante JOSE HUMBERTO BARRETO MARTINEZ no existe. Procediendo con el registro.
+2025-10-03 11:36:15,200 - INFO - Intentando llenar los campos antes de la inscripción con: JOSE HUMBERTO BARRETO MARTINEZ
+2025-10-03 11:36:15,215 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:36:17,497 - INFO - Se llenó el campo Nombres con: JOSE HUMBERTO
+2025-10-03 11:36:19,068 - INFO - Se llenó el campo Primer apellido con: BARRETO
+2025-10-03 11:36:20,685 - INFO - Se llenó el campo Segundo apellido con: MARTINEZ
+2025-10-03 11:36:21,417 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:36:23,639 - INFO - Se seleccionó el género: 0 (Masculino)
+2025-10-03 11:36:24,222 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:36:27,064 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:36:30,646 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:36:31,866 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:36:33,072 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:36:38,141 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:36:39,274 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:36:40,460 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:36:40,548 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:36:40,754 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:36:41,856 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:36:43,065 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:36:44,245 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:36:45,320 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:36:46,495 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:36:47,672 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:36:48,857 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:36:51,237 - INFO - Se llenó el campo telefono con: 3101234567
+2025-10-03 11:36:56,172 - INFO - Se llenó el campo Correo con: auxiliarescoomofu@hotmail.com
+2025-10-03 11:37:01,471 - INFO - Se llenó el campo Perfil Ocupacional con: COMPETENCIAS CIUDADANAS EN LA SEGURIDAD VIAL.
+2025-10-03 11:37:01,634 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:37:11,649 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:37:40,194 - INFO - Procesando estudiante 27/28: JULIO ALBERTO PUENTES GIL
+2025-10-03 11:37:40,320 - INFO - Verificando estudiante: JULIO ALBERTO PUENTES GIL - Documento: 9533017 - Tipo Doc: CC
+2025-10-03 11:37:56,889 - INFO - El estudiante JULIO ALBERTO PUENTES GIL no existe. Procediendo con el registro.
+2025-10-03 11:37:56,900 - INFO - Intentando llenar los campos antes de la inscripción con: JULIO ALBERTO PUENTES GIL
+2025-10-03 11:37:56,916 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:37:58,884 - INFO - Se llenó el campo Nombres con: JULIO ALBERTO
+2025-10-03 11:38:00,264 - INFO - Se llenó el campo Primer apellido con: PUENTES
+2025-10-03 11:38:01,256 - INFO - Se llenó el campo Segundo apellido con: GIL
+2025-10-03 11:38:01,979 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:38:04,170 - INFO - Se seleccionó el género: 0 (Masculino)
+2025-10-03 11:38:04,782 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:38:07,614 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:38:11,429 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:38:12,759 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:38:14,065 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:38:19,846 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:38:21,095 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:38:22,397 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:38:22,568 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:38:22,798 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:38:23,972 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:38:25,270 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:38:26,567 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:38:27,698 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:38:28,844 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:38:29,945 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:38:31,090 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:38:33,567 - INFO - Se llenó el campo telefono con: 3133530176
+2025-10-03 11:38:38,632 - INFO - Se llenó el campo Correo con: CONDUCTORESTRANSFONTIBON@GMAIL.COM
+2025-10-03 11:38:43,490 - INFO - Se llenó el campo Perfil Ocupacional con: COMPETENCIAS CIUDADANAS EN LA SEGURIDAD VIAL.
+2025-10-03 11:38:43,652 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:38:53,662 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:39:22,209 - INFO - Procesando estudiante 28/28: MANUEL FELIPE CETINA HURTADO
+2025-10-03 11:39:22,336 - INFO - Verificando estudiante: MANUEL FELIPE CETINA HURTADO - Documento: 1000323584 - Tipo Doc: CC
+2025-10-03 11:39:39,517 - INFO - Verificando estudiante: MANUEL FELIPE CETINA HURTADO - Documento: 1000323584 - Tipo Doc: TI
+2025-10-03 11:39:56,601 - INFO - El estudiante MANUEL FELIPE CETINA HURTADO no existe. Procediendo con el registro.
+2025-10-03 11:39:56,605 - INFO - Intentando llenar los campos antes de la inscripción con: MANUEL FELIPE CETINA HURTADO
+2025-10-03 11:39:56,618 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 11:39:58,753 - INFO - Se llenó el campo Nombres con: MANUEL FELIPE
+2025-10-03 11:40:00,057 - INFO - Se llenó el campo Primer apellido con: CETINA
+2025-10-03 11:40:01,496 - INFO - Se llenó el campo Segundo apellido con: HURTADO
+2025-10-03 11:40:02,357 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 11:40:04,518 - INFO - Se seleccionó el género: 0 (Masculino)
+2025-10-03 11:40:05,123 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 11:40:07,951 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 11:40:11,434 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:40:12,588 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:40:13,701 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:40:18,680 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 11:40:19,830 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 11:40:21,008 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 11:40:21,080 - INFO - Se coloco Mosquea en el input
+2025-10-03 11:40:21,214 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 11:40:22,333 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 11:40:23,476 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 11:40:24,668 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 11:40:25,763 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 11:40:26,952 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 11:40:28,063 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 11:40:29,187 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 11:40:31,657 - INFO - Se llenó el campo telefono con: 3124094312
+2025-10-03 11:40:36,137 - INFO - Se llenó el campo Correo con: esperanza2011@misena.edu.co
+2025-10-03 11:40:41,432 - INFO - Se llenó el campo Perfil Ocupacional con: COMPETENCIAS CIUDADANAS EN LA SEGURIDAD VIAL.
+2025-10-03 11:40:41,606 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 11:40:51,614 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 11:41:20,058 - INFO - \u2705 Proceso completado exitosamente
+2025-10-03 11:41:23,382 - INFO - Navegador cerrado

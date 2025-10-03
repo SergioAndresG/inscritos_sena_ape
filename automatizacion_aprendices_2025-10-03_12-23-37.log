@@ -1,0 +1,88 @@
+2025-10-03 12:23:38,748 - INFO - Información de ficha: {'Ficha': nan, 'Estado': nan, 'Fecha': nan}
+2025-10-03 12:23:38,754 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3344302.xls
+2025-10-03 12:23:38,754 - INFO - Total de registros: 13
+2025-10-03 12:23:38,758 - INFO - Índices de columnas encontrados: {'Tipo de Documento': 0, 'Número de Documento': 1, 'Nombre': 2, 'Apellidos': 3, 'Celular': 4, 'Correo Electrónico': 5, 'Estado': 6, 'Perfil Ocupacional': 8}
+2025-10-03 12:23:38,758 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3344302.xls
+2025-10-03 12:23:38,758 - INFO - Total de registros: 13
+2025-10-03 12:23:39,547 - INFO - Abriendo página de login...
+2025-10-03 12:23:41,101 - INFO - Login exitoso
+2025-10-03 12:23:41,105 - INFO - Procesando estudiante 1/13: ESTEBAN GONZALEZ VARGAS
+2025-10-03 12:23:41,275 - INFO - Verificando estudiante: ESTEBAN GONZALEZ VARGAS - Documento: 1000791026 - Tipo Doc: CC
+2025-10-03 12:23:52,755 - INFO - El estudiante ESTEBAN GONZALEZ VARGAS ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:23:52,758 - INFO - Procesando estudiante 2/13: DANIEL EDUARDO FORERP FLOREZ
+2025-10-03 12:23:52,839 - INFO - Verificando estudiante: DANIEL EDUARDO FORERP FLOREZ - Documento: 1001327427 - Tipo Doc: CC
+2025-10-03 12:24:04,444 - INFO - El estudiante DANIEL EDUARDO FORERP FLOREZ no existe. Procediendo con el registro.
+2025-10-03 12:24:04,449 - INFO - Intentando llenar los campos antes de la inscripción con: DANIEL EDUARDO FORERP FLOREZ
+2025-10-03 12:24:04,452 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 12:24:06,328 - INFO - Se llenó el campo Nombres con: DANIEL EDUARDO
+2025-10-03 12:24:07,376 - INFO - Se llenó el campo Primer apellido con: FORERP
+2025-10-03 12:24:08,386 - INFO - Se llenó el campo Segundo apellido con: FLOREZ
+2025-10-03 12:24:09,035 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 12:24:11,124 - INFO - Se seleccionó el género: 0 (Masculino)
+2025-10-03 12:24:11,689 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 12:24:14,322 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 12:24:17,558 - INFO - El estudiante DANIEL EDUARDO FORERP FLOREZ ya está registrado (mesesBusqueda > 1). Pasando al siguiente.
+2025-10-03 12:24:17,560 - INFO - Procesando estudiante 3/13: WENDY GISELLE ESPAÑOL NIÑO
+2025-10-03 12:24:17,756 - INFO - Verificando estudiante: WENDY GISELLE ESPAÑOL NIÑO - Documento: 1015428832 - Tipo Doc: CC
+2025-10-03 12:24:29,267 - INFO - El estudiante WENDY GISELLE ESPAÑOL NIÑO no existe. Procediendo con el registro.
+2025-10-03 12:24:29,273 - INFO - Intentando llenar los campos antes de la inscripción con: WENDY GISELLE ESPAÑOL NIÑO
+2025-10-03 12:24:29,277 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 12:24:30,882 - INFO - Se llenó el campo Nombres con: WENDY GISELLE
+2025-10-03 12:24:31,933 - INFO - Se llenó el campo Primer apellido con: ESPAÑOL
+2025-10-03 12:24:32,808 - INFO - Se llenó el campo Segundo apellido con: NIÑO
+2025-10-03 12:24:33,436 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 12:24:33,494 - WARNING - No se pudo determinar el género para: WENDY GISELLE, se seleccionó Masculino por defecto
+2025-10-03 12:24:34,035 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 12:24:36,789 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 12:24:40,157 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 12:24:41,230 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 12:24:42,277 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 12:24:46,882 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 12:24:47,936 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 12:24:49,002 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 12:24:49,100 - INFO - Se coloco Mosquea en el input
+2025-10-03 12:24:49,200 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 12:24:50,236 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 12:24:51,319 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 12:24:52,400 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 12:24:53,445 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 12:24:54,496 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 12:24:55,549 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 12:24:56,622 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 12:24:58,664 - INFO - Se llenó el campo telefono con: 3125309825
+2025-10-03 12:25:00,781 - INFO - Se llenó el campo Correo con: endyespa@gmail.com
+2025-10-03 12:25:03,630 - INFO - Se llenó el campo Perfil Ocupacional con: HIGIENE Y MANIPULACION DE ALIMENTOS.
+2025-10-03 12:25:03,718 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 12:25:13,722 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 12:25:41,710 - INFO - Procesando estudiante 4/13: LINA PAOLA SABOGAL GOMEZ
+2025-10-03 12:25:41,822 - INFO - Verificando estudiante: LINA PAOLA SABOGAL GOMEZ - Documento: 1073233865 - Tipo Doc: CC
+2025-10-03 12:25:53,273 - INFO - El estudiante LINA PAOLA SABOGAL GOMEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:25:53,275 - INFO - Procesando estudiante 5/13: KAREN ALEJANDRA BARRERO PARRA
+2025-10-03 12:25:53,366 - INFO - Verificando estudiante: KAREN ALEJANDRA BARRERO PARRA - Documento: 1073514679 - Tipo Doc: CC
+2025-10-03 12:26:04,800 - INFO - El estudiante KAREN ALEJANDRA BARRERO PARRA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:26:04,803 - INFO - Procesando estudiante 6/13: BEATRIZ ROJAS DE MARTINEZ
+2025-10-03 12:26:04,868 - INFO - Verificando estudiante: BEATRIZ ROJAS DE MARTINEZ - Documento: 41452871 - Tipo Doc: CC
+2025-10-03 12:26:16,052 - INFO - El estudiante BEATRIZ ROJAS DE MARTINEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:26:16,054 - INFO - Procesando estudiante 7/13: PATRICIA VELANDIA MONTAÑA
+2025-10-03 12:26:16,128 - INFO - Verificando estudiante: PATRICIA VELANDIA MONTAÑA - Documento: 51762746 - Tipo Doc: CC
+2025-10-03 12:26:27,340 - INFO - El estudiante PATRICIA VELANDIA MONTAÑA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:26:27,344 - INFO - Procesando estudiante 8/13: CLARA PATRICIA GARCIA LAVERDE
+2025-10-03 12:26:27,415 - INFO - Verificando estudiante: CLARA PATRICIA GARCIA LAVERDE - Documento: 51889159 - Tipo Doc: CC
+2025-10-03 12:26:38,615 - INFO - El estudiante CLARA PATRICIA GARCIA LAVERDE ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:26:38,619 - INFO - Procesando estudiante 9/13: LADY PATRICIA POVEDA CORREA
+2025-10-03 12:26:38,704 - INFO - Verificando estudiante: LADY PATRICIA POVEDA CORREA - Documento: 52329162 - Tipo Doc: CC
+2025-10-03 12:26:49,907 - INFO - El estudiante LADY PATRICIA POVEDA CORREA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:26:49,909 - INFO - Procesando estudiante 10/13: SANDRA ELIZABETH FLOREZ CARDENAS
+2025-10-03 12:26:49,976 - INFO - Verificando estudiante: SANDRA ELIZABETH FLOREZ CARDENAS - Documento: 52660394 - Tipo Doc: CC
+2025-10-03 12:27:01,182 - INFO - El estudiante SANDRA ELIZABETH FLOREZ CARDENAS ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:27:01,184 - INFO - Procesando estudiante 11/13: MARIA LUCIA MENESES CALDERON
+2025-10-03 12:27:01,246 - INFO - Verificando estudiante: MARIA LUCIA MENESES CALDERON - Documento: 55059374 - Tipo Doc: CC
+2025-10-03 12:27:12,404 - INFO - El estudiante MARIA LUCIA MENESES CALDERON ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:27:12,406 - INFO - Procesando estudiante 12/13: CLAUDIA LILIANA GAVIRIA DIAZ
+2025-10-03 12:27:12,476 - INFO - Verificando estudiante: CLAUDIA LILIANA GAVIRIA DIAZ - Documento: 60440690 - Tipo Doc: CC
+2025-10-03 12:27:23,639 - INFO - El estudiante CLAUDIA LILIANA GAVIRIA DIAZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:27:23,641 - INFO - Procesando estudiante 13/13: EDWIN OSWALDO SUAREZ BRICEÑO
+2025-10-03 12:27:23,719 - INFO - Verificando estudiante: EDWIN OSWALDO SUAREZ BRICEÑO - Documento: 80178785 - Tipo Doc: CC
+2025-10-03 12:27:34,880 - INFO - El estudiante EDWIN OSWALDO SUAREZ BRICEÑO ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:27:34,884 - INFO - \u2705 Proceso completado exitosamente
+2025-10-03 12:27:37,061 - INFO - Navegador cerrado

@@ -31,7 +31,9 @@ from functions.form_campos_ubicacion_identificacion import llenar_formulario_ubi
 from functions.pre_inscripcion import llenar_datos_antes_de_inscripcion
 from functions.verificacion import verificar_estudiante_con_CC_primero, verificar_estudiante
 from functions.form_datos_residencia import llenar_formulario_ubicacion_residencia
-from functions.meses
+from functions.meses_busqueda import verificar_meses_busqueda
+
+
 from URLS.urls import URL_FORMULARIO, URL_LOGIN, URL_VERIFICACION
 
 # Configurar logging
@@ -45,7 +47,7 @@ logging.basicConfig(
 # Cargar variables de entorno
 load_dotenv()
 
-RUTA_EXCEL = 'C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3343084.xls'
+RUTA_EXCEL = 'C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3324299.xls'
 
 
 # Mapeo de tipos de documento
@@ -285,7 +287,7 @@ def main():
                         # Esperar a que cargue el formulario completo
                         time.sleep(3)
                         
-                        ya_registrado = verificar_meses_busqueda()
+                        ya_registrado = verificar_meses_busqueda(driver)
                         if ya_registrado:
                             logging.info(f"El estudiante {nombres} {apellidos} ya está registrado (mesesBusqueda > 1). Pasando al siguiente.")
                             print(f"✅ El estudiante {nombres} {apellidos} ya está registrado. Pasando al siguiente.")
@@ -331,6 +333,7 @@ def main():
                                     print(f"Error al colorear celda {col_name}: {str(e)}")
                             wb.save(RUTA_EXCEL)
                             print(f"Excel actualizado: marcando fila {excel_row + 1} como 'procesado'")
+                            contador_procesados_exitosamente += 1
 
                         else:
                             print(f"⚠️ No se detectó redirección al formulario completo. URL actual: {driver.current_url}")
@@ -341,6 +344,7 @@ def main():
                                 except Exception as e:
                                     print(f"Error al colorear celda {col_name}: {str(e)}")
                             wb.save(RUTA_EXCEL)
+                            contador_errores += 1
                     else:
                         print("❌ No se pudo completar la pre-inscripción")
                         # Colorear fila como error
@@ -365,6 +369,7 @@ def main():
                                     sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_procesado)
                                 except Exception as e:
                                     print(f"Error al colorear celda {col_name}: {str(e)}")
+                            contador_procesados_exitosamente += 1
                         else:
                             # Si falla, colorear como error
                             for col_name, col_idx in column_indices.items():
@@ -372,6 +377,7 @@ def main():
                                     sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_error)
                                 except Exception as e:
                                     print(f"Error al colorear celda {col_name}: {str(e)}")
+                            contador_errores += 1
                         wb.save(RUTA_EXCEL)
                     
             except Exception as e:
@@ -389,6 +395,8 @@ def main():
                     print(f"Excel actualizado: marcando fila {excel_row + 1} como 'error'")
                 except Exception as save_error:
                     print(f"Error al guardar Excel: {str(save_error)}")
+                    
+                    contador_errores += 1
                 
                 # Volver a la página de verificación para el siguiente estudiante
                 try:
@@ -396,6 +404,41 @@ def main():
                     time.sleep(2)
                 except Exception as nav_error:
                     print(f"Error al navegar: {str(nav_error)}")
+            
+        try:
+            # Encontrar la primera fila vacía después de los datos
+            fila_resumen = total_registros + header_row + 3  # +3 para dejar espacio
+            
+            # Crear estilos para el resumen
+            style_titulo_resumen = xlwt.XFStyle()
+            font_titulo = xlwt.Font()
+            font_titulo.bold = True
+            font_titulo.colour_index = xlwt.Style.colour_map['white']
+            style_titulo_resumen.font = font_titulo
+            pattern_titulo = xlwt.Pattern()
+            pattern_titulo.pattern = xlwt.Pattern.SOLID_PATTERN
+            pattern_titulo.pattern_fore_colour = xlwt.Style.colour_map['blue']
+            style_titulo_resumen.pattern = pattern_titulo
+            
+            style_resumen = xlwt.XFStyle()
+            font_resumen = xlwt.Font()
+            font_resumen.bold = True
+            style_resumen.font = font_resumen
+            
+            # Escribir el resumen
+            sheet.write(fila_resumen, 0, "RESUMEN DE PROCESAMIENTO", style_titulo_resumen)
+            sheet.write(fila_resumen + 1, 0, f"Aprendices procesados exitosamente:", style_resumen)
+            sheet.write(fila_resumen + 1, 1, contador_procesados_exitosamente, style_resumen)
+            sheet.write(fila_resumen + 5, 0, "Total procesados:", style_resumen)
+            sheet.write(fila_resumen + 5, 1, total_registros, style_resumen)
+            
+            # Guardar los cambios finales
+            wb.save(RUTA_EXCEL)
+            
+        except Exception as e:
+            print(f"Error al escribir resumen en Excel: {str(e)}")
+            logging.error(f"Error al escribir resumen en Excel: {str(e)}")
+                
                 
         logging.info("✅ Proceso completado exitosamente")
         print("\n===== ✅ Proceso completado exitosamente =====\n")

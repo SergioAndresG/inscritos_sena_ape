@@ -1,0 +1,55 @@
+2025-10-03 12:34:58,088 - INFO - Información de ficha: {'Ficha': nan, 'Estado': nan, 'Fecha': nan}
+2025-10-03 12:34:58,093 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3343737.xls
+2025-10-03 12:34:58,093 - INFO - Total de registros: 15
+2025-10-03 12:34:58,098 - INFO - Índices de columnas encontrados: {'Tipo de Documento': 0, 'Número de Documento': 1, 'Nombre': 2, 'Apellidos': 3, 'Celular': 4, 'Correo Electrónico': 5, 'Estado': 6, 'Perfil Ocupacional': 8}
+2025-10-03 12:34:58,098 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3343737.xls
+2025-10-03 12:34:58,099 - INFO - Total de registros: 15
+2025-10-03 12:34:58,331 - INFO - Abriendo página de login...
+2025-10-03 12:35:00,151 - INFO - Login exitoso
+2025-10-03 12:35:00,157 - INFO - Procesando estudiante 1/15: SEBASTIAN SERRANO GERENA
+2025-10-03 12:35:00,393 - INFO - Verificando estudiante: SEBASTIAN SERRANO GERENA - Documento: 1000018248 - Tipo Doc: CC
+2025-10-03 12:35:11,995 - INFO - El estudiante SEBASTIAN SERRANO GERENA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:35:12,000 - INFO - Procesando estudiante 2/15: NASHLY NICOLL RODRIGUEZ VARGAS
+2025-10-03 12:35:12,144 - INFO - Verificando estudiante: NASHLY NICOLL RODRIGUEZ VARGAS - Documento: 1000602513 - Tipo Doc: CC
+2025-10-03 12:35:23,747 - INFO - El estudiante NASHLY NICOLL RODRIGUEZ VARGAS ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:35:23,751 - INFO - Procesando estudiante 3/15: KAROL JULIANA PRIETO VELAZCO
+2025-10-03 12:35:23,853 - INFO - Verificando estudiante: KAROL JULIANA PRIETO VELAZCO - Documento: 1000807702 - Tipo Doc: CC
+2025-10-03 12:35:35,345 - INFO - El estudiante KAROL JULIANA PRIETO VELAZCO ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:35:35,349 - INFO - Procesando estudiante 4/15: ANA MILENA GARZON MORALES
+2025-10-03 12:35:35,439 - INFO - Verificando estudiante: ANA MILENA GARZON MORALES - Documento: 1022961203 - Tipo Doc: CC
+2025-10-03 12:35:47,141 - INFO - El estudiante ANA MILENA GARZON MORALES ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:35:47,145 - INFO - Procesando estudiante 5/15: MIGUEL ANGEL SERRANO GERENA
+2025-10-03 12:35:47,242 - INFO - Verificando estudiante: MIGUEL ANGEL SERRANO GERENA - Documento: 1032677721 - Tipo Doc: CC
+2025-10-03 12:35:59,038 - INFO - El estudiante MIGUEL ANGEL SERRANO GERENA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:35:59,041 - INFO - Procesando estudiante 6/15: ALEJANDRO ACEVEDO GERENA
+2025-10-03 12:35:59,144 - INFO - Verificando estudiante: ALEJANDRO ACEVEDO GERENA - Documento: 1033817094 - Tipo Doc: CC
+2025-10-03 12:36:11,183 - INFO - El estudiante ALEJANDRO ACEVEDO GERENA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:36:11,187 - INFO - Procesando estudiante 7/15: SANTIAGO ACEVEDO GERENA
+2025-10-03 12:36:11,299 - INFO - Verificando estudiante: SANTIAGO ACEVEDO GERENA - Documento: 1140916227 - Tipo Doc: CC
+2025-10-03 12:36:23,332 - INFO - El estudiante SANTIAGO ACEVEDO GERENA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:36:23,336 - INFO - Procesando estudiante 8/15: LUZ MARINA VELAZCO SANCHEZ
+2025-10-03 12:36:23,444 - INFO - Verificando estudiante: LUZ MARINA VELAZCO SANCHEZ - Documento: 28740384 - Tipo Doc: CC
+2025-10-03 12:36:35,234 - INFO - El estudiante LUZ MARINA VELAZCO SANCHEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:36:35,237 - INFO - Procesando estudiante 9/15: NUBIA LUCIA VARGAS AGUILAR
+2025-10-03 12:36:35,335 - INFO - Verificando estudiante: NUBIA LUCIA VARGAS AGUILAR - Documento: 39766348 - Tipo Doc: CC
+2025-10-03 12:36:47,125 - INFO - El estudiante NUBIA LUCIA VARGAS AGUILAR ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:36:47,128 - INFO - Procesando estudiante 10/15: MELIDA ESPERANZA GERENA VELAZCO
+2025-10-03 12:36:47,250 - INFO - Verificando estudiante: MELIDA ESPERANZA GERENA VELAZCO - Documento: 52522703 - Tipo Doc: CC
+2025-10-03 12:36:58,918 - INFO - El estudiante MELIDA ESPERANZA GERENA VELAZCO ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:36:58,922 - INFO - Procesando estudiante 11/15: YENNY VIVIANA GERENA VELASCO
+2025-10-03 12:36:59,044 - INFO - Verificando estudiante: YENNY VIVIANA GERENA VELASCO - Documento: 52906515 - Tipo Doc: CC
+2025-10-03 12:37:10,757 - INFO - El estudiante YENNY VIVIANA GERENA VELASCO ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:37:10,761 - INFO - Procesando estudiante 12/15: DAGOBERTO GERENA QUIROGA
+2025-10-03 12:37:10,866 - INFO - Verificando estudiante: DAGOBERTO GERENA QUIROGA - Documento: 5958573 - Tipo Doc: CC
+2025-10-03 12:37:22,406 - INFO - El estudiante DAGOBERTO GERENA QUIROGA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:37:22,409 - INFO - Procesando estudiante 13/15: WILSON FERNANDO ACEVEDO MOLINA
+2025-10-03 12:37:22,505 - INFO - Verificando estudiante: WILSON FERNANDO ACEVEDO MOLINA - Documento: 79293017 - Tipo Doc: CC
+2025-10-03 12:37:34,211 - INFO - El estudiante WILSON FERNANDO ACEVEDO MOLINA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:37:34,216 - INFO - Procesando estudiante 14/15: YESID PRIETO DURAN
+2025-10-03 12:37:34,327 - INFO - Verificando estudiante: YESID PRIETO DURAN - Documento: 79395310 - Tipo Doc: CC
+2025-10-03 12:37:46,010 - INFO - El estudiante YESID PRIETO DURAN ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:37:46,016 - INFO - Procesando estudiante 15/15: DIEGO FERNANDO GERENA QUIROGA
+2025-10-03 12:37:46,138 - INFO - Verificando estudiante: DIEGO FERNANDO GERENA QUIROGA - Documento: 80864107 - Tipo Doc: CC
+2025-10-03 12:37:57,977 - INFO - El estudiante DIEGO FERNANDO GERENA QUIROGA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 12:37:57,984 - INFO - \u2705 Proceso completado exitosamente
+2025-10-03 12:38:00,598 - INFO - Navegador cerrado

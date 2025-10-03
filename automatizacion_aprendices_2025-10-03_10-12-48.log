@@ -1,0 +1,241 @@
+2025-10-03 10:12:49,768 - INFO - Información de ficha: {'Ficha': nan, 'Estado': nan, 'Fecha': nan}
+2025-10-03 10:12:49,774 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3339984.xls
+2025-10-03 10:12:49,774 - INFO - Total de registros: 28
+2025-10-03 10:12:49,778 - INFO - Índices de columnas encontrados: {'Tipo de Documento': 0, 'Número de Documento': 1, 'Nombre': 2, 'Apellidos': 3, 'Celular': 4, 'Correo Electrónico': 5, 'Estado': 6, 'Perfil Ocupacional': 8}
+2025-10-03 10:12:49,779 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3339984.xls
+2025-10-03 10:12:49,779 - INFO - Total de registros: 28
+2025-10-03 10:12:50,640 - INFO - Abriendo página de login...
+2025-10-03 10:12:52,045 - INFO - Login exitoso
+2025-10-03 10:12:52,048 - INFO - Procesando estudiante 1/28: GILBERTH ANDRES SEGURA VEGA
+2025-10-03 10:12:52,188 - INFO - Verificando estudiante: GILBERTH ANDRES SEGURA VEGA - Documento: 1003923500 - Tipo Doc: CC
+2025-10-03 10:13:03,648 - INFO - El estudiante GILBERTH ANDRES SEGURA VEGA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:13:03,652 - INFO - Procesando estudiante 2/28: MARIA CAMILA CANCELADO CAÑON
+2025-10-03 10:13:03,735 - INFO - Verificando estudiante: MARIA CAMILA CANCELADO CAÑON - Documento: 1014278058 - Tipo Doc: CC
+2025-10-03 10:13:15,300 - INFO - El estudiante MARIA CAMILA CANCELADO CAÑON ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:13:15,303 - INFO - Procesando estudiante 3/28: YENY PAOLA LAVERDE MORENO
+2025-10-03 10:13:15,387 - INFO - Verificando estudiante: YENY PAOLA LAVERDE MORENO - Documento: 1016095574 - Tipo Doc: CC
+2025-10-03 10:13:26,809 - INFO - El estudiante YENY PAOLA LAVERDE MORENO ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:13:26,812 - INFO - Procesando estudiante 4/28: YURI JULIETH SIERRA GOMEZ
+2025-10-03 10:13:26,874 - INFO - Verificando estudiante: YURI JULIETH SIERRA GOMEZ - Documento: 1019110732 - Tipo Doc: CC
+2025-10-03 10:13:38,255 - INFO - El estudiante YURI JULIETH SIERRA GOMEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:13:38,259 - INFO - Procesando estudiante 5/28: CRISTIAN NORBERTO TORRES TORRES
+2025-10-03 10:13:38,315 - INFO - Verificando estudiante: CRISTIAN NORBERTO TORRES TORRES - Documento: 1020784977 - Tipo Doc: CC
+2025-10-03 10:13:49,689 - INFO - El estudiante CRISTIAN NORBERTO TORRES TORRES ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:13:49,692 - INFO - Procesando estudiante 6/28: ELSI ANDREA SANCHEZ ROSAS
+2025-10-03 10:13:49,762 - INFO - Verificando estudiante: ELSI ANDREA SANCHEZ ROSAS - Documento: 1022331926 - Tipo Doc: CC
+2025-10-03 10:14:01,194 - INFO - El estudiante ELSI ANDREA SANCHEZ ROSAS ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:14:01,196 - INFO - Procesando estudiante 7/28: SANDY CAROLINA QUINTANA PINTO
+2025-10-03 10:14:01,281 - INFO - Verificando estudiante: SANDY CAROLINA QUINTANA PINTO - Documento: 1022410523 - Tipo Doc: CC
+2025-10-03 10:14:12,661 - INFO - El estudiante SANDY CAROLINA QUINTANA PINTO ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:14:12,663 - INFO - Procesando estudiante 8/28: LAURA ALEJANDRA MARTINEZ ROMERO
+2025-10-03 10:14:12,724 - INFO - Verificando estudiante: LAURA ALEJANDRA MARTINEZ ROMERO - Documento: 1053837231 - Tipo Doc: CC
+2025-10-03 10:14:24,126 - INFO - El estudiante LAURA ALEJANDRA MARTINEZ ROMERO no existe. Procediendo con el registro.
+2025-10-03 10:14:24,128 - INFO - Intentando llenar los campos antes de la inscripción con: LAURA ALEJANDRA MARTINEZ ROMERO
+2025-10-03 10:14:24,130 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 10:14:25,804 - INFO - Se llenó el campo Nombres con: LAURA ALEJANDRA
+2025-10-03 10:14:26,878 - INFO - Se llenó el campo Primer apellido con: MARTINEZ
+2025-10-03 10:14:27,861 - INFO - Se llenó el campo Segundo apellido con: ROMERO
+2025-10-03 10:14:28,514 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 10:14:30,594 - INFO - Se seleccionó el género: 1 (Femenino)
+2025-10-03 10:14:31,122 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 10:14:33,767 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 10:14:37,271 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 10:14:38,318 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 10:14:39,370 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 10:14:43,750 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 10:14:44,810 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 10:14:45,855 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 10:14:45,900 - INFO - Se coloco Mosquea en el input
+2025-10-03 10:14:45,962 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 10:14:46,999 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 10:14:48,064 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 10:14:49,127 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 10:14:50,169 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 10:14:51,222 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 10:14:52,268 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 10:14:53,343 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 10:14:55,277 - INFO - Se llenó el campo telefono con: 3101234567
+2025-10-03 10:14:57,947 - INFO - Se llenó el campo Correo con: lauramartinezr.lm@gmail.com
+2025-10-03 10:15:03,345 - INFO - Se llenó el campo Perfil Ocupacional con: MANEJO DE LA INFORMACION EN RECORRIDOS DE OBSERVACION DE AVES PARA EL TURISMO
+2025-10-03 10:15:03,402 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 10:15:13,404 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 10:15:41,308 - INFO - Procesando estudiante 9/28: GUSTAVO ALEXANDER CASALLAS RIAÑO
+2025-10-03 10:15:41,413 - INFO - Verificando estudiante: GUSTAVO ALEXANDER CASALLAS RIAÑO - Documento: 1073604234 - Tipo Doc: CC
+2025-10-03 10:15:52,821 - INFO - El estudiante GUSTAVO ALEXANDER CASALLAS RIAÑO ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:15:52,824 - INFO - Procesando estudiante 10/28: EDNA KATHERINE CARRANZA CASTAÑEDA
+2025-10-03 10:15:52,881 - INFO - Verificando estudiante: EDNA KATHERINE CARRANZA CASTAÑEDA - Documento: 1073604738 - Tipo Doc: CC
+2025-10-03 10:16:09,286 - INFO - El estudiante EDNA KATHERINE CARRANZA CASTAÑEDA no existe. Procediendo con el registro.
+2025-10-03 10:16:09,289 - INFO - Intentando llenar los campos antes de la inscripción con: EDNA KATHERINE CARRANZA CASTAÑEDA
+2025-10-03 10:16:09,291 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 10:16:10,878 - INFO - Se llenó el campo Nombres con: EDNA KATHERINE
+2025-10-03 10:16:12,011 - INFO - Se llenó el campo Primer apellido con: CARRANZA
+2025-10-03 10:16:13,182 - INFO - Se llenó el campo Segundo apellido con: CASTAÑEDA
+2025-10-03 10:16:13,798 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 10:16:13,847 - WARNING - No se pudo determinar el género para: EDNA KATHERINE, se seleccionó Masculino por defecto
+2025-10-03 10:16:14,376 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 10:16:17,013 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 10:16:20,322 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 10:16:21,378 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 10:16:22,446 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 10:16:26,792 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 10:16:27,852 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 10:16:28,920 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 10:16:28,978 - INFO - Se coloco Mosquea en el input
+2025-10-03 10:16:29,043 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 10:16:30,093 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 10:16:31,165 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 10:16:32,224 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 10:16:33,278 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 10:16:34,326 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 10:16:35,365 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 10:16:36,410 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 10:16:38,363 - INFO - Se llenó el campo telefono con: 3224126712
+2025-10-03 10:16:40,498 - INFO - Se llenó el campo Correo con: kathe_888@outlook.es
+2025-10-03 10:16:45,912 - INFO - Se llenó el campo Perfil Ocupacional con: MANEJO DE LA INFORMACION EN RECORRIDOS DE OBSERVACION DE AVES PARA EL TURISMO
+2025-10-03 10:16:45,998 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 10:16:56,002 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 10:17:23,911 - INFO - Procesando estudiante 11/28: FABIAN FELIPE RINCON QUINTANA
+2025-10-03 10:17:24,059 - INFO - Verificando estudiante: FABIAN FELIPE RINCON QUINTANA - Documento: 1073605103 - Tipo Doc: CC
+2025-10-03 10:17:35,439 - INFO - El estudiante FABIAN FELIPE RINCON QUINTANA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:17:35,441 - INFO - Procesando estudiante 12/28: CLAUDIA LORENA RUIZ GOMEZ
+2025-10-03 10:17:35,502 - INFO - Verificando estudiante: CLAUDIA LORENA RUIZ GOMEZ - Documento: 1073608666 - Tipo Doc: CC
+2025-10-03 10:17:46,868 - INFO - El estudiante CLAUDIA LORENA RUIZ GOMEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:17:46,871 - INFO - Procesando estudiante 13/28: FREDY ERNESTO BUSTOS FERNANDEZ
+2025-10-03 10:17:46,926 - INFO - Verificando estudiante: FREDY ERNESTO BUSTOS FERNANDEZ - Documento: 1073610134 - Tipo Doc: CC
+2025-10-03 10:17:58,271 - INFO - El estudiante FREDY ERNESTO BUSTOS FERNANDEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:17:58,274 - INFO - Procesando estudiante 14/28: BRIGITTE TATIANA MUÑOZ HERNANDEZ
+2025-10-03 10:17:58,332 - INFO - Verificando estudiante: BRIGITTE TATIANA MUÑOZ HERNANDEZ - Documento: 1075686502 - Tipo Doc: CC
+2025-10-03 10:18:14,705 - INFO - El estudiante BRIGITTE TATIANA MUÑOZ HERNANDEZ no existe. Procediendo con el registro.
+2025-10-03 10:18:14,707 - INFO - Intentando llenar los campos antes de la inscripción con: BRIGITTE TATIANA MUÑOZ HERNANDEZ
+2025-10-03 10:18:14,708 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 10:18:16,392 - INFO - Se llenó el campo Nombres con: BRIGITTE TATIANA
+2025-10-03 10:18:17,297 - INFO - Se llenó el campo Primer apellido con: MUÑOZ
+2025-10-03 10:18:18,439 - INFO - Se llenó el campo Segundo apellido con: HERNANDEZ
+2025-10-03 10:18:19,037 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 10:18:19,083 - WARNING - No se pudo determinar el género para: BRIGITTE TATIANA, se seleccionó Masculino por defecto
+2025-10-03 10:18:19,613 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 10:18:22,216 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 10:18:25,577 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 10:18:26,619 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 10:18:27,663 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 10:18:32,032 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 10:18:33,072 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 10:18:34,112 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 10:18:34,148 - INFO - Se coloco Mosquea en el input
+2025-10-03 10:18:34,194 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 10:18:35,225 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 10:18:36,296 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 10:18:37,337 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 10:18:38,368 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 10:18:39,410 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 10:18:40,447 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 10:18:41,493 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 10:18:43,532 - INFO - Se llenó el campo telefono con: 3007090168
+2025-10-03 10:18:45,661 - INFO - Se llenó el campo Correo con: brigittemun@gmail.com
+2025-10-03 10:18:50,902 - INFO - Se llenó el campo Perfil Ocupacional con: MANEJO DE LA INFORMACION EN RECORRIDOS DE OBSERVACION DE AVES PARA EL TURISMO
+2025-10-03 10:18:50,958 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 10:19:00,962 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 10:19:28,859 - INFO - Procesando estudiante 15/28: ANAIZ VEGA RODRIGUEZ
+2025-10-03 10:19:28,962 - INFO - Verificando estudiante: ANAIZ VEGA RODRIGUEZ - Documento: 1077320214 - Tipo Doc: CC
+2025-10-03 10:19:40,444 - INFO - El estudiante ANAIZ VEGA RODRIGUEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:19:40,447 - INFO - Procesando estudiante 16/28: CARLOS IVAN SEGURA VEGA
+2025-10-03 10:19:40,534 - INFO - Verificando estudiante: CARLOS IVAN SEGURA VEGA - Documento: 11481320 - Tipo Doc: CC
+2025-10-03 10:19:51,668 - INFO - El estudiante CARLOS IVAN SEGURA VEGA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:19:51,671 - INFO - Procesando estudiante 17/28: MARIA INES RIVAS DE OSPINA
+2025-10-03 10:19:51,740 - INFO - Verificando estudiante: MARIA INES RIVAS DE OSPINA - Documento: 20970466 - Tipo Doc: CC
+2025-10-03 10:20:02,864 - INFO - El estudiante MARIA INES RIVAS DE OSPINA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:20:02,867 - INFO - Procesando estudiante 18/28: YUSEB JOHAN AHUMADA MOYANO
+2025-10-03 10:20:02,931 - INFO - Verificando estudiante: YUSEB JOHAN AHUMADA MOYANO - Documento: 52427797 - Tipo Doc: CC
+2025-10-03 10:20:14,052 - INFO - El estudiante YUSEB JOHAN AHUMADA MOYANO ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:20:14,055 - INFO - Procesando estudiante 19/28: BLANCA MIRYAM TRINIDAD GONZALEZ
+2025-10-03 10:20:14,117 - INFO - Verificando estudiante: BLANCA MIRYAM TRINIDAD GONZALEZ - Documento: 52600116 - Tipo Doc: CC
+2025-10-03 10:20:30,332 - INFO - El estudiante BLANCA MIRYAM TRINIDAD GONZALEZ no existe. Procediendo con el registro.
+2025-10-03 10:20:30,337 - INFO - Intentando llenar los campos antes de la inscripción con: BLANCA MIRYAM TRINIDAD GONZALEZ
+2025-10-03 10:20:30,342 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 10:20:31,991 - INFO - Se llenó el campo Nombres con: BLANCA MIRYAM
+2025-10-03 10:20:33,086 - INFO - Se llenó el campo Primer apellido con: TRINIDAD
+2025-10-03 10:20:34,187 - INFO - Se llenó el campo Segundo apellido con: GONZALEZ
+2025-10-03 10:20:34,781 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 10:20:34,839 - WARNING - No se pudo determinar el género para: BLANCA MIRYAM, se seleccionó Masculino por defecto
+2025-10-03 10:20:35,386 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 10:20:37,997 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 10:20:41,331 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 10:20:42,379 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 10:20:43,430 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 10:20:47,791 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 10:20:48,836 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 10:20:49,909 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 10:20:49,961 - INFO - Se coloco Mosquea en el input
+2025-10-03 10:20:50,035 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 10:20:51,080 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 10:20:52,145 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 10:20:53,207 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 10:20:54,248 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 10:20:55,307 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 10:20:56,345 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 10:20:57,397 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 10:20:59,369 - INFO - Se llenó el campo telefono con: 3101234567
+2025-10-03 10:21:01,644 - INFO - Se llenó el campo Correo con: blancami2014@gmail.com
+2025-10-03 10:21:06,938 - INFO - Se llenó el campo Perfil Ocupacional con: MANEJO DE LA INFORMACION EN RECORRIDOS DE OBSERVACION DE AVES PARA EL TURISMO
+2025-10-03 10:21:06,999 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 10:21:17,002 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 10:21:44,848 - INFO - Procesando estudiante 20/28: NUVIA MARGOT GOMEZ RAMIREZ
+2025-10-03 10:21:44,928 - INFO - Verificando estudiante: NUVIA MARGOT GOMEZ RAMIREZ - Documento: 52600253 - Tipo Doc: CC
+2025-10-03 10:21:56,081 - INFO - El estudiante NUVIA MARGOT GOMEZ RAMIREZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:21:56,084 - INFO - Procesando estudiante 21/28: SHIRLEY VEGA VEGA
+2025-10-03 10:21:56,151 - INFO - Verificando estudiante: SHIRLEY VEGA VEGA - Documento: 52669233 - Tipo Doc: CC
+2025-10-03 10:22:07,273 - INFO - El estudiante SHIRLEY VEGA VEGA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:22:07,275 - INFO - Procesando estudiante 22/28: KAREN UMAÑA MENA
+2025-10-03 10:22:07,336 - INFO - Verificando estudiante: KAREN UMAÑA MENA - Documento: 52730933 - Tipo Doc: CC
+2025-10-03 10:22:18,444 - INFO - El estudiante KAREN UMAÑA MENA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:22:18,446 - INFO - Procesando estudiante 23/28: WILLIAM ARMANDO BUSTOS MACIAS
+2025-10-03 10:22:18,508 - INFO - Verificando estudiante: WILLIAM ARMANDO BUSTOS MACIAS - Documento: 73580532 - Tipo Doc: CC
+2025-10-03 10:22:29,957 - INFO - El estudiante WILLIAM ARMANDO BUSTOS MACIAS ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:22:29,960 - INFO - Procesando estudiante 24/28: LUIS HERNANDO PLATA VELANDIA
+2025-10-03 10:22:30,063 - INFO - Verificando estudiante: LUIS HERNANDO PLATA VELANDIA - Documento: 79862787 - Tipo Doc: CC
+2025-10-03 10:22:41,526 - INFO - El estudiante LUIS HERNANDO PLATA VELANDIA ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:22:41,534 - INFO - Procesando estudiante 25/28: RAUL ALBERTO GUAQUETA MUNAR
+2025-10-03 10:22:41,620 - INFO - Verificando estudiante: RAUL ALBERTO GUAQUETA MUNAR - Documento: 80165117 - Tipo Doc: CC
+2025-10-03 10:22:53,267 - INFO - El estudiante RAUL ALBERTO GUAQUETA MUNAR ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:22:53,273 - INFO - Procesando estudiante 26/28: ADRIAN LOPEZ GONZALEZ
+2025-10-03 10:22:53,375 - INFO - Verificando estudiante: ADRIAN LOPEZ GONZALEZ - Documento: 80187224 - Tipo Doc: CC
+2025-10-03 10:23:05,065 - INFO - El estudiante ADRIAN LOPEZ GONZALEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:23:05,077 - INFO - Procesando estudiante 27/28: MARIANA ALEXANDRA SIERRA GOMEZ
+2025-10-03 10:23:05,211 - INFO - Verificando estudiante: MARIANA ALEXANDRA SIERRA GOMEZ - Documento: 1011322406 - Tipo Doc: CC
+2025-10-03 10:23:22,301 - INFO - Verificando estudiante: MARIANA ALEXANDRA SIERRA GOMEZ - Documento: 1011322406 - Tipo Doc: TI
+2025-10-03 10:23:34,288 - INFO - El estudiante MARIANA ALEXANDRA SIERRA GOMEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-03 10:23:34,294 - INFO - Procesando estudiante 28/28: ISABELLA USAQUEN GONGORA
+2025-10-03 10:23:34,380 - INFO - Verificando estudiante: ISABELLA USAQUEN GONGORA - Documento: 1033110076 - Tipo Doc: CC
+2025-10-03 10:23:51,396 - INFO - Verificando estudiante: ISABELLA USAQUEN GONGORA - Documento: 1033110076 - Tipo Doc: TI
+2025-10-03 10:24:08,450 - INFO - El estudiante ISABELLA USAQUEN GONGORA no existe. Procediendo con el registro.
+2025-10-03 10:24:08,458 - INFO - Intentando llenar los campos antes de la inscripción con: ISABELLA USAQUEN GONGORA
+2025-10-03 10:24:08,465 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-03 10:24:10,141 - INFO - Se llenó el campo Nombres con: ISABELLA
+2025-10-03 10:24:11,743 - INFO - Se llenó el campo Primer apellido con: USAQUEN
+2025-10-03 10:24:13,164 - INFO - Se llenó el campo Segundo apellido con: GONGORA
+2025-10-03 10:24:13,929 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-03 10:24:16,138 - INFO - Se seleccionó el género: 1 (Femenino)
+2025-10-03 10:24:16,722 - INFO - Se hizo clic en el botón para verificar
+2025-10-03 10:24:19,530 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-03 10:24:23,013 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 10:24:24,129 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 10:24:25,286 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 10:24:30,123 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-03 10:24:31,277 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-03 10:24:32,422 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-03 10:24:32,509 - INFO - Se coloco Mosquea en el input
+2025-10-03 10:24:32,649 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-03 10:24:33,762 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-03 10:24:34,905 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-03 10:24:36,129 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-03 10:24:37,260 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-03 10:24:38,414 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-03 10:24:39,546 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-03 10:24:40,699 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-03 10:24:42,977 - INFO - Se llenó el campo telefono con: 3101234567
+2025-10-03 10:24:46,270 - INFO - Se llenó el campo Correo con: isausa2903@gmail.com
+2025-10-03 10:24:54,305 - INFO - Se llenó el campo Perfil Ocupacional con: MANEJO DE LA INFORMACION EN RECORRIDOS DE OBSERVACION DE AVES PARA EL TURISMO
+2025-10-03 10:24:54,455 - INFO - Se hizo click en el boton de Guardar
+2025-10-03 10:25:04,464 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-03 10:25:33,066 - INFO - \u2705 Proceso completado exitosamente
+2025-10-03 10:25:35,424 - INFO - Navegador cerrado
