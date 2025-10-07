@@ -1,0 +1,47 @@
+2025-10-07 14:49:40,321 - INFO - Información de ficha: {'Ficha': nan, 'Estado': nan, 'Fecha': nan}
+2025-10-07 14:49:40,324 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3315598.xls
+2025-10-07 14:49:40,324 - INFO - Total de registros: 30
+2025-10-07 14:49:40,327 - INFO - Índices de columnas encontrados: {'Tipo de Documento': 0, 'Número de Documento': 1, 'Nombre': 2, 'Apellidos': 3, 'Celular': 4, 'Correo Electrónico': 5, 'Estado': 6, 'Perfil Ocupacional': 8}
+2025-10-07 14:49:40,327 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3315598.xls
+2025-10-07 14:49:40,327 - INFO - Total de registros: 30
+2025-10-07 14:49:40,332 - INFO - Archivo Excel 'C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3315598.xls' cargado y listo para procesar.
+2025-10-07 14:49:40,461 - INFO - Abriendo página de login...
+2025-10-07 14:49:41,510 - ERROR - Error durante el login: Message: element click intercepted: Element <input type="radio" name="tipousuario" value="0" checked="checked"> is not clickable at point (383, 316). Other element would receive the click: <div id="content-load" style="visibility: hidden; opacity: 0;">...</div>
+  (Session info: chrome=141.0.7390.54)
+Stacktrace:
+	GetHandleVerifier [0x0x7ff743ee9f25+80677]
+	GetHandleVerifier [0x0x7ff743ee9f80+80768]
+	(No symbol) [0x0x7ff743c902bf]
+	(No symbol) [0x0x7ff743cf0d09]
+	(No symbol) [0x0x7ff743cee68e]
+	(No symbol) [0x0x7ff743ceb5b1]
+	(No symbol) [0x0x7ff743cea460]
+	(No symbol) [0x0x7ff743cdb988]
+	(No symbol) [0x0x7ff743d1150a]
+	(No symbol) [0x0x7ff743cdb216]
+	(No symbol) [0x0x7ff743d11720]
+	(No symbol) [0x0x7ff743d399c0]
+	(No symbol) [0x0x7ff743d112e3]
+	(No symbol) [0x0x7ff743cd9770]
+	(No symbol) [0x0x7ff743cda5a3]
+	GetHandleVerifier [0x0x7ff7441c817d+3087741]
+	GetHandleVerifier [0x0x7ff7441c223a+3063354]
+	GetHandleVerifier [0x0x7ff7441e32c5+3198661]
+	GetHandleVerifier [0x0x7ff743f0412e+187694]
+	GetHandleVerifier [0x0x7ff743f0b20f+216591]
+	GetHandleVerifier [0x0x7ff743ef2ee4+117476]
+	GetHandleVerifier [0x0x7ff743ef309f+117919]
+	GetHandleVerifier [0x0x7ff743ed91a8+11688]
+	BaseThreadInitThunk [0x0x7ffc3d53e8d7+23]
+	RtlUserThreadStart [0x0x7ffc3db28d9c+44]
+
+2025-10-07 14:49:41,510 - ERROR - No se pudo completar el login. Abortando proceso.
+2025-10-07 14:49:43,610 - INFO - Navegador cerrado
+2025-10-07 15:36:32,838 - INFO - Información de ficha: {'Ficha': nan, 'Estado': nan, 'Fecha': nan}
+2025-10-07 15:36:32,840 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3315598.xls
+2025-10-07 15:36:32,840 - INFO - Total de registros: 30
+2025-10-07 15:36:32,843 - INFO - Índices de columnas encontrados: {'Tipo de Documento': 0, 'Número de Documento': 1, 'Nombre': 2, 'Apellidos': 3, 'Celular': 4, 'Correo Electrónico': 5, 'Estado': 6, 'Perfil Ocupacional': 8}
+2025-10-07 15:36:32,843 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3315598.xls
+2025-10-07 15:36:32,843 - INFO - Total de registros: 30
+2025-10-07 15:36:32,846 - INFO - Archivo Excel 'C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3315598.xls' cargado y listo para procesar.
+2025-10-07 15:36:36,937 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000014F923116D0>: Failed to establish a new connection: [WinError 10061] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión')': /session/d26809b4ce89d6a80f25dc2a6ade486f/url

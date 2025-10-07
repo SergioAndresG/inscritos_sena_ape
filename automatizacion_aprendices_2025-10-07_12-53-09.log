@@ -1,0 +1,237 @@
+2025-10-07 12:53:14,944 - INFO - Información de ficha: {'Ficha': nan, 'Estado': nan, 'Fecha': nan}
+2025-10-07 12:53:14,947 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3315553.xls
+2025-10-07 12:53:14,947 - INFO - Total de registros: 28
+2025-10-07 12:53:14,950 - INFO - Índices de columnas encontrados: {'Tipo de Documento': 0, 'Número de Documento': 1, 'Nombre': 2, 'Apellidos': 3, 'Celular': 4, 'Correo Electrónico': 5, 'Estado': 6, 'Perfil Ocupacional': 8}
+2025-10-07 12:53:14,950 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3315553.xls
+2025-10-07 12:53:14,950 - INFO - Total de registros: 28
+2025-10-07 12:53:14,955 - INFO - Archivo Excel 'C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3315553.xls' cargado y listo para procesar.
+2025-10-07 12:53:15,092 - INFO - Abriendo página de login...
+2025-10-07 12:53:16,742 - INFO - Login exitoso
+2025-10-07 12:53:16,744 - INFO - Procesando estudiante 1/28: YOHAN SEBASTIAN MURCIA SERRANO
+2025-10-07 12:53:16,830 - INFO - Verificando estudiante: YOHAN SEBASTIAN MURCIA SERRANO - Documento: 1000273549 - Tipo Doc: CC
+2025-10-07 12:53:28,130 - INFO - El estudiante YOHAN SEBASTIAN MURCIA SERRANO no existe. Procediendo con el registro.
+2025-10-07 12:53:28,133 - INFO - Intentando llenar los campos antes de la inscripción con: YOHAN SEBASTIAN MURCIA SERRANO
+2025-10-07 12:53:28,135 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-07 12:53:29,689 - INFO - Se llenó el campo Nombres con: YOHAN SEBASTIAN
+2025-10-07 12:53:30,636 - INFO - Se llenó el campo Primer apellido con: MURCIA
+2025-10-07 12:53:31,700 - INFO - Se llenó el campo Segundo apellido con: SERRANO
+2025-10-07 12:53:32,351 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-07 12:53:32,463 - WARNING - No se pudo determinar el género para: YOHAN SEBASTIAN, se seleccionó Masculino por defecto
+2025-10-07 12:53:33,012 - INFO - Se hizo clic en el botón para verificar
+2025-10-07 12:53:35,847 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-07 12:53:39,012 - INFO - El estudiante YOHAN SEBASTIAN MURCIA SERRANO ya está registrado (mesesBusqueda > 1). Pasando al siguiente.
+2025-10-07 12:53:39,015 - INFO - Procesando estudiante 2/28: JAIME ANDRES VALENCIA ROJAS
+2025-10-07 12:53:39,131 - INFO - Verificando estudiante: JAIME ANDRES VALENCIA ROJAS - Documento: 1000518852 - Tipo Doc: CC
+2025-10-07 12:53:50,621 - INFO - El estudiante JAIME ANDRES VALENCIA ROJAS ya existe en el sistema. Pasando al siguiente.
+2025-10-07 12:53:50,625 - INFO - Procesando estudiante 3/28: KEVIN ANDRÈS RUIZ VARON
+2025-10-07 12:53:50,720 - INFO - Verificando estudiante: KEVIN ANDRÈS RUIZ VARON - Documento: 1003579420 - Tipo Doc: CC
+2025-10-07 12:54:02,125 - INFO - El estudiante KEVIN ANDRÈS RUIZ VARON ya existe en el sistema. Pasando al siguiente.
+2025-10-07 12:54:02,128 - INFO - Procesando estudiante 4/28: JEUSENTH ALEXANDER RODRIGUEZ MENDONZA
+2025-10-07 12:54:02,234 - INFO - Verificando estudiante: JEUSENTH ALEXANDER RODRIGUEZ MENDONZA - Documento: 1006578599 - Tipo Doc: CC
+2025-10-07 12:54:13,659 - INFO - El estudiante JEUSENTH ALEXANDER RODRIGUEZ MENDONZA ya existe en el sistema. Pasando al siguiente.
+2025-10-07 12:54:13,673 - INFO - Procesando estudiante 5/28: LUIS DAVID OROZCO FORERO
+2025-10-07 12:54:13,763 - INFO - Verificando estudiante: LUIS DAVID OROZCO FORERO - Documento: 1007156140 - Tipo Doc: CC
+2025-10-07 12:54:25,226 - INFO - El estudiante LUIS DAVID OROZCO FORERO ya existe en el sistema. Pasando al siguiente.
+2025-10-07 12:54:25,239 - INFO - Procesando estudiante 6/28: DANIEL STIV JIMENEZ ALDANA
+2025-10-07 12:54:25,341 - INFO - Verificando estudiante: DANIEL STIV JIMENEZ ALDANA - Documento: 1007422269 - Tipo Doc: CC
+2025-10-07 12:54:36,749 - INFO - El estudiante DANIEL STIV JIMENEZ ALDANA ya existe en el sistema. Pasando al siguiente.
+2025-10-07 12:54:36,752 - INFO - Procesando estudiante 7/28: CARLOS FELIPE ARENAS USSA
+2025-10-07 12:54:36,860 - INFO - Verificando estudiante: CARLOS FELIPE ARENAS USSA - Documento: 1010222649 - Tipo Doc: CC
+2025-10-07 12:54:48,295 - INFO - El estudiante CARLOS FELIPE ARENAS USSA no existe. Procediendo con el registro.
+2025-10-07 12:54:48,306 - INFO - Intentando llenar los campos antes de la inscripción con: CARLOS FELIPE ARENAS USSA
+2025-10-07 12:54:48,309 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-07 12:54:49,813 - INFO - Se llenó el campo Nombres con: CARLOS FELIPE
+2025-10-07 12:54:50,825 - INFO - Se llenó el campo Primer apellido con: ARENAS
+2025-10-07 12:54:51,676 - INFO - Se llenó el campo Segundo apellido con: USSA
+2025-10-07 12:54:52,276 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-07 12:54:54,395 - INFO - Se seleccionó el género: 0 (Masculino)
+2025-10-07 12:54:54,958 - INFO - Se hizo clic en el botón para verificar
+2025-10-07 12:54:57,689 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-07 12:55:01,033 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-07 12:55:02,117 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-07 12:55:03,183 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-07 12:55:07,781 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-07 12:55:08,833 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-07 12:55:09,875 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-07 12:55:09,996 - INFO - Se coloco Mosquea en el input
+2025-10-07 12:55:10,107 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-07 12:55:11,151 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-07 12:55:12,240 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-07 12:55:13,323 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-07 12:55:14,383 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-07 12:55:15,465 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-07 12:55:16,531 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-07 12:55:17,610 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-07 12:55:19,575 - INFO - Se llenó el campo telefono con: 3196317671
+2025-10-07 12:55:22,550 - INFO - Se llenó el campo Correo con: carlosfelipearenasussa@gmail.com
+2025-10-07 12:55:24,350 - INFO - Se llenó el campo Perfil Ocupacional con: ENTRENAMIENTO DEPORTIVO
+2025-10-07 12:55:24,456 - INFO - Se hizo click en el boton de Guardar
+2025-10-07 12:55:34,460 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-07 12:56:02,533 - INFO - Procesando estudiante 8/28: DANIEL GUSTAVO MONTENEGRO RODRIGUEZ
+2025-10-07 12:56:02,643 - INFO - Verificando estudiante: DANIEL GUSTAVO MONTENEGRO RODRIGUEZ - Documento: 1014292544 - Tipo Doc: CC
+2025-10-07 12:56:14,135 - INFO - El estudiante DANIEL GUSTAVO MONTENEGRO RODRIGUEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-07 12:56:14,138 - INFO - Procesando estudiante 9/28: SANTIAGO BELTRAN BALLESTEROS
+2025-10-07 12:56:14,245 - INFO - Verificando estudiante: SANTIAGO BELTRAN BALLESTEROS - Documento: 1014979395 - Tipo Doc: CC
+2025-10-07 12:56:25,687 - INFO - El estudiante SANTIAGO BELTRAN BALLESTEROS ya existe en el sistema. Pasando al siguiente.
+2025-10-07 12:56:25,691 - INFO - Procesando estudiante 10/28: JULIAN STEVEN MORENO RIOS
+2025-10-07 12:56:25,810 - INFO - Verificando estudiante: JULIAN STEVEN MORENO RIOS - Documento: 1016010388 - Tipo Doc: CC
+2025-10-07 12:56:37,283 - INFO - El estudiante JULIAN STEVEN MORENO RIOS ya existe en el sistema. Pasando al siguiente.
+2025-10-07 12:56:37,287 - INFO - Procesando estudiante 11/28: FELIPE ANDRES ALFONSO ORTIZ
+2025-10-07 12:56:37,420 - INFO - Verificando estudiante: FELIPE ANDRES ALFONSO ORTIZ - Documento: 1016024357 - Tipo Doc: CC
+2025-10-07 12:56:48,891 - INFO - El estudiante FELIPE ANDRES ALFONSO ORTIZ ya existe en el sistema. Pasando al siguiente.
+2025-10-07 12:56:48,895 - INFO - Procesando estudiante 12/28: ANDRES FELIPE NIÑO AREVALO
+2025-10-07 12:56:48,977 - INFO - Verificando estudiante: ANDRES FELIPE NIÑO AREVALO - Documento: 1019991781 - Tipo Doc: CC
+2025-10-07 12:57:05,382 - INFO - El estudiante ANDRES FELIPE NIÑO AREVALO no existe. Procediendo con el registro.
+2025-10-07 12:57:05,425 - INFO - Intentando llenar los campos antes de la inscripción con: ANDRES FELIPE NIÑO AREVALO
+2025-10-07 12:57:05,437 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-07 12:57:06,904 - INFO - Se llenó el campo Nombres con: ANDRES FELIPE
+2025-10-07 12:57:07,744 - INFO - Se llenó el campo Primer apellido con: NIÑO
+2025-10-07 12:57:08,848 - INFO - Se llenó el campo Segundo apellido con: AREVALO
+2025-10-07 12:57:09,527 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-07 12:57:11,645 - INFO - Se seleccionó el género: 0 (Masculino)
+2025-10-07 12:57:12,173 - INFO - Se hizo clic en el botón para verificar
+2025-10-07 12:57:14,966 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-07 12:57:18,268 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-07 12:57:19,320 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-07 12:57:20,361 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-07 12:57:24,764 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-07 12:57:25,803 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-07 12:57:26,857 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-07 12:57:26,892 - INFO - Se coloco Mosquea en el input
+2025-10-07 12:57:26,954 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-07 12:57:27,983 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-07 12:57:29,023 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-07 12:57:30,061 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-07 12:57:31,089 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-07 12:57:32,126 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-07 12:57:33,181 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-07 12:57:34,220 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-07 12:57:36,157 - INFO - Se llenó el campo telefono con: 3102782239
+2025-10-07 12:57:38,494 - INFO - Se llenó el campo Correo con: ninoarevalo500@gmail.com
+2025-10-07 12:57:40,109 - INFO - Se llenó el campo Perfil Ocupacional con: ENTRENAMIENTO DEPORTIVO
+2025-10-07 12:57:40,170 - INFO - Se hizo click en el boton de Guardar
+2025-10-07 12:57:50,172 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-07 12:58:18,211 - INFO - Procesando estudiante 13/28: JULIAN DAVID NEUTA GONZALEZ
+2025-10-07 12:58:18,325 - INFO - Verificando estudiante: JULIAN DAVID NEUTA GONZALEZ - Documento: 1025524651 - Tipo Doc: CC
+2025-10-07 12:58:29,934 - INFO - El estudiante JULIAN DAVID NEUTA GONZALEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-07 12:58:29,954 - INFO - Procesando estudiante 14/28: JULIAN DAVID ALFONSO TRIANA
+2025-10-07 12:58:30,058 - INFO - Verificando estudiante: JULIAN DAVID ALFONSO TRIANA - Documento: 1030700201 - Tipo Doc: CC
+2025-10-07 12:58:41,461 - INFO - El estudiante JULIAN DAVID ALFONSO TRIANA ya existe en el sistema. Pasando al siguiente.
+2025-10-07 12:58:41,465 - INFO - Procesando estudiante 15/28: BRAYAN ALEXANDER PEREZ CRIOLLO
+2025-10-07 12:58:41,598 - INFO - Verificando estudiante: BRAYAN ALEXANDER PEREZ CRIOLLO - Documento: 1031808286 - Tipo Doc: CC
+2025-10-07 12:58:58,112 - INFO - El estudiante BRAYAN ALEXANDER PEREZ CRIOLLO no existe. Procediendo con el registro.
+2025-10-07 12:58:58,116 - INFO - Intentando llenar los campos antes de la inscripción con: BRAYAN ALEXANDER PEREZ CRIOLLO
+2025-10-07 12:58:58,119 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-07 12:58:59,961 - INFO - Se llenó el campo Nombres con: BRAYAN ALEXANDER
+2025-10-07 12:59:00,848 - INFO - Se llenó el campo Primer apellido con: PEREZ
+2025-10-07 12:59:01,892 - INFO - Se llenó el campo Segundo apellido con: CRIOLLO
+2025-10-07 12:59:02,579 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-07 12:59:02,675 - WARNING - No se pudo determinar el género para: BRAYAN ALEXANDER, se seleccionó Masculino por defecto
+2025-10-07 12:59:03,240 - INFO - Se hizo clic en el botón para verificar
+2025-10-07 12:59:06,035 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-07 12:59:09,285 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-07 12:59:10,372 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-07 12:59:11,638 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-07 12:59:16,143 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-07 12:59:17,217 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-07 12:59:18,259 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-07 12:59:18,321 - INFO - Se coloco Mosquea en el input
+2025-10-07 12:59:18,397 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-07 12:59:19,438 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-07 12:59:20,476 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-07 12:59:21,512 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-07 12:59:22,537 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-07 12:59:23,576 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-07 12:59:24,607 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-07 12:59:25,645 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-07 12:59:27,544 - INFO - Se llenó el campo telefono con: 3117057489
+2025-10-07 12:59:29,351 - INFO - Se llenó el campo Correo con: b6862014@gmail.com
+2025-10-07 12:59:30,884 - INFO - Se llenó el campo Perfil Ocupacional con: ENTRENAMIENTO DEPORTIVO
+2025-10-07 12:59:30,924 - INFO - Se hizo click en el boton de Guardar
+2025-10-07 12:59:40,928 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-07 13:00:08,956 - INFO - Procesando estudiante 16/28: SAMUEL FELIPE CORTES SMITH
+2025-10-07 13:00:09,077 - INFO - Verificando estudiante: SAMUEL FELIPE CORTES SMITH - Documento: 1034658429 - Tipo Doc: CC
+2025-10-07 13:00:20,546 - INFO - El estudiante SAMUEL FELIPE CORTES SMITH ya existe en el sistema. Pasando al siguiente.
+2025-10-07 13:00:20,560 - INFO - Procesando estudiante 17/28: EMELY JELITZA MORA JUEZ
+2025-10-07 13:00:20,693 - INFO - Verificando estudiante: EMELY JELITZA MORA JUEZ - Documento: 1069715165 - Tipo Doc: CC
+2025-10-07 13:00:32,158 - INFO - El estudiante EMELY JELITZA MORA JUEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-07 13:00:32,162 - INFO - Procesando estudiante 18/28: LINA KATERINE PADILLA SIERRA
+2025-10-07 13:00:32,271 - INFO - Verificando estudiante: LINA KATERINE PADILLA SIERRA - Documento: 1070916242 - Tipo Doc: CC
+2025-10-07 13:00:48,765 - INFO - El estudiante LINA KATERINE PADILLA SIERRA no existe. Procediendo con el registro.
+2025-10-07 13:00:48,769 - INFO - Intentando llenar los campos antes de la inscripción con: LINA KATERINE PADILLA SIERRA
+2025-10-07 13:00:48,790 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-07 13:00:50,395 - INFO - Se llenó el campo Nombres con: LINA KATERINE
+2025-10-07 13:00:51,421 - INFO - Se llenó el campo Primer apellido con: PADILLA
+2025-10-07 13:00:52,409 - INFO - Se llenó el campo Segundo apellido con: SIERRA
+2025-10-07 13:00:53,030 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-07 13:00:53,132 - WARNING - No se pudo determinar el género para: LINA KATERINE, se seleccionó Masculino por defecto
+2025-10-07 13:00:53,689 - INFO - Se hizo clic en el botón para verificar
+2025-10-07 13:00:56,340 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-07 13:00:59,570 - INFO - El estudiante LINA KATERINE PADILLA SIERRA ya está registrado (mesesBusqueda > 1). Pasando al siguiente.
+2025-10-07 13:00:59,572 - INFO - Procesando estudiante 19/28: GISELL TATIANA TRIANA MENESES
+2025-10-07 13:00:59,690 - INFO - Verificando estudiante: GISELL TATIANA TRIANA MENESES - Documento: 1070945571 - Tipo Doc: CC
+2025-10-07 13:01:11,137 - INFO - El estudiante GISELL TATIANA TRIANA MENESES ya existe en el sistema. Pasando al siguiente.
+2025-10-07 13:01:11,139 - INFO - Procesando estudiante 20/28: OSCAR MAURICIO LESMES ROBAYO
+2025-10-07 13:01:11,227 - INFO - Verificando estudiante: OSCAR MAURICIO LESMES ROBAYO - Documento: 1076649280 - Tipo Doc: CC
+2025-10-07 13:01:22,810 - INFO - El estudiante OSCAR MAURICIO LESMES ROBAYO ya existe en el sistema. Pasando al siguiente.
+2025-10-07 13:01:22,812 - INFO - Procesando estudiante 21/28: JUAN EDUARDO PUA MELENDEZ
+2025-10-07 13:01:22,909 - INFO - Verificando estudiante: JUAN EDUARDO PUA MELENDEZ - Documento: 1129536069 - Tipo Doc: CC
+2025-10-07 13:01:34,375 - INFO - El estudiante JUAN EDUARDO PUA MELENDEZ ya existe en el sistema. Pasando al siguiente.
+2025-10-07 13:01:34,377 - INFO - Procesando estudiante 22/28: ADRIAN JUNIOR INCIARTE MOLINA
+2025-10-07 13:01:34,487 - INFO - Verificando estudiante: ADRIAN JUNIOR INCIARTE MOLINA - Documento: 4191689 - Tipo Doc: CC
+2025-10-07 13:01:50,701 - INFO - Verificando estudiante: ADRIAN JUNIOR INCIARTE MOLINA - Documento: 4191689 - Tipo Doc: PPT
+2025-10-07 13:02:01,651 - INFO - El estudiante ADRIAN JUNIOR INCIARTE MOLINA ya existe en el sistema. Pasando al siguiente.
+2025-10-07 13:02:01,653 - INFO - Procesando estudiante 23/28: JOSEPH DANIEL VASQUEZ DIAZ
+2025-10-07 13:02:01,704 - INFO - Verificando estudiante: JOSEPH DANIEL VASQUEZ DIAZ - Documento: 1010960534 - Tipo Doc: CC
+2025-10-07 13:02:18,112 - INFO - Verificando estudiante: JOSEPH DANIEL VASQUEZ DIAZ - Documento: 1010960534 - Tipo Doc: TI
+2025-10-07 13:02:29,399 - INFO - El estudiante JOSEPH DANIEL VASQUEZ DIAZ ya existe en el sistema. Pasando al siguiente.
+2025-10-07 13:02:29,401 - INFO - Procesando estudiante 24/28: MANUEL JOSE MORA CUBILLOS
+2025-10-07 13:02:29,452 - INFO - Verificando estudiante: MANUEL JOSE MORA CUBILLOS - Documento: 1014667874 - Tipo Doc: CC
+2025-10-07 13:02:45,847 - INFO - Verificando estudiante: MANUEL JOSE MORA CUBILLOS - Documento: 1014667874 - Tipo Doc: TI
+2025-10-07 13:02:57,156 - INFO - El estudiante MANUEL JOSE MORA CUBILLOS ya existe en el sistema. Pasando al siguiente.
+2025-10-07 13:02:57,159 - INFO - Procesando estudiante 25/28: JHONATAN DAVID FORERO LESMES
+2025-10-07 13:02:57,211 - INFO - Verificando estudiante: JHONATAN DAVID FORERO LESMES - Documento: 1028863290 - Tipo Doc: CC
+2025-10-07 13:03:08,528 - INFO - El estudiante JHONATAN DAVID FORERO LESMES ya existe en el sistema. Pasando al siguiente.
+2025-10-07 13:03:08,530 - INFO - Procesando estudiante 26/28: JUAN DAVID NAVARRETE CHUNZA
+2025-10-07 13:03:08,583 - INFO - Verificando estudiante: JUAN DAVID NAVARRETE CHUNZA - Documento: 1069644214 - Tipo Doc: CC
+2025-10-07 13:03:24,988 - INFO - Verificando estudiante: JUAN DAVID NAVARRETE CHUNZA - Documento: 1069644214 - Tipo Doc: TI
+2025-10-07 13:03:36,291 - INFO - El estudiante JUAN DAVID NAVARRETE CHUNZA ya existe en el sistema. Pasando al siguiente.
+2025-10-07 13:03:36,293 - INFO - Procesando estudiante 27/28: JUAN FELIPE GÓMEZ LARA
+2025-10-07 13:03:36,344 - INFO - Verificando estudiante: JUAN FELIPE GÓMEZ LARA - Documento: 1073158009 - Tipo Doc: CC
+2025-10-07 13:03:52,679 - INFO - Verificando estudiante: JUAN FELIPE GÓMEZ LARA - Documento: 1073158009 - Tipo Doc: TI
+2025-10-07 13:04:09,012 - INFO - El estudiante JUAN FELIPE GÓMEZ LARA no existe. Procediendo con el registro.
+2025-10-07 13:04:09,014 - INFO - Intentando llenar los campos antes de la inscripción con: JUAN FELIPE GÓMEZ LARA
+2025-10-07 13:04:09,015 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-07 13:04:10,324 - INFO - Se llenó el campo Nombres con: JUAN FELIPE
+2025-10-07 13:04:11,179 - INFO - Se llenó el campo Primer apellido con: GÓMEZ
+2025-10-07 13:04:11,975 - INFO - Se llenó el campo Segundo apellido con: LARA
+2025-10-07 13:04:12,546 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-07 13:04:14,610 - INFO - Se seleccionó el género: 0 (Masculino)
+2025-10-07 13:04:15,142 - INFO - Se hizo clic en el botón para verificar
+2025-10-07 13:04:17,819 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-07 13:04:21,037 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-07 13:04:22,074 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-07 13:04:23,111 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-07 13:04:27,378 - INFO - Se seleccionó Colombia en el desplegable de País.
+2025-10-07 13:04:28,423 - INFO - Se seleccionó Cundinamarca en el desplegable de Departamento.
+2025-10-07 13:04:29,457 - INFO - Se seleccionó Mosquera en el desplegable de Municipio.
+2025-10-07 13:04:29,497 - INFO - Se coloco Mosquea en el input
+2025-10-07 13:04:29,544 - INFO - Se seleccionó Soltero en el desplegable de Estado Civil.
+2025-10-07 13:04:30,571 - INFO - Se ingreso 0 en el input de Personas a Cargo.
+2025-10-07 13:04:31,616 - INFO - Se seleccionó Otro en el desplegable de Posicion Familiar.
+2025-10-07 13:04:32,655 - INFO - Se seleccionó 'No tiene libreta militar' en el desplegable de libreta militar.
+2025-10-07 13:04:33,690 - INFO - Se ingreso 'No' en el input de Migrante.
+2025-10-07 13:04:34,728 - INFO - Se seleccionó 'Urbano' en el desplegable de zona de resindecia.
+2025-10-07 13:04:35,759 - INFO - Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.
+2025-10-07 13:04:36,806 - INFO - Se seleccionó estrato Dos en el campo de Estrato.
+2025-10-07 13:04:38,710 - INFO - Se llenó el campo telefono con: 3208869714
+2025-10-07 13:04:41,824 - INFO - Se llenó el campo Correo con: juanfelipegomezlarafuratena@gmail.com
+2025-10-07 13:04:43,369 - INFO - Se llenó el campo Perfil Ocupacional con: ENTRENAMIENTO DEPORTIVO
+2025-10-07 13:04:43,413 - INFO - Se hizo click en el boton de Guardar
+2025-10-07 13:04:53,416 - INFO - Se detectó una alerta: Los datos han sido guardados correctamente
+2025-10-07 13:05:21,217 - INFO - Procesando estudiante 28/28: DIEGO ALEJANDRO CASTAÑEDA PULIDO
+2025-10-07 13:05:21,286 - INFO - Verificando estudiante: DIEGO ALEJANDRO CASTAÑEDA PULIDO - Documento: 1074812823 - Tipo Doc: CC
+2025-10-07 13:05:37,663 - INFO - Verificando estudiante: DIEGO ALEJANDRO CASTAÑEDA PULIDO - Documento: 1074812823 - Tipo Doc: TI
+2025-10-07 13:05:48,995 - INFO - El estudiante DIEGO ALEJANDRO CASTAÑEDA PULIDO ya existe en el sistema. Pasando al siguiente.
+2025-10-07 13:05:48,997 - INFO - \u2705 Proceso completado exitosamente
+2025-10-07 13:05:51,189 - INFO - Navegador cerrado

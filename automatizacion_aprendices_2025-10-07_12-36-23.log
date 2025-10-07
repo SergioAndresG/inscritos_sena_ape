@@ -1,0 +1,24 @@
+2025-10-07 12:36:29,768 - INFO - Información de ficha: {'Ficha': nan, 'Estado': nan, 'Fecha': nan}
+2025-10-07 12:36:29,771 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3322132.xls
+2025-10-07 12:36:29,771 - INFO - Total de registros: 49
+2025-10-07 12:36:29,773 - INFO - Índices de columnas encontrados: {'Tipo de Documento': 0, 'Número de Documento': 1, 'Nombre': 2, 'Apellidos': 3, 'Celular': 4, 'Correo Electrónico': 5, 'Estado': 6, 'Perfil Ocupacional': 8}
+2025-10-07 12:36:29,773 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3322132.xls
+2025-10-07 12:36:29,774 - INFO - Total de registros: 49
+2025-10-07 12:36:29,778 - INFO - Archivo Excel 'C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3322132.xls' cargado y listo para procesar.
+2025-10-07 12:36:29,924 - INFO - Abriendo página de login...
+2025-10-07 12:36:31,591 - INFO - Login exitoso
+2025-10-07 12:36:31,593 - INFO - Procesando estudiante 1/49: PAULA ANDREA CASTRO LEIVA
+2025-10-07 12:36:31,688 - INFO - Verificando estudiante: PAULA ANDREA CASTRO LEIVA - Documento: 1003741653 - Tipo Doc: CC
+2025-10-07 12:36:43,033 - INFO - El estudiante PAULA ANDREA CASTRO LEIVA no existe. Procediendo con el registro.
+2025-10-07 12:36:43,036 - INFO - Intentando llenar los campos antes de la inscripción con: PAULA ANDREA CASTRO LEIVA
+2025-10-07 12:36:43,039 - INFO - URL actual: https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta
+2025-10-07 12:36:44,521 - INFO - Se llenó el campo Nombres con: PAULA ANDREA
+2025-10-07 12:36:45,467 - INFO - Se llenó el campo Primer apellido con: CASTRO
+2025-10-07 12:36:46,374 - INFO - Se llenó el campo Segundo apellido con: LEIVA
+2025-10-07 12:36:47,001 - INFO - Se llenó el campo Fecha de Nacimiento con: 01-01-2000
+2025-10-07 12:36:49,067 - INFO - Se seleccionó el género: 1 (Femenino)
+2025-10-07 12:36:49,594 - INFO - Se hizo clic en el botón para verificar
+2025-10-07 12:36:52,325 - INFO - Se hizo clic en el botón para continuar/inscribir
+2025-10-07 12:36:55,420 - INFO - El estudiante PAULA ANDREA CASTRO LEIVA ya está registrado (mesesBusqueda > 1). Pasando al siguiente.
+2025-10-07 12:36:55,422 - INFO - Procesando estudiante 2/49: LAURA NATALIA NAVA LADINO
+2025-10-07 12:36:55,477 - INFO - Verificando estudiante: LAURA NATALIA NAVA LADINO - Documento: 1007319096 - Tipo Doc: CC
