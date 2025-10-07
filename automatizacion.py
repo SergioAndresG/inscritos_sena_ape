@@ -1,5 +1,6 @@
 import os
 import time
+import sys
 import logging
 from datetime import datetime
 import pandas as pd
@@ -13,12 +14,10 @@ from dotenv import load_dotenv
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
-import traceback
-from openpyxl import load_workbook
 import xlrd
 import xlwt
 from xlutils.copy import copy
-
+from functions.preparar_excel import preparar_excel
 from functions.login import login
 from functions.campo_estrato import llenar_estrato
 from functions.campo_sueldo import llenar_formulario_sueldo
@@ -36,6 +35,9 @@ from functions.meses_busqueda import verificar_meses_busqueda
 
 from URLS.urls import URL_FORMULARIO, URL_LOGIN, URL_VERIFICACION
 
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
+
 # Configurar logging
 log_filename = f"automatizacion_aprendices_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.log"
 logging.basicConfig(
@@ -47,9 +49,6 @@ logging.basicConfig(
 # Cargar variables de entorno
 load_dotenv()
 
-RUTA_EXCEL = 'C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3324299.xls'
-
-
 # Mapeo de tipos de documento
 TIPOS_DOCUMENTO = {
     "CC": "1",
@@ -60,6 +59,10 @@ TIPOS_DOCUMENTO = {
     "PPT": "9"
 }
 
+
+# --- Variables Globales ---
+# Se definirán dentro de la función main para que sean accesibles en todo el script
+RUTA_EXCEL = ""
 
 chrome_options = Options()
 
@@ -73,114 +76,34 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 driver = webdriver.Chrome(options=chrome_options)
 wait = WebDriverWait(driver, 10)  # Espera explícita de 10 segundos
 
+# Definir estilos de colores para .xls
+style_procesando = xlwt.easyxf('pattern: pattern solid, fore_colour light_blue')
+style_procesado = xlwt.easyxf('pattern: pattern solid, fore_colour light_green')
+style_ya_existe = xlwt.easyxf('pattern: pattern solid, fore_colour light_yellow')
+style_error = xlwt.easyxf('pattern: pattern solid, fore_colour red')
 
-# --- Cargar el archivo Excel con pandas y preparar para colorear celdas ---
-try:
-    # Configurar pandas para leer correctamente los números de documento
-    pd.set_option('display.float_format', lambda x: '%.0f' % x)
-    
-    # Ruta del archivo Excel
-    print(f"RUTA_EXCEL --> {RUTA_EXCEL}")
-    
-    # Leer el archivo Excel, saltando las primeras 4 filas y definiendo los encabezados
-    # La fila 5 (índice 4) contiene los encabezados reales
-    df_raw = pd.read_excel(RUTA_EXCEL, header=None, engine='xlrd')
-    
-    # Extraer la información de la ficha desde las primeras filas
-    ficha_info = {
-        'Ficha': df_raw.iloc[1, 1] if df_raw.shape[0] > 1 and df_raw.shape[1] > 1 else "N/A",
-        'Estado': df_raw.iloc[2, 1] if df_raw.shape[0] > 2 and df_raw.shape[1] > 1 else "N/A",
-        'Fecha': df_raw.iloc[3, 1] if df_raw.shape[0] > 3 and df_raw.shape[1] > 1 else "N/A"
-    }
-    
-    logging.info(f"Información de ficha: {ficha_info}")
-    print(f"Información de ficha: {ficha_info}")
-    
-    # Ahora leemos el archivo nuevamente pero estableciendo la fila 5 como encabezado
-    df = pd.read_excel(RUTA_EXCEL, header=4, dtype={
-        'Número de Documento': str,
-        'Celular': str
-    }, engine='xlrd')
-    
-    # Verificar que se hayan cargado correctamente las columnas
-    expected_columns = ['Tipo de Documento', 'Número de Documento', 'Nombre', 
-                      'Apellidos', 'Celular', 'Correo Electrónico', 'Estado', 'Perfil Ocupacional']
-    
-    # Comprobar si existen las columnas esperadas (verificando parcialmente)
-    missing_columns = [col for col in expected_columns if not any(existing_col.startswith(col) for existing_col in df.columns)]
-    
-    if missing_columns:
-        logging.warning(f"Advertencia: No se encontraron algunas columnas esperadas: {missing_columns}")
-        logging.warning(f"Columnas disponibles: {df.columns.tolist()}")
-        print(f"Advertencia: No se encontraron algunas columnas esperadas: {missing_columns}")
-        print(f"Columnas disponibles: {df.columns.tolist()}")
-    
-    # Eliminar filas con valores NaN en la columna de documento
-    df = df.dropna(subset=['Número de Documento']).copy()
+def main(ruta_excel_param, progress_queue=None):
+    # Hacemos globales las variables que se usarán en todo el script
+    global RUTA_EXCEL, df, wb, sheet, read_sheet, column_indices, header_row
 
-    # Registrar información del archivo
-    logging.info(f"Archivo Excel cargado correctamente: {RUTA_EXCEL}")
-    logging.info(f"Total de registros: {len(df)}")
-    
-    # ----- PREPARAR EL ARCHIVO PARA COLOREAR CELDAS -----
-    # Cargar el libro de trabajo con xlrd para leer (necesario para formato)
-    rb = xlrd.open_workbook(RUTA_EXCEL, formatting_info=True)
-    # Hacer una copia editable
-    wb = copy(rb)
-    sheet = wb.get_sheet(0)  # Obtener la primera hoja
-    
-    # Definir estilos de colores para .xls
-    style_procesando = xlwt.easyxf('pattern: pattern solid, fore_colour light_blue')
-    style_procesado = xlwt.easyxf('pattern: pattern solid, fore_colour light_green')
-    style_ya_existe = xlwt.easyxf('pattern: pattern solid, fore_colour light_yellow')
-    style_error = xlwt.easyxf('pattern: pattern solid, fore_colour red')
-    
-    # Obtener la hoja de lectura
-    read_sheet = rb.sheet_by_index(0)
-    
-    # Encontrar los índices de las columnas en Excel
-    header_row = 4  # Fila 5 (índice 4) contiene los encabezados
-    column_indices = {}
-    
-    # Buscar las columnas por su nombre
-    for col in range(read_sheet.ncols):
-        cell_value = read_sheet.cell_value(header_row, col)
-        for expected_column in expected_columns:
-            if cell_value and expected_column in cell_value:
-                column_indices[expected_column] = col
-                break
-    
-    print(f"Índices de columnas encontrados: {column_indices}")
-    logging.info(f"Índices de columnas encontrados: {column_indices}")
-    
+    RUTA_EXCEL = ruta_excel_param
 
-    # Registrar información del archivo
-    logging.info(f"Archivo Excel cargado correctamente: {RUTA_EXCEL}")
-    logging.info(f"Total de registros: {len(df)}")
-    
-    # Mostrar las primeras filas para verificar la estructura
-    print("Estructura del archivo Excel:")
-    print(df.head())
-    
-except FileNotFoundError:
-    error_msg = f"Error: No se encontró el archivo Excel en la ruta: {RUTA_EXCEL}"
-    logging.error(error_msg)
-    print(error_msg)
-    exit()
-except Exception as e:
-    error_msg = f"Error al abrir el archivo Excel: {str(e)}"
-    logging.error(error_msg)
-    print(error_msg)
-    exit()
-
-def main():
+    try:
+        # Llamamos a la nueva función para preparar el Excel
+        df, wb, sheet, read_sheet, column_indices, header_row = preparar_excel(RUTA_EXCEL)
+        logging.info(f"Archivo Excel '{RUTA_EXCEL}' cargado y listo para procesar.")
+        print(f" Archivo Excel '{os.path.basename(RUTA_EXCEL)}' cargado y listo.")
+    except (FileNotFoundError, Exception) as e:
+        logging.error(f"Error fatal al preparar el archivo Excel: {e}")
+        print(f" Error fatal al preparar el archivo Excel: {e}")
+        return # Salir de la función main si no se puede cargar el Excel
 
     try:
         # Realizar login
         if not login(driver):
             logging.error("No se pudo completar el login. Abortando proceso.")
             return
-            
+
         # Establecer los nombres de columnas según tu archivo Excel
         COLUMNA_TIPO_DOC = 'Tipo de Documento'
         COLUMNA_NUM_DOC = 'Número de Documento'
@@ -203,6 +126,10 @@ def main():
             # El índice real en Excel es el índice en pandas + 6 (header_row + 2)
             excel_row = i + header_row + 1
             
+            # Enviar progreso a la GUI si la cola está disponible
+            if progress_queue:
+                progress_queue.put(("progress", (i + 1, total_registros)))
+
             # Inicializar variables para evitar errores en bloques except
             nombres = "Sin nombre"
             apellidos = "Sin apellido"
@@ -346,7 +273,7 @@ def main():
                             wb.save(RUTA_EXCEL)
                             contador_errores += 1
                     else:
-                        print("❌ No se pudo completar la pre-inscripción")
+                        print(" No se pudo completar la pre-inscripción")
                         # Colorear fila como error
                         for col_name, col_idx in column_indices.items():
                             try:
@@ -382,7 +309,7 @@ def main():
                     
             except Exception as e:
                 logging.error(f"Error procesando estudiante {nombres} {apellidos}: {str(e)}")
-                print(f"❌ Error procesando estudiante {nombres} {apellidos}: {str(e)}")
+                print(f" Error procesando estudiante {nombres} {apellidos}: {str(e)}")
                 
                 # Colorear fila como error
                 for col_name, col_idx in column_indices.items():
@@ -445,15 +372,16 @@ def main():
             
     except Exception as e:
         logging.error(f"Error general en el proceso: {str(e)}")
-        print(f"❌ Error general: {str(e)}")
+        print(f"Error general: {str(e)}")
         
     finally:
         # Cerrar el navegador al finalizar
         driver.quit()
         logging.info("Navegador cerrado")
         print("🔒 Navegador cerrado")
-
+        
 if __name__ == "__main__":
-        main()
-
-
+    import sys
+    if len(sys.argv) > 1:
+        ruta_archivo_excel = sys.argv[1]
+        main(ruta_archivo_excel)
