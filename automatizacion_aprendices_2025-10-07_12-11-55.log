@@ -1,7 +1,0 @@
-2025-10-07 12:12:01,487 - INFO - Información de ficha: {'Ficha': nan, 'Estado': nan, 'Fecha': nan}
-2025-10-07 12:12:01,490 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3322132.xls
-2025-10-07 12:12:01,490 - INFO - Total de registros: 49
-2025-10-07 12:12:01,493 - INFO - Índices de columnas encontrados: {'Tipo de Documento': 0, 'Número de Documento': 1, 'Nombre': 2, 'Apellidos': 3, 'Celular': 4, 'Correo Electrónico': 5, 'Estado': 6, 'Perfil Ocupacional': 8}
-2025-10-07 12:12:01,493 - INFO - Archivo Excel cargado correctamente: C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3322132.xls
-2025-10-07 12:12:01,493 - INFO - Total de registros: 49
-2025-10-07 12:12:01,498 - ERROR - Error fatal al preparar el archivo Excel: cannot unpack non-iterable NoneType object
