@@ -1,1 +1,8 @@
+# ignorar credenciales
 .env
+
+# ignorar logs
+*.log
+
+# ignorar imagenes
+*.png
