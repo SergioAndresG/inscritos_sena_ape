@@ -12,7 +12,7 @@ from automatizacion import main
 # Establecemos temas de la ventana
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("green")
-
+                                                                                                                                                                                                                                                                                                                                                                       
 """ 
 Clase App:
     - Hereda de ctk.CTk, que es la ventana principal de la aplicación
