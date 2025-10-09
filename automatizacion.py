@@ -32,7 +32,7 @@ from funciones_automatizacion.verificacion import verificar_estudiante_con_CC_pr
 from funciones_automatizacion.form_datos_residencia import llenar_formulario_ubicacion_residencia
 from funciones_automatizacion.meses_busqueda import verificar_meses_busqueda
 
-from funciones_loggs.preparacion_loggs import loggs
+from funciones_loggs.loggs_funciones import loggs
 
 from URLS.urls import URL_FORMULARIO, URL_LOGIN, URL_VERIFICACION
 
