@@ -25,8 +25,6 @@ class App(ctk.CTk):
         
         super().__init__()
         
-        
-
         # Establece el titulo de la ventana
         self.title("Automatización de Aprendices SENA")
         # Establece el tamaño de la ventana
