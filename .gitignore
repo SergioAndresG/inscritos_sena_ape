@@ -7,6 +7,6 @@
 # ignorar imagenes
 *.png
 
-# ignorar archivos py
+# if
 *.pyc
 _pycache_/
