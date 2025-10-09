@@ -17,34 +17,31 @@ from selenium.webdriver.chrome.options import Options
 import xlrd
 import xlwt
 from xlutils.copy import copy
-from functions.preparar_excel import preparar_excel
-from functions.login import login
-from functions.campo_estrato import llenar_estrato
-from functions.campo_sueldo import llenar_formulario_sueldo
-from functions.campo_telefono_correo import llenar_formulario_telefono_correo
-from functions.experincia_laboral_campos import experiencia_laboral
-from functions.form_campo_estado_civil import llenar_formulario_estado_civil
-from functions.form_campo_perfil_ocupacional import llenar_input_perfil_ocupacional
-from functions.form_campos_nacimiento import llenar_formulario_ubicaciones_nacimiento
-from functions.form_campos_ubicacion_identificacion import llenar_formulario_ubicaciones
-from functions.pre_inscripcion import llenar_datos_antes_de_inscripcion
-from functions.verificacion import verificar_estudiante_con_CC_primero, verificar_estudiante
-from functions.form_datos_residencia import llenar_formulario_ubicacion_residencia
-from functions.meses_busqueda import verificar_meses_busqueda
+from funciones_automatizacion.preparar_excel import preparar_excel
+from funciones_automatizacion.login import login
+from funciones_automatizacion.campo_estrato import llenar_estrato
+from funciones_automatizacion.campo_sueldo import llenar_formulario_sueldo
+from funciones_automatizacion.campo_telefono_correo import llenar_formulario_telefono_correo
+from funciones_automatizacion.experincia_laboral_campos import experiencia_laboral
+from funciones_automatizacion.form_campo_estado_civil import llenar_formulario_estado_civil
+from funciones_automatizacion.form_campo_perfil_ocupacional import llenar_input_perfil_ocupacional
+from funciones_automatizacion.form_campos_nacimiento import llenar_formulario_ubicaciones_nacimiento
+from funciones_automatizacion.form_campos_ubicacion_identificacion import llenar_formulario_ubicaciones
+from funciones_automatizacion.pre_inscripcion import llenar_datos_antes_de_inscripcion
+from funciones_automatizacion.verificacion import verificar_estudiante_con_CC_primero, verificar_estudiante
+from funciones_automatizacion.form_datos_residencia import llenar_formulario_ubicacion_residencia
+from funciones_automatizacion.meses_busqueda import verificar_meses_busqueda
 
+from funciones_loggs.preparacion_loggs import loggs
 
 from URLS.urls import URL_FORMULARIO, URL_LOGIN, URL_VERIFICACION
 
 import sys
+
 sys.stdout.reconfigure(encoding='utf-8')
 
-# Configurar logging
-log_filename = f"automatizacion_aprendices_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.log"
-logging.basicConfig(
-    filename=log_filename,
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
+#Funcion que preapara los logs en un archivo y maneja su durabilidad en la aplicación
+loggs()
 
 # Cargar variables de entorno
 load_dotenv()
