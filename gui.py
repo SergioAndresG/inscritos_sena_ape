@@ -32,6 +32,7 @@ class App(ctk.CTk):
         # Establece el tamaño de la ventana
         self.geometry("800x700")
         self.resizable(True, True) # Permitir redimensionar
+        self.iconbitmap("Iconos/logoSena.ico")
 
         # Etiqueta para seleccionar el archivo de excel
         self.label = ctk.CTkLabel(self, text="Selecciona el archivo Excel:")
