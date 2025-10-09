@@ -82,11 +82,28 @@ style_procesado = xlwt.easyxf('pattern: pattern solid, fore_colour light_green')
 style_ya_existe = xlwt.easyxf('pattern: pattern solid, fore_colour light_yellow')
 style_error = xlwt.easyxf('pattern: pattern solid, fore_colour red')
 
+class QueueStream:
+    """Un objeto tipo archivo que escribe en una cola de progreso."""
+    def __init__(self, queue):
+        self.queue = queue
+
+    def write(self, text):
+        # Envía el texto a la cola para que la GUI lo muestre.
+        if self.queue:
+            self.queue.put(("log", text))
+
+    def flush(self):
+        # Necesario para la interfaz de archivo, pero no hace nada aquí.
+        pass
+
 def main(ruta_excel_param, progress_queue=None):
     # Hacemos globales las variables que se usarán en todo el script
     global RUTA_EXCEL, df, wb, sheet, read_sheet, column_indices, header_row
 
     RUTA_EXCEL = ruta_excel_param
+    original_stdout = sys.stdout  # Guardar la salida estándar original
+    if progress_queue:
+        sys.stdout = QueueStream(progress_queue) # Redirigir print() a la GUI
 
     try:
         # Llamamos a la nueva función para preparar el Excel
@@ -166,7 +183,7 @@ def main(ruta_excel_param, progress_queue=None):
                 perfil_ocupacional = str(fila[COLUMNA_PERFIL])
                 
                 logging.info(f"Procesando estudiante {i+1}/{total_registros}: {nombres} {apellidos}")
-                print(f"\n===== Procesando estudiante {i+1}/{total_registros}: {nombres} {apellidos} =====\n")
+                print( f"\n===== Procesando estudiante {i+1}/{total_registros}: {nombres} {apellidos} =====\n")
                 
                 # Verificar si el estudiante ya existe
                 existe = verificar_estudiante_con_CC_primero(tipo_doc, num_doc, nombres, apellidos, driver, wait)
@@ -375,6 +392,7 @@ def main(ruta_excel_param, progress_queue=None):
         print(f"Error general: {str(e)}")
         
     finally:
+        sys.stdout = original_stdout # Restaurar la salida estándar
         # Cerrar el navegador al finalizar
         driver.quit()
         logging.info("Navegador cerrado")
