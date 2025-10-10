@@ -1,4 +1,6 @@
 import time
+import os
+import re
 import logging
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -8,6 +10,21 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
+
+dir_screenchost = "Screenschot"
+os.makedirs(dir_screenchost, exist_ok=True)
+
+def limpiar_texto(texto):
+    """Normaliza el texto eliminando espacios múltiples y conservando un solo espacio entre palabras."""
+    if not isinstance(texto, str):
+        return ""
+    return ' '.join(texto.strip().split())
+
+def limpiar_alfanumerico(texto):
+    """Elimina espacios y símbolos, dejando solo caracteres alfanuméricos."""
+    if not isinstance(texto, str):
+        return ""
+    return re.sub(r'[^a-zA-Z0-9]', '', texto)
 
 def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
     """Llena los campos de nombres, apellidos, fecha de nacimiento y género antes de la inscripción exhaustiva."""
@@ -19,7 +36,7 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
         print("Esperando que el formulario de pre-inscripción cargue...")
         
         # Capturar screenshot antes de interactuar con el formulario
-        driver.save_screenshot(f"pre_inscripcion_{int(time.time())}.png")
+        os.path.join(driver.save_screenshot(dir_screenchost, f"pre_inscripcion_{int(time.time())}.png"))
         
         # --- Nombres ---
         print("Buscando campo de nombres...")
@@ -164,7 +181,6 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                     driver.execute_script("arguments[0].click();", botonVerificar)
                     print("✅ Se hizo clic en el botón para verificar")
                     logging.info("Se hizo clic en el botón para verificar")
-                    
                     # Esperar un momento para que se procese la verificación
                     time.sleep(2)
                     
@@ -208,27 +224,52 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
         driver.save_screenshot(f"error_pre_inscripcion_{int(time.time())}.png")
         return False
 
+
 def determinar_genero(nombre):
     """Intenta determinar el género a partir del nombre."""
     nombre = nombre.lower()
+    
+    # Nombres Femeninos (100)
     nombres_femeninos = [
-    'ana', 'maria', 'sofia', 'isabella', 'valentina', 'camila', 'mariana', 'laura',
-    'daniela', 'valeria', 'liz', 'ariana', 'lizeth', 'danna', 'paula', 'juliana',
-    'karla', 'alejandra', 'fernanda', 'samantha', 'antonella', 'lucia', 'martina',
-    'renata', 'ximena', 'gabriela', 'carolina', 'viviana', 'melany', 'abigail',
-    'regina', 'andrea', 'joselyn', 'salome', 'emilia', 'angelica', 'micaela',
-    'jazmin', 'alison', 'karen', 'rosario', 'estrella', 'araceli', 'joana',
-    'milena', 'tania', 'yaqueline', 'noelia', 'vanessa', 'brenda'
-    ] #nombres femeninos
+        'ana', 'maria', 'sofia', 'isabella', 'valentina', 'camila', 'mariana', 'laura',
+        'daniela', 'valeria', 'liz', 'ariana', 'lizeth', 'danna', 'paula', 'juliana',
+        'karla', 'alejandra', 'fernanda', 'samantha', 'antonella', 'lucia', 'martina',
+        'renata', 'ximena', 'gabriela', 'carolina', 'viviana', 'melany', 'abigail',
+        'regina', 'andrea', 'joselyn', 'salome', 'emilia', 'angelica', 'micaela',
+        'jazmin', 'alison', 'karen', 'rosario', 'estrella', 'araceli', 'joana',
+        'milena', 'tania', 'yaqueline', 'noelia', 'vanessa', 'brenda',
+        'helena', 'victoria', 'adriana', 'irene', 'elena', 'claudia', 'erika', 'natalia',
+        'giselle', 'rocío', 'verónica', 'elisa', 'cristina', 'patricia', 'eugenia',
+        'amanda', 'celia', 'ines', 'monica', 'beatriz', 'linda', 'mercedes', 'doris',
+        'alicia', 'berta', 'cecilia', 'diana', 'gloria', 'hortensia', 'juana', 'martha',
+        'rebeca', 'teresa', 'yolanda', 'elizabeth', 'isabel', 'aisha', 'penelope',
+        'catalina', 'alondra', 'esmeralda', 'delfina', 'maite', 'carmen', 'pilar',
+        'consuelo', 'esperanza', 'aura', 'iris', 'grecia', 'kiara', 'mayra', 'nayeli',
+        'bianca', 'ciara', 'zoe', 'luna', 'chloe', 'sara', 'eva', 'mía', 'nora',
+        'olivia', 'vera', 'maya', 'gala', 'dalia', 'kendra', 'kelly', 'kimberly',
+        'leslie', 'lorena', 'margarita', 'nadia', 'nicole', 'paloma', 'sandra'
+    ]
+    
+    # Nombres Masculinos (100)
     nombres_masculinos = [
-    'juan', 'carlos', 'luis', 'andres', 'sebastian', 'mateo', 'santiago', 'alejandro',
-    'daniel', 'gabriel', 'miguel', 'jose', 'diego', 'tomás', 'manuel', 'antonio',
-    'adrian', 'julian', 'felipe', 'fernando', 'ricardo', 'rafael', 'pedro', 'joel',
-    'nicolas', 'emiliano', 'marcos', 'david', 'lucas', 'cristian', 'axel', 'isaac',
-    'eduardo', 'hugo', 'benjamin', 'matias', 'victor', 'francisco', 'gael',
-    'esteban', 'jeronimo', 'ian', 'rodrigo', 'bryan', 'elias', 'mauricio', 'raul',
-    'alvaro', 'omar', 'julio'
-    ] #nombres masculinos
+        'juan', 'carlos', 'luis', 'andres', 'sebastian', 'mateo', 'santiago', 'alejandro',
+        'daniel', 'gabriel', 'miguel', 'jose', 'diego', 'tomás', 'manuel', 'antonio',
+        'adrian', 'julian', 'felipe', 'fernando', 'ricardo', 'rafael', 'pedro', 'joel',
+        'nicolas', 'emiliano', 'marcos', 'david', 'lucas', 'cristian', 'axel', 'isaac',
+        'eduardo', 'hugo', 'benjamin', 'matias', 'victor', 'francisco', 'gael',
+        'esteban', 'jeronimo', 'ian', 'rodrigo', 'bryan', 'elias', 'mauricio', 'raul',
+        'alvaro', 'omar', 'julio', 'alberto', 'arturo', 'javier', 'sergio', 'oscar', 
+        'héctor', 'enrique', 'pablo',
+        'ramón', 'roberto', 'alfonso', 'camilo', 'dario', 'erick', 'gonzalo', 'guillermo',
+        'horacio', 'ignacio', 'jaime', 'jorge', 'leonardo', 'marcelo', 'néstor', 'oreste',
+        'pascual', 'ramiro', 'rené', 'rubén', 'salvador', 'teodoro', 'ulises', 'vicente',
+        'walter', 'xavier', 'yair', 'abel', 'alan', 'benito', 'braulio', 'césar',
+        'demian', 'denis', 'efrén', 'fabian', 'gregorio', 'iker', 'israel', 'jesús',
+        'kevin', 'leo', 'maximiliano', 'neil', 'oliver', 'pablo', 'quique', 'samuel',
+        'tito', 'toni', 'troy', 'unai', 'yago', 'zenón', 'saúl', 'josué', 'noé',
+        'amadeo', 'apolonio', 'basilio', 'cipriano', 'cleto', 'domenico', 'fabio',
+        'federico', 'hernan', 'leonel'
+    ] 
 
     primer_nombre = nombre.split(' ')[0] # Tomamos el primer nombre
 
