@@ -41,7 +41,7 @@ def login(driver):
         logging.info("Abriendo página de login...")
         
         wait.until(
-            EC.visibility_of_element_located((By.ID, "content-load"))
+            EC.invisibility_of_element_located((By.ID, "content-load"))
         )
         
         # Esperar a que el radio button esté disponible
