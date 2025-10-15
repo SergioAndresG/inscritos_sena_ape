@@ -217,11 +217,15 @@ def main(ruta_excel_param, progress_queue=None):
                     # Llenar los datos iniciales
                     if llenar_datos_antes_de_inscripcion(nombres, apellidos, driver):
                         print("Pre-inscripción completada. Esperando formulario completo...")
-                        # Esperar a que cargue el formulario completo
+                        
+                        # Esperar a que cargue el formulario este visible y no este el load
                         wait.until(EC.invisibility_of_element_located((By.ID, "content-load")))
                         wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "well")))
-                        
+
+                        # verificamos que no tenga meses de busqueda dentro del fomulario
                         ya_registrado = verificar_meses_busqueda(driver)
+                        
+                        # si los tiene pasamos con el siguiente usuario
                         if ya_registrado:
                             logging.info(f"El estudiante {nombres} {apellidos} ya está registrado (mesesBusqueda > 1). Pasando al siguiente.")
                             print(f"✅ El estudiante {nombres} {apellidos} ya está registrado. Pasando al siguiente.")
@@ -232,9 +236,14 @@ def main(ruta_excel_param, progress_queue=None):
                                     sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_ya_existe)
                                 except Exception as e:
                                     print(f"Error al colorear celda {col_name}: {str(e)}")
+                                    
+                            # Guardamos en el archivo la modificacion del estudiante
                             wb.save(RUTA_EXCEL)
+                            # Aumentamos el contador
                             contador_ya_existentes += 1
                             continue  # Pasar al siguiente estudiante
+                        
+                        
                         # Verificar si estamos en la página del formulario completo
                         if driver.current_url == URL_FORMULARIO or "formulario" in driver.current_url.lower():
                             print("Formulario completo detectado. Procediendo a llenar...")
