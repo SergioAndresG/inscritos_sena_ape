@@ -2,21 +2,16 @@ import os
 import time
 import sys
 import logging
-from datetime import datetime
-import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from dotenv import load_dotenv
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
-import xlrd
 import xlwt
-from xlutils.copy import copy
 from funciones_automatizacion.preparar_excel import preparar_excel
 from funciones_automatizacion.login import login
 from funciones_automatizacion.campo_estrato import llenar_estrato
@@ -31,12 +26,8 @@ from funciones_automatizacion.pre_inscripcion import llenar_datos_antes_de_inscr
 from funciones_automatizacion.verificacion import verificar_estudiante_con_CC_primero, verificar_estudiante
 from funciones_automatizacion.form_datos_residencia import llenar_formulario_ubicacion_residencia
 from funciones_automatizacion.meses_busqueda import verificar_meses_busqueda
-
 from funciones_loggs.loggs_funciones import loggs
-
-from URLS.urls import URL_FORMULARIO, URL_LOGIN, URL_VERIFICACION
-
-import sys
+from URLS.urls import URL_FORMULARIO, URL_VERIFICACION
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -56,7 +47,6 @@ TIPOS_DOCUMENTO = {
     "PPT": "9"
 }
 
-
 # --- Variables Globales ---
 # Se definirán dentro de la función main para que sean accesibles en todo el script
 RUTA_EXCEL = ""
@@ -70,7 +60,9 @@ chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 
-driver = webdriver.Chrome(options=chrome_options)
+
+service = ChromeService(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service, options=chrome_options)
 wait = WebDriverWait(driver, 10)  # Espera explícita de 10 segundos
 
 # Definir estilos de colores para .xls
@@ -226,7 +218,8 @@ def main(ruta_excel_param, progress_queue=None):
                     if llenar_datos_antes_de_inscripcion(nombres, apellidos, driver):
                         print("Pre-inscripción completada. Esperando formulario completo...")
                         # Esperar a que cargue el formulario completo
-                        time.sleep(3)
+                        wait.until(EC.invisibility_of_element_located((By.ID, "content-load")))
+                        wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "well")))
                         
                         ya_registrado = verificar_meses_busqueda(driver)
                         if ya_registrado:
