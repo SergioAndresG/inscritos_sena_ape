@@ -36,7 +36,8 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
         print("Esperando que el formulario de pre-inscripción cargue...")
         
         # Capturar screenshot antes de interactuar con el formulario
-        os.path.join(driver.save_screenshot(dir_screenchost, f"pre_inscripcion_{int(time.time())}.png"))
+        ruta_completa = os.path.join(dir_screenchost,f"pre_inscripcion_{int(time.time())}.png")
+        driver.save_screenshot(ruta_completa)
         
         # --- Nombres ---
         print("Buscando campo de nombres...")
@@ -53,9 +54,8 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
             # Interactuar con el campo
             campo_nombres_pre.click()
             campo_nombres_pre.clear()
-            for letra in nombres_excel:
-                campo_nombres_pre.send_keys(letra)
-                time.sleep(0.05)
+            campo_nombres_pre.send_keys(nombres_excel)
+
                 
             print(f"✅ Se llenó el campo Nombres con: {nombres_excel}")
             logging.info(f"Se llenó el campo Nombres con: {nombres_excel}")
