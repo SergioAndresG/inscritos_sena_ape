@@ -14,6 +14,7 @@ from selenium.webdriver.chrome.options import Options
 dir_screenchost = "Screenschot"
 os.makedirs(dir_screenchost, exist_ok=True)
 
+
 def limpiar_texto(texto):
     """Normaliza el texto eliminando espacios múltiples y conservando un solo espacio entre palabras."""
     if not isinstance(texto, str):
@@ -29,8 +30,8 @@ def limpiar_alfanumerico(texto):
 def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
     """Llena los campos de nombres, apellidos, fecha de nacimiento y género antes de la inscripción exhaustiva."""
     try:
+        # Imprimos los datos que se van a llenra
         logging.info(f"Intentando llenar los campos antes de la inscripción con: {nombres_excel} {apellidos_excel}")
-        logging.info(f"URL actual: {driver.current_url}")
         
         # Esperar a que la página de pre-inscripción cargue completamente
         print("Esperando que el formulario de pre-inscripción cargue...")
@@ -84,10 +85,10 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                 campo_primer_apellido_pre.send_keys(letra)
                 time.sleep(0.05)
                 
-            print(f"✅ Se llenó el campo Primer apellido con: {primer_apellido}")
+            print(f"Se llenó el campo Primer apellido con: {primer_apellido}")
             logging.info(f"Se llenó el campo Primer apellido con: {primer_apellido}")
         except Exception as e:
-            print(f"❌ Error al llenar el campo Primer apellido: {str(e)}")
+            print(f"Error al llenar el campo Primer apellido: {str(e)}")
             logging.error(f"Error al llenar el campo Primer apellido: {str(e)}")
 
         try:
@@ -105,10 +106,10 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                 campo_segundo_apellido_pre.send_keys(letra)
                 time.sleep(0.05)
                 
-            print(f"✅ Se llenó el campo Segundo apellido con: {segundo_apellido}")
+            print(f"Se llenó el campo Segundo apellido con: {segundo_apellido}")
             logging.info(f"Se llenó el campo Segundo apellido con: {segundo_apellido}")
         except Exception as e:
-            print(f"❌ Error al llenar el campo Segundo apellido: {str(e)}")
+            print(f"Error al llenar el campo Segundo apellido: {str(e)}")
             logging.error(f"Error al llenar el campo Segundo apellido: {str(e)}")
 
         # --- Fecha de Nacimiento ---
@@ -125,10 +126,10 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
             campo_fecha_nacimiento.clear()
             campo_fecha_nacimiento.send_keys('01-01-2000')  # Formato DDMMYYYY
             
-            print("✅ Se llenó el campo Fecha de Nacimiento con: 01-01-2000")
-            logging.info("Se llenó el campo Fecha de Nacimiento con: 01-01-2000")
+            print("Se llenó el campo Fecha de Nacimiento")
+            logging.info("Se llenó el campo Fecha de Nacimiento")
         except Exception as e:
-            print(f"❌ Error al llenar el campo Fecha de Nacimiento: {str(e)}")
+            print(f"Error al llenar el campo Fecha de Nacimiento: {str(e)}")
             logging.error(f"Error al llenar el campo Fecha de Nacimiento: {str(e)}")
 
         # --- Género ---
@@ -142,7 +143,7 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                     EC.element_to_be_clickable((By.NAME, 'genero'))
                 )
                             
-                # Haz scroll hacia el elemento
+                # Hacer scroll hacia el elemento
                 driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", elemento_genero)
                 time.sleep(0.5)
 
@@ -154,17 +155,17 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                 selector_genero.select_by_value(genero)
                 time.sleep(1)
                 
-                print(f"✅ Se seleccionó el género: {genero} ({'Femenino' if genero == '1' else 'Masculino'})")
+                print(f"Se seleccionó el género: {genero} ({'Femenino' if genero == '1' else 'Masculino'})")
                 logging.info(f"Se seleccionó el género: {genero} ({'Femenino' if genero == '1' else 'Masculino'})")
             else:
-                print("⚠️ No se pudo determinar el género, intentando seleccionar por defecto Masculino")
+                print("No se pudo determinar el género, intentando seleccionar por defecto Masculino")
                 selector_genero = Select(WebDriverWait(driver, 8).until(
                     EC.element_to_be_clickable((By.NAME, 'genero'))
                 ))
                 selector_genero.select_by_value('0')  # Masculino por defecto
                 logging.warning(f"No se pudo determinar el género para: {nombres_excel}, se seleccionó Masculino por defecto")
         except Exception as e:
-            print(f"❌ Error al seleccionar el género: {str(e)}")
+            print(f"Error al seleccionar el género: {str(e)}")
             logging.error(f"Error al seleccionar el género: {str(e)}")
 
         # Verificar si hay un botón para continuar y hacer clic en él
@@ -179,7 +180,7 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                     driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", botonVerificar)
                     time.sleep(0.5)
                     driver.execute_script("arguments[0].click();", botonVerificar)
-                    print("✅ Se hizo clic en el botón para verificar")
+                    print("Se hizo clic en el botón para verificar")
                     logging.info("Se hizo clic en el botón para verificar")
                     # Esperar un momento para que se procese la verificación
                     time.sleep(2)
@@ -195,34 +196,26 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                             driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", botonContinuar)
                             time.sleep(0.5)
                             driver.execute_script("arguments[0].click();", botonContinuar)
-                            print("✅ Se hizo clic en el botón para continuar/inscribir")
+                            print("Se hizo clic en el botón para continuar/inscribir")
                             logging.info("Se hizo clic en el botón para continuar/inscribir")
                         else:
-                            print("⚠️ El botón para continuar/inscribir no está visible")
+                            print("El botón para continuar/inscribir no está visible")
                     except Exception as e:
-                        print(f"❌ Error al buscar/hacer clic en el botón continuar/inscribir: {str(e)}")
+                        print(f"Error al buscar/hacer clic en el botón continuar/inscribir: {str(e)}")
                         logging.error(f"Error al buscar/hacer clic en el botón continuar/inscribir: {str(e)}")
                 else:
-                    print("⚠️ El botón para verificar no está visible")
+                    print("El botón para verificar no está visible")
             except Exception as e:
-                print(f"❌ Error al buscar/hacer clic en el botón verificar: {str(e)}")
+                print(f"Error al buscar/hacer clic en el botón verificar: {str(e)}")
                 logging.error(f"Error al buscar/hacer clic en el botón verificar: {str(e)}")
 
         except Exception as e:
-            print(f"❌ Error general al manejar los botones: {str(e)}")
+            print(f"Error general al manejar los botones: {str(e)}")
             logging.error(f"Error general al manejar los botones: {str(e)}")
-        # Capturar screenshot después de llenar el formulario
-        driver.save_screenshot(f"pre_inscripcion_completada_{int(time.time())}.png")
-        print("✅ Formulario de pre-inscripción completado")
         return True
-
     except Exception as e:
         logging.error(f"Error general al llenar los campos antes de la inscripción: {str(e)}")
-        print(f"❌ Error general al llenar los campos antes de inscripción: {str(e)}")
-        
-        # Capturar screenshot en caso de error
-        driver.save_screenshot(f"error_pre_inscripcion_{int(time.time())}.png")
-        return False
+        print(f"Error general al llenar los campos antes de inscripción: {str(e)}")
 
 
 def determinar_genero(nombre):
