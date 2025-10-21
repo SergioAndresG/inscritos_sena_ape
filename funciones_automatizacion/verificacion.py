@@ -83,16 +83,11 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait):
             # Completar número de documento
             print("Ingresando número de documento...")
             campo_num_id.click()
-
-            wait.until(lambda d: campo_num_id.get_attribute('value') == '' or True)
             campo_num_id.clear()
-            # Ingresar el documento
-            campo_num_id.send_keys(str(num_doc))
-
-            wait.until(lambda d: campo_num_id.get_attribute('value') == '' or str(num_doc))
+            
+            wait.until(lambda d: campo_num_id.get_attribute('value') == str(num_doc))
             print(f"Documento ingresado: {num_doc}")
             
-
             # Hacer clic en buscar con JavaScript
             print("Haciendo clic en buscar...")
             boton_buscar = wait.until(EC.presence_of_element_located((By.XPATH, "//button[@id='btnBuscar']")))
@@ -109,14 +104,11 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait):
             print("Esperando resultados...")
 
             # Esperar que aparezca algún contenido (tabla o formulario)
-            wait.until(EC.any_of(
-                EC.presence_of_element_located((By.TAG_NAME, 'table')),
-                EC.presence_of_element_located(By.TAG_NAME, 'nombres')
-            ))
+            wait.until(lambda d: len(d.find_element(By.CSS_SELECTOR, '#bus-table_wrapper tbody tr')) > 0)
 
             # VERIFICAR LA EXSITENCIA DEL USUARIO
             # 1. Verificar si hay una tabla de resultados con datos
-            tablas = driver.find_elements(By.TAG_NAME, "table")
+            tablas = driver.find_elements(By.ID, "bus-table_wrapper")
             for tabla in tablas:
                 if tabla.is_displayed():
                     filas = tabla.find_elements(By.TAG_NAME, "tr")
