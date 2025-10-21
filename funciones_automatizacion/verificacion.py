@@ -1,24 +1,9 @@
 import os
 import time
 import logging
-from datetime import datetime
-import pandas as pd
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from dotenv import load_dotenv
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options
-import traceback
-from openpyxl import load_workbook
-from openpyxl.styles import PatternFill
-import xlrd
-import xlwt
-from xlutils.copy import copy
 
 
 URL_VERIFICACION = 'https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta'
@@ -124,8 +109,10 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait):
             print("Esperando resultados...")
 
             # Esperar que aparezca algún contenido (tabla o formulario)
-            wait.until(lambda d: len(d.find_elements(By.TAG_NAME, 'table')) > 0 or 
-                                len(d.find_elements(By.NAME, 'nombres')) > 0)
+            wait.until(EC.any_of(
+                EC.presence_of_element_located((By.TAG_NAME, 'table')),
+                EC.presence_of_element_located(By.TAG_NAME, 'nombres')
+            ))
 
             # VERIFICAR LA EXSITENCIA DEL USUARIO
             # 1. Verificar si hay una tabla de resultados con datos
