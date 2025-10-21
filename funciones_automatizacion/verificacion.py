@@ -37,8 +37,7 @@ TIPOS_DOCUMENTO = {
 def verificar_estudiante_con_CC_primero(tipo_doc, num_doc, nombres, apellidos, driver, wait):
     """
     Intenta verificar al estudiante primero con CC, y luego con el tipo de documento
-    original solo si no se encontró con CC.
-    """
+    original solo si no se encontró con CC."""
     if tipo_doc == "CC":
         # Si ya es CC, verificamos directamente
         print("Tipo de documento ya es CC, verificando directamente...")
@@ -75,9 +74,6 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait):
             
             logging.info(f"Verificando estudiante: {nombres} {apellidos} - Documento: {num_doc} - Tipo Doc: {tipo_doc}")
             
-            # Limpiar caché y cookies antes de interactuar
-            # Esperar un momento después de limpiar
-            time.sleep(1)
             
             # Seleccionar tipo de documento
             tipo_doc_dropdown = wait.until(EC.element_to_be_clickable((By.ID, 'dropTipoIdentificacion')))
@@ -86,48 +82,52 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait):
             
             # Crear el objeto Select
             selector = Select(tipo_doc_dropdown)
-            
             # Seleccionar tipo de documento
             value_tipo_doc = TIPOS_DOCUMENTO.get(tipo_doc)
+
             if value_tipo_doc:
                 print(f"Seleccionando valor: {value_tipo_doc}")
                 selector.select_by_value(value_tipo_doc)
             else:
                 print(f"Seleccionando texto visible: {tipo_doc}")
                 selector.select_by_visible_text(tipo_doc)
-            
-            time.sleep(1.5)
+                
+            campo_num_id = wait.until(EC.element_to_be_clickable((By.ID, 'numeroIdentificacion')))
+            driver.execute_script("arguments[0].scrollIntoView(true);", campo_num_id)
             
             # Completar número de documento
             print("Ingresando número de documento...")
-            campo_num_id = wait.until(EC.element_to_be_clickable((By.ID, 'numeroIdentificacion')))
-            driver.execute_script("arguments[0].scrollIntoView(true);", campo_num_id)
             campo_num_id.click()
-            time.sleep(0.5)
+
+            wait.until(lambda d: campo_num_id.get_attribute('value') == '' or True)
             campo_num_id.clear()
-            time.sleep(0.5)
-            
-            # Ingresar dígito por dígito
-            for digito in str(num_doc):
-                campo_num_id.send_keys(digito)
-                time.sleep(0.1)
-            
+            # Ingresar el documento
+            campo_num_id.send_keys(str(num_doc))
+
+            wait.until(lambda d: campo_num_id.get_attribute('value') == '' or str(num_doc))
             print(f"Documento ingresado: {num_doc}")
-            time.sleep(1)
             
+
             # Hacer clic en buscar con JavaScript
             print("Haciendo clic en buscar...")
             boton_buscar = wait.until(EC.presence_of_element_located((By.XPATH, "//button[@id='btnBuscar']")))
             driver.execute_script("arguments[0].scrollIntoView(true);", boton_buscar)
-            time.sleep(0.5)
             driver.execute_script("arguments[0].click();", boton_buscar)
             
-            # Esperar tiempo para asegurar que los resultados se carguen
+           # Esperar que aparezca el loader y luego desaparezca
+            try:
+                wait.until(EC.visibility_of_element_located((By.ID, 'content-load')))
+            except:
+                pass  # Si no aparece el loader, continuar
+            
             wait.until(EC.invisibility_of_element_located((By.ID, 'content-load')))
             print("Esperando resultados...")
-            time.sleep(2)
-            
-            # VERIFICACIÓN DE EXISTENCIA
+
+            # Esperar que aparezca algún contenido (tabla o formulario)
+            wait.until(lambda d: len(d.find_elements(By.TAG_NAME, 'table')) > 0 or 
+                                len(d.find_elements(By.NAME, 'nombres')) > 0)
+
+            # VERIFICAR LA EXSITENCIA DEL USUARIO
             # 1. Verificar si hay una tabla de resultados con datos
             tablas = driver.find_elements(By.TAG_NAME, "table")
             for tabla in tablas:
@@ -140,12 +140,9 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait):
             # 2. Verificar si aparece un formulario para completar datos (caso en que no existe)
             try:
                 # Buscar campos típicos del formulario de pre-inscripción
-                campos_formulario = [
-                    driver.find_element(By.NAME, 'nombres'),
-                    driver.find_element(By.NAME, 'primerApellido')
-                ]
+                campos_formulario = driver.find_elements(By.CSS_SELECTOR, 'input[name="nombres], input[name="primerApellido"]')
                 
-                if all(campo.is_displayed() for campo in campos_formulario):
+                if len(campos_formulario) >= 2 and all(campo.is_displayed() for campo in campos_formulario):
                     print(f"❌ NO ENCONTRADO: Se muestra formulario para completar datos de {num_doc}")
                     return False
             except:
