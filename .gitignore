@@ -1,4 +1,17 @@
+# Archivos de cache de python
 __pycache__/
 *.pyc
 
+# Archivo de configuración de variables de entorno
 .env
+
+# Archivos log
+.log
+*.log
+
+# Archivos de capturas de pantalla y logos
+*.png
+*.jpg
+logoSena.png
+automatizacion_aprendices_*.log
+pre_inscripcion_*.png
