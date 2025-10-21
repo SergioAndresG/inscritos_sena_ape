@@ -222,7 +222,7 @@ def determinar_genero(nombre):
     """Intenta determinar el género a partir del nombre."""
     nombre = nombre.lower()
     
-    # Nombres Femeninos (100)
+    # Nombres Femeninos
     nombres_femeninos = [
         'ana', 'maria', 'sofia', 'isabella', 'valentina', 'camila', 'mariana', 'laura',
         'daniela', 'valeria', 'liz', 'ariana', 'lizeth', 'danna', 'paula', 'juliana',
@@ -240,10 +240,32 @@ def determinar_genero(nombre):
         'consuelo', 'esperanza', 'aura', 'iris', 'grecia', 'kiara', 'mayra', 'nayeli',
         'bianca', 'ciara', 'zoe', 'luna', 'chloe', 'sara', 'eva', 'mía', 'nora',
         'olivia', 'vera', 'maya', 'gala', 'dalia', 'kendra', 'kelly', 'kimberly',
-        'leslie', 'lorena', 'margarita', 'nadia', 'nicole', 'paloma', 'sandra'
+        'leslie', 'lorena', 'margarita', 'nadia', 'nicole', 'paloma', 'sandra',
+        'alana', 'alma', 'ambra', 'amira', 'anahi', 'arlet', 'belén', 'briana',
+        'brisa', 'dayana', 'denisse', 'érica', 'fátima', 'fiora', 'frida', 'hayde',
+        'indira', 'jana', 'kira', 'leila', 'liam', 'lisandra', 'lissette', 'lourdes',
+        'maribel', 'marlene', 'melina', 'milenka', 'miranda', 'nerea', 'novia',
+        'pamela', 'quinn', 'rocio', 'rosa', 'ruth', 'sibel', 'silvana', 'stella',
+        'tatiana', 'thais', 'uma', 'wendy', 'yenne', 'zaira', 'zara', 'zulma',
+        'bertha', 'cleopatra', 'eunice', 'felipa', 'genoveva', 'hilda', 'isolda',
+        'jacinta', 'katiuska', 'lidia', 'matilda', 'norma', 'ofelia', 'prisca',
+        'quiteria', 'salma', 'ursula', 'zenaida', 'arlette', 'cynthia', 'débora',
+        'evelyn', 'gema', 'ivonne', 'jessica', 'kassandra', 'liliana', 'michell',
+        'neida', 'rossana', 'shelby', 'susana', 'valeria', 'yessenia', 'zulema',
+        'aileen', 'anya', 'aylin', 'betsy', 'danna', 'eliza', 'gemma', 'hanna',
+        'ivana', 'julieta', 'katia', 'leona', 'maia', 'nala', 'perla', 'sirena',
+        'tina', 'zoila', 'adela', 'amalia', 'apolonia', 'carmela', 'dominga',
+        'esperanza', 'felicidad', 'graciela', 'hortensia', 'judith', 'kristel',
+        'magdalena', 'minerva', 'noemi', 'petra', 'romina', 'sabrina', 'ximena',
+        'yanet', 'zelia', 'ximena', 'yara', 'zafiro', 'adina', 'agatha', 'ariel',
+        'ayla', 'bárbara', 'clara', 'dánae', 'dorotea', 'edith', 'eugenia',
+        'francisca', 'heidi', 'iliana', 'iris', 'jana', 'kora', 'luisa',
+        'mabel', 'nadine', 'odette', 'paz', 'rita', 'talia', 'ursula', 'vicky',
+        'wanda', 'yaretzi', 'zoraida', 'annette', 'dina', 'glenda', 'karenza',
+        'leidy', 'marina', 'roxana', 'sharom', 'ximena', 'yuliana', 'zianya'
     ]
-    
-    # Nombres Masculinos (100)
+
+    # Nombres Masculinos
     nombres_masculinos = [
         'juan', 'carlos', 'luis', 'andres', 'sebastian', 'mateo', 'santiago', 'alejandro',
         'daniel', 'gabriel', 'miguel', 'jose', 'diego', 'tomás', 'manuel', 'antonio',
@@ -261,8 +283,32 @@ def determinar_genero(nombre):
         'kevin', 'leo', 'maximiliano', 'neil', 'oliver', 'pablo', 'quique', 'samuel',
         'tito', 'toni', 'troy', 'unai', 'yago', 'zenón', 'saúl', 'josué', 'noé',
         'amadeo', 'apolonio', 'basilio', 'cipriano', 'cleto', 'domenico', 'fabio',
-        'federico', 'hernan', 'leonel'
-    ] 
+        'federico', 'hernan', 'leonel',
+        'aaron', 'abraham', 'adán', 'agustín', 'alex', 'alfredo', 'amaro', 'amir',
+        'anibal', 'ariel', 'armando', 'bernal', 'boris', 'bruno', 'calixto', 'cosme',
+        'damián', 'eloy', 'ermilo', 'esau', 'eugenio', 'ezequiel', 'fabrizio',
+        'fausto', 'florian', 'gervasio', 'gilberto', 'guido', 'humberto', 'iker',
+        'isaías', 'ismael', 'iván', 'jacob', 'jairo', 'jeremías', 'jonathan',
+        'lorenzo', 'luciano', 'macario', 'máximo', 'melchor', 'montserrat', 'moses',
+        'nataniel', 'octavio', 'orlando', 'pascal', 'patricio', 'pío', 'plinio',
+        'policarpo', 'próspero', 'quintín', 'quiroz', 'raimundo', 'rodolfo',
+        'roquefort', 'simón', 'taimur', 'teófilo', 'tristán', 'ulises', 'valerio',
+        'venancio', 'wenceslao', 'wilfredo', 'yunes', 'zacarías', 'zian', 'abdon',
+        'agapito', 'alano', 'anacleto', 'antelmo', 'baltasar', 'benedicto', 'blanco',
+        'ceferino', 'conrado', 'doroteo', 'edmundo', 'emilio', 'epifanio', 'erasto',
+        'galileo', 'gandalf', 'german', 'gisleno', 'godofrido', 'hipólito', 'hilario',
+        'homer', 'isidro', 'jofre', 'leandro', 'león', 'luther', 'martín',
+        'melitón', 'modesto', 'nahuel', 'nicandro', 'nicanor', 'nilo', 'nubiel',
+        'pascual', 'pietro', 'primitivo', 'rafael', 'reinaldo', 'romualdo', 'rufo',
+        'sabiniano', 'silvano', 'silverio', 'tadeo', 'teobaldo', 'tibercio', 'toribio',
+        'umberto', 'valente', 'vito', 'willy', 'yaser', 'yusef', 'zebulón',
+        'aurelio', 'casimiro', 'celestino', 'dionisio', 'eleuterio', 'evangelista',
+        'florentino', 'genaro', 'hilario', 'leopoldo', 'napoleón', 'raimundo',
+        'silvestre', 'valeriano', 'vladimir', 'anaximandro', 'aristóteles', 'dante',
+        'platón', 'sócrates', 'virgilio', 'zenon', 'adriel', 'bautista', 'darío',
+        'ezequiel', 'ian', 'javier', 'liam', 'milán', 'nehemías', 'osiel', 'pablo',
+        'thiago', 'uziel', 'york', 'zair'
+    ]
 
     primer_nombre = nombre.split(' ')[0] # Tomamos el primer nombre
 
