@@ -1,4 +1,3 @@
-import os
 import time
 import logging
 from datetime import datetime
@@ -6,15 +5,11 @@ import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from dotenv import load_dotenv
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options
-import traceback
-from openpyxl import load_workbook
 import xlrd
 import xlwt
 from xlutils.copy import copy
@@ -44,7 +39,7 @@ logging.basicConfig(
 # Cargar variables de entorno
 load_dotenv()
 
-RUTA_EXCEL = 'C:/Users/SENA/Downloads/Reporte de Aprendices Ficha 3204166.xls'
+RUTA_EXCEL = 'C:/Users/sergi/Downloads/Reporte de Aprendices Ficha 3147272.xls'
 
 
 
@@ -57,20 +52,6 @@ TIPOS_DOCUMENTO = {
     "PEP": "8",
     "PPT": "9"
 }
-
-
-chrome_options = Options()
-
-# Descomentar la siguiente línea para modo headless (sin interfaz gráfica), para visualizar el funcionamiento del aplicativo
-# chrome_options.add_argument("--headless")
-chrome_options.add_argument("--window-size=1920,1080")
-chrome_options.add_argument("--disable-gpu")
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--disable-dev-shm-usage")
-
-driver = webdriver.Chrome(options=chrome_options)
-wait = WebDriverWait(driver, 10)  # Espera explícita de 10 segundos
-
 
 # --- Cargar el archivo Excel con pandas y preparar para colorear celdas ---
 try:
@@ -175,222 +156,226 @@ except Exception as e:
 
 
 def main():
+    # --- Configuración de Opciones de Chrome ---
+    chrome_options = Options()
+    # Descomentar la siguiente línea para modo headless (sin interfaz gráfica)
+    # chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
 
+    # --- Gestión del WebDriver con Context Manager ---
+    # El 'with' asegura que driver.quit() se llame automáticamente al final,
+    # incluso si ocurren errores.
     try:
-        # Realizar login
-        if not login(driver):
-            logging.error("No se pudo completar el login. Abortando proceso.")
-            return
-            
-        # Establecer los nombres de columnas según tu archivo Excel
-        COLUMNA_TIPO_DOC = 'Tipo de Documento'
-        COLUMNA_NUM_DOC = 'Número de Documento'
-        COLUMNA_NOMBRES = 'Nombre'
-        COLUMNA_APELLIDOS = 'Apellidos'
-        COLUMNA_CELULAR = 'Celular'
-        COLUMNA_CORREO = 'Correo Electrónico'
-        COLUMNA_ESTADO = 'Estado'
-        COLUMNA_PERFIL = 'Perfil Ocupacional'
-        
-        # Procesar cada registro en el DataFrame de pandas
-        total_registros = len(df)
-        for i, fila in df.iterrows():
-            # El índice real en Excel es el índice en pandas + 6 (header_row + 2)
-            excel_row = i + header_row + 1
-            
-            # Inicializar variables para evitar errores en bloques except
-            nombres = "Sin nombre"
-            apellidos = "Sin apellido"
-            tipo_doc = ""
-            num_doc = ""
-            celular = ""
-            correo = ""
-            estado = ""
-            perfil_ocupacional = ""
-            
-            try:
-                # Colorear la fila actual como "procesando"
-                for col_name, col_idx in column_indices.items():
-                    try:
-                        sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_procesando)
-                    except Exception as e:
-                        print(f"Error al colorear celda {col_name}: {str(e)}")
-                
-                # Guardar los cambios para que sean visibles inmediatamente
-                try:
-                    wb.save(RUTA_EXCEL)
-                    print(f"Excel actualizado: marcando fila {excel_row + 1} como 'procesando'")
-                except Exception as e:
-                    print(f"Error al guardar Excel: {str(e)}")
-                
-                # Extraer datos del estudiante
-                tipo_doc = str(fila[COLUMNA_TIPO_DOC])
-                num_doc = str(fila[COLUMNA_NUM_DOC])
-                nombres = str(fila[COLUMNA_NOMBRES])
-                apellidos = str(fila[COLUMNA_APELLIDOS])
-                celular = str(fila[COLUMNA_CELULAR])
-                correo = str(fila[COLUMNA_CORREO])
-                estado = str(fila[COLUMNA_ESTADO])
-                perfil_ocupacional = str(fila[COLUMNA_PERFIL])
-                
-                logging.info(f"Procesando estudiante {i+1}/{total_registros}: {nombres} {apellidos}")
-                print(f"\n===== Procesando estudiante {i+1}/{total_registros}: {nombres} {apellidos} =====\n")
-                
-                # Verificar si el estudiante ya existe
-                existe = verificar_estudiante_con_CC_primero(tipo_doc, num_doc, nombres, apellidos, driver, wait)
-                
-                # Si existe es None, hubo error en la verificación
-                if existe is None:
-                    logging.warning(f"Saltando estudiante debido a error en verificación: {nombres} {apellidos}")
-                    print(f"⚠️ Saltando estudiante debido a error en verificación: {nombres} {apellidos}")
-                    
-                    # Colorear fila como error
-                    for col_name, col_idx in column_indices.items():
-                        try:
-                            sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_error)
-                        except Exception as e:
-                            print(f"Error al colorear celda {col_name}: {str(e)}")
-                    wb.save(RUTA_EXCEL)
-                    continue
-                    
-                # Si el estudiante ya existe, pasar al siguiente
-                if existe:
-                    logging.info(f"El estudiante {nombres} {apellidos} ya existe en el sistema. Pasando al siguiente.")
-                    print(f"✅ El estudiante {nombres} {apellidos} ya existe en el sistema. Pasando al siguiente.")
-                    
-                    # Colorear fila como ya existente
-                    for col_name, col_idx in column_indices.items():
-                        try:
-                            sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_ya_existe)
-                        except Exception as e:
-                            print(f"Error al colorear celda {col_name}: {str(e)}")
-                    wb.save(RUTA_EXCEL)
-                    continue
-                
-                # Si llegamos aquí, el estudiante no existe
-                logging.info(f"El estudiante {nombres} {apellidos} no existe. Procediendo con el registro.")
-                print(f"📝 El estudiante {nombres} {apellidos} no existe. Procediendo con el registro.")
-                
-                # Verificar si ya estamos en el formulario de pre-inscripción
-                if URL_VERIFICACION in driver.current_url:
-                    print("Detectado formulario de pre-inscripción")
-                    # Llenar los datos iniciales
-                    if llenar_datos_antes_de_inscripcion(nombres, apellidos, driver):
-                        print("Pre-inscripción completada. Esperando formulario completo...")
-                        # Esperar a que cargue el formulario completo
-                        time.sleep(3)
-                        # Verificar si estamos en la página del formulario completo
-                        if driver.current_url == URL_FORMULARIO or "formulario" in driver.current_url.lower():
-                            print("Formulario completo detectado. Procediendo a llenar...")
-                            llenar_formulario_ubicaciones(driver)
-                            llenar_formulario_ubicaciones_nacimiento(driver)
-                            llenar_formulario_ubicacion_residencia(driver)
-                            llenar_formulario_estado_civil(driver)
-                            llenar_formulario_sueldo(driver)
-                            llenar_estrato(driver)
-                            llenar_formulario_telefono_correo(celular, correo, driver)
-                            llenar_input_perfil_ocupacional(estado,driver)
-                            print("✅ Formulario con datos basicos llenado correcctamente")
-                            #boton de guardar inforamacion
-                            botonGuardar = WebDriverWait(driver, 10).until(
-                                EC.element_to_be_clickable((By.ID, 'submitNewOft'))
-                            )
-                            botonGuardar.click()
-                            print("✅ Se hizo click en el boton de Guardar Correctamente")
-                            print("Esperando respuesta")
-                            logging.info("Se hizo click en el boton de Guardar")
-                            time.sleep(10)
-                            experiencia_laboral(driver,  perfil_ocupacional)
-                            time.sleep(10)
-                            
-                            # Colorear fila como procesado exitosamente
-                            for col_name, col_idx in column_indices.items():
-                                try:
-                                    sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_procesado)
-                                except Exception as e:
-                                    print(f"Error al colorear celda {col_name}: {str(e)}")
-                            wb.save(RUTA_EXCEL)
-                            print(f"Excel actualizado: marcando fila {excel_row + 1} como 'procesado'")
+        with webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options) as driver:
+            wait = WebDriverWait(driver, 15)  # Aumentamos un poco la espera por si la red es lenta
 
-                        else:
-                            print(f"⚠️ No se detectó redirección al formulario completo. URL actual: {driver.current_url}")
-                            # Colorear fila como error
-                            for col_name, col_idx in column_indices.items():
-                                try:
-                                    sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_error)
-                                except Exception as e:
-                                    print(f"Error al colorear celda {col_name}: {str(e)}")
-                            wb.save(RUTA_EXCEL)
-                    else:
-                        print("❌ No se pudo completar la pre-inscripción")
+            # Realizar login
+            if not login(driver):
+                logging.error("No se pudo completar el login. Abortando proceso.")
+                return
+                
+            # Establecer los nombres de columnas según tu archivo Excel
+            COLUMNA_TIPO_DOC = 'Tipo de Documento'
+            COLUMNA_NUM_DOC = 'Número de Documento'
+            COLUMNA_NOMBRES = 'Nombre'
+            COLUMNA_APELLIDOS = 'Apellidos'
+            COLUMNA_CELULAR = 'Celular'
+            COLUMNA_CORREO = 'Correo Electrónico'
+            COLUMNA_ESTADO = 'Estado'
+            COLUMNA_PERFIL = 'Perfil Ocupacional'
+
+            # Procesar cada registro en el DataFrame de pandas
+            total_registros = len(df)
+            for i, fila in df.iterrows():
+                # El índice real en Excel es el índice de pandas + la fila de inicio del header + 1
+                excel_row = i + header_row + 1
+                
+                # Inicializar variables para evitar errores en bloques except
+                nombres = "Sin nombre"
+                apellidos = "Sin apellido"
+                tipo_doc = ""
+                num_doc = ""
+                celular = ""
+                correo = ""
+                estado = ""
+                perfil_ocupacional = ""
+                
+                try:
+                    # Colorear la fila actual como "procesando"
+                    for col_name, col_idx in column_indices.items():
+                        try:
+                            sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_procesando)
+                        except Exception as e:
+                            logging.warning(f"Error al colorear celda (procesando) en fila {excel_row + 1}: {e}")
+                    
+                    # Extraer datos del estudiante
+                    tipo_doc = str(fila[COLUMNA_TIPO_DOC])
+                    num_doc = str(fila[COLUMNA_NUM_DOC])
+                    nombres = str(fila[COLUMNA_NOMBRES])
+                    apellidos = str(fila[COLUMNA_APELLIDOS])
+                    celular = str(fila[COLUMNA_CELULAR])
+                    correo = str(fila[COLUMNA_CORREO])
+                    estado = str(fila[COLUMNA_ESTADO])
+                    perfil_ocupacional = str(fila[COLUMNA_PERFIL])
+                    
+                    logging.info(f"Procesando estudiante {i+1}/{total_registros}: {nombres} {apellidos}")
+                    print(f"\n===== Procesando estudiante {i+1}/{total_registros}: {nombres} {apellidos} =====\n")
+                    
+                    # Verificar si el estudiante ya existe
+                    existe = verificar_estudiante_con_CC_primero(tipo_doc, num_doc, nombres, apellidos, driver, wait)
+                    
+                    # Si existe es None, hubo error en la verificación
+                    if existe is None:
+                        logging.warning(f"Saltando estudiante debido a error en verificación: {nombres} {apellidos}")
+                        print(f"⚠️ Saltando estudiante debido a error en verificación: {nombres} {apellidos}")
+                        
                         # Colorear fila como error
                         for col_name, col_idx in column_indices.items():
                             try:
                                 sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_error)
                             except Exception as e:
                                 print(f"Error al colorear celda {col_name}: {str(e)}")
-                        wb.save(RUTA_EXCEL)
-                else:
-                    print(f"⚠️ No se redirigió al formulario de pre-inscripción. URL actual: {driver.current_url}")
-                    # Intentar redirigir manualmente
-                    driver.get(URL_VERIFICACION)
-                    print("Reintentando verificación...")
-                    existe = verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait) 
-                    if not existe:
-                        print("Reintentando llenar datos...")
-                        if llenar_datos_antes_de_inscripcion(nombres, apellidos,driver,wait):
-                            # Si la reinscripción funciona, colorear como procesado
-                            for col_name, col_idx in column_indices.items():
-                                try:
-                                    sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_procesado)
-                                except Exception as e:
-                                    print(f"Error al colorear celda {col_name}: {str(e)}")
+                        continue
+                        
+                    # Si el estudiante ya existe, pasar al siguiente
+                    if existe:
+                        logging.info(f"El estudiante {nombres} {apellidos} ya existe en el sistema. Pasando al siguiente.")
+                        print(f"✅ El estudiante {nombres} {apellidos} ya existe en el sistema. Pasando al siguiente.")
+                        
+                        # Colorear fila como ya existente
+                        for col_name, col_idx in column_indices.items():
+                            try:
+                                sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_ya_existe)
+                            except Exception as e:
+                                print(f"Error al colorear celda {col_name}: {str(e)}")
+                        continue
+                    
+                    # Si llegamos aquí, el estudiante no existe
+                    logging.info(f"El estudiante {nombres} {apellidos} no existe. Procediendo con el registro.")
+                    print(f"📝 El estudiante {nombres} {apellidos} no existe. Procediendo con el registro.")
+                    
+                    # Verificar si ya estamos en el formulario de pre-inscripción
+                    if URL_VERIFICACION in driver.current_url:
+                        print("Detectado formulario de pre-inscripción")
+                        # Llenar los datos iniciales
+                        if llenar_datos_antes_de_inscripcion(nombres, apellidos, driver):
+                            print("Pre-inscripción completada. Esperando formulario completo...")
+                            # Esperar a que cargue el formulario completo
+                            try:
+                                wait.until(EC.url_contains("formulario"))
+                            except:
+                                logging.warning("La URL del formulario no cargó a tiempo.")
+                            if driver.current_url == URL_FORMULARIO or "formulario" in driver.current_url.lower():
+                                print("Formulario completo detectado. Procediendo a llenar...")
+                                llenar_formulario_ubicaciones(driver)
+                                llenar_formulario_ubicaciones_nacimiento(driver)
+                                llenar_formulario_ubicacion_residencia(driver)
+                                llenar_formulario_estado_civil(driver)
+                                llenar_formulario_sueldo(driver)
+                                llenar_estrato(driver)
+                                llenar_formulario_telefono_correo(celular, correo, driver)
+                                llenar_input_perfil_ocupacional(estado,driver)
+                                print("✅ Formulario con datos basicos llenado correcctamente")
+                                #boton de guardar inforamacion
+                                botonGuardar = WebDriverWait(driver, 10).until(
+                                    EC.element_to_be_clickable((By.ID, 'submitNewOft'))
+                                )
+                                botonGuardar.click()
+                                print("✅ Se hizo click en el boton de Guardar Correctamente")
+                                print("Esperando respuesta")
+                                logging.info("Se hizo click en el botón de Guardar")
+                                
+                                # En lugar de time.sleep, esperamos a que aparezca la sección de experiencia laboral
+                                wait.until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Experiencia Laboral')]")))
+                                
+                                experiencia_laboral(driver,  perfil_ocupacional)
+                                
+                                # El sleep aquí podría no ser necesario, ya que el siguiente ciclo
+                                # comenzará con una verificación que navega a la página correcta.
+                                # time.sleep(10)
+                                
+                                # Colorear fila como procesado exitosamente
+                                for col_name, col_idx in column_indices.items():
+                                    try:
+                                        sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_procesado)
+                                    except Exception as e:
+                                        print(f"Error al colorear celda {col_name}: {str(e)}")
+
+                            else:
+                                print(f"⚠️ No se detectó redirección al formulario completo. URL actual: {driver.current_url}")
+                                # Colorear fila como error
+                                for col_name, col_idx in column_indices.items():
+                                    try:
+                                        sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_error)
+                                    except Exception as e:
+                                        print(f"Error al colorear celda {col_name}: {str(e)}")
                         else:
-                            # Si falla, colorear como error
+                            print("❌ No se pudo completar la pre-inscripción")
+                            # Colorear fila como error
                             for col_name, col_idx in column_indices.items():
                                 try:
                                     sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_error)
                                 except Exception as e:
                                     print(f"Error al colorear celda {col_name}: {str(e)}")
-                        wb.save(RUTA_EXCEL)
+                    else:
+                        print(f"⚠️ No se redirigió al formulario de pre-inscripción. URL actual: {driver.current_url}")
+                        # Intentar redirigir manualmente
+                        driver.get(URL_VERIFICACION)
+                        print("Reintentando verificación...")
+                        existe = verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait) 
+                        if not existe:
+                            print("Reintentando llenar datos...")
+                            if llenar_datos_antes_de_inscripcion(nombres, apellidos,driver,wait):
+                                # Si la reinscripción funciona, colorear como procesado
+                                for col_name, col_idx in column_indices.items():
+                                    try:
+                                        sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_procesado)
+                                    except Exception as e:
+                                        print(f"Error al colorear celda {col_name}: {str(e)}")
+                            else:
+                                # Si falla, colorear como error
+                                for col_name, col_idx in column_indices.items():
+                                    try:
+                                        sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_error)
+                                    except Exception as e:
+                                        print(f"Error al colorear celda {col_name}: {str(e)}")
+                        
+                except Exception as e:
+                    logging.error(f"Error procesando estudiante {nombres} {apellidos}: {str(e)}")
+                    print(f"❌ Error procesando estudiante {nombres} {apellidos}: {str(e)}")
                     
-            except Exception as e:
-                logging.error(f"Error procesando estudiante {nombres} {apellidos}: {str(e)}")
-                print(f"❌ Error procesando estudiante {nombres} {apellidos}: {str(e)}")
-                
-                # Colorear fila como error
-                for col_name, col_idx in column_indices.items():
+                    # Colorear fila como error
+                    for col_name, col_idx in column_indices.items():
+                        try:
+                            sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_error)
+                        except Exception as write_error:
+                            print(f"Error al colorear celda {col_name}: {str(write_error)}")
+                    
+                    # Volver a la página de verificación para el siguiente estudiante
                     try:
-                        sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_error)
-                    except Exception as write_error:
-                        print(f"Error al colorear celda {col_name}: {str(write_error)}")
+                        driver.get(URL_VERIFICACION)
+                        time.sleep(2)
+                    except Exception as nav_error:
+                        logging.error(f"Error crítico al intentar navegar a la página de verificación: {nav_error}")
+                        print(f"Error crítico al navegar: {str(nav_error)}")
+
+                # --- Guardar el archivo Excel UNA SOLA VEZ al final ---
                 try:
                     wb.save(RUTA_EXCEL)
-                    print(f"Excel actualizado: marcando fila {excel_row + 1} como 'error'")
-                except Exception as save_error:
-                    print(f"Error al guardar Excel: {str(save_error)}")
-                
-                # Volver a la página de verificación para el siguiente estudiante
-                try:
-                    driver.get(URL_VERIFICACION)
-                    time.sleep(2)
-                except Exception as nav_error:
-                    print(f"Error al navegar: {str(nav_error)}")
-                
-        logging.info("✅ Proceso completado exitosamente")
-        print("\n===== ✅ Proceso completado exitosamente =====\n")
-            
+                    logging.info(f"Archivo Excel '{RUTA_EXCEL}' guardado correctamente con los estados actualizados.")
+                    print(f"\n✅ Archivo Excel '{RUTA_EXCEL}' guardado correctamente.")
+                except Exception as e:
+                    logging.error(f"Error al guardar el archivo Excel al final del proceso: {e}")
+                    print(f"❌ Error al guardar el archivo Excel al final del proceso: {e}")
+
+                logging.info("✅ Proceso completado exitosamente")
+                print("\n===== ✅ Proceso completado exitosamente =====\n")
     except Exception as e:
         logging.error(f"Error general en el proceso: {str(e)}")
         print(f"❌ Error general: {str(e)}")
-        
-    finally:
-        # Cerrar el navegador al finalizar
-        driver.quit()
-        logging.info("Navegador cerrado")
-        print("🔒 Navegador cerrado")
 
 if __name__ == "__main__":
         main()
-
-
