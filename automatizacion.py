@@ -86,7 +86,7 @@ class QueueStream:
         # Necesario para la interfaz de archivo, pero no hace nada aquí.
         pass
 
-def main(ruta_excel_param, progress_queue=None):
+def main(ruta_excel_param, progress_queue, stop_event):
     # Hacemos globales las variables que se usarán en todo el script
     global RUTA_EXCEL, df, wb, sheet, read_sheet, column_indices, header_row
 
@@ -267,7 +267,7 @@ def main(ruta_excel_param, progress_queue=None):
                             logging.info("Se hizo click en el boton de Guardar")
                             time.sleep(10)
                             experiencia_laboral(driver,  perfil_ocupacional)
-                            time.sleep(10)
+                            time.sleep(5)
                             
                             # Colorear fila como procesado exitosamente
                             for col_name, col_idx in column_indices.items():
