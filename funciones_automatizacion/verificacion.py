@@ -46,7 +46,7 @@ def verificar_estudiante_con_CC_primero(tipo_doc, num_doc, nombres, apellidos, d
     else:
         # Primero intentamos con CC
         print(f"Intentando verificar primero con CC para documento {num_doc}...")
-        encontrado_con_cc = verificar_estudiante("CC", num_doc, nombres, apellidos)
+        encontrado_con_cc = verificar_estudiante("CC", num_doc, nombres, apellidos, driver, wait)
         
         # Si lo encontramos con CC, retornamos True
         if encontrado_con_cc is True:
@@ -56,7 +56,7 @@ def verificar_estudiante_con_CC_primero(tipo_doc, num_doc, nombres, apellidos, d
         # Si la verificación con CC es None (error) o False (no encontrado),
         # intentamos con el tipo de documento original
         print(f"No se encontró con CC, intentando con tipo original {tipo_doc}")
-        return verificar_estudiante(tipo_doc, num_doc, nombres, apellidos)
+        return verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait)
 
 def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait):
     """Verifica si un estudiante ya está registrado en el sistema"""
@@ -69,6 +69,7 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait):
             
             # Esperar a que la página cargue completamente
             print("Esperando que la página cargue...")
+            wait.until(EC.invisibility_of_element_located((By.ID, 'content-load')))
             wait.until(EC.visibility_of_element_located((By.ID, 'dropTipoIdentificacion')))
             print("Página cargada correctamente")
             
@@ -121,14 +122,10 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait):
             time.sleep(0.5)
             driver.execute_script("arguments[0].click();", boton_buscar)
             
-            # Esperar más tiempo para asegurar que los resultados se carguen
+            # Esperar tiempo para asegurar que los resultados se carguen
+            wait.until(EC.invisibility_of_element_located((By.ID, 'content-load')))
             print("Esperando resultados...")
-            time.sleep(5)  # Aumentado a 5 segundos
-            
-            # Capturar screenshot para diagnóstico
-            screenshot_path = f"busqueda_{num_doc}_{int(time.time())}.png"
-            driver.save_screenshot(screenshot_path)
-            print(f"Screenshot guardado en {screenshot_path}")
+            time.sleep(2)
             
             # VERIFICACIÓN DE EXISTENCIA
             # 1. Verificar si hay una tabla de resultados con datos
@@ -184,6 +181,6 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait):
                 return None
             else:
                 print(f"Reintentando... ({intento}/{max_intentos})")
-                time.sleep(2)
+                time.sleep(3)
     
     return None

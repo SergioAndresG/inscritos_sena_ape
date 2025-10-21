@@ -1,4 +1,6 @@
 import time
+import os
+import re
 import logging
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -9,17 +11,34 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
 
+dir_screenchost = "Screenschot"
+os.makedirs(dir_screenchost, exist_ok=True)
+
+
+def limpiar_texto(texto):
+    """Normaliza el texto eliminando espacios múltiples y conservando un solo espacio entre palabras."""
+    if not isinstance(texto, str):
+        return ""
+    return ' '.join(texto.strip().split())
+
+def limpiar_alfanumerico(texto):
+    """Elimina espacios y símbolos, dejando solo caracteres alfanuméricos."""
+    if not isinstance(texto, str):
+        return ""
+    return re.sub(r'[^a-zA-Z0-9]', '', texto)
+
 def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
     """Llena los campos de nombres, apellidos, fecha de nacimiento y género antes de la inscripción exhaustiva."""
     try:
+        # Imprimos los datos que se van a llenra
         logging.info(f"Intentando llenar los campos antes de la inscripción con: {nombres_excel} {apellidos_excel}")
-        logging.info(f"URL actual: {driver.current_url}")
         
         # Esperar a que la página de pre-inscripción cargue completamente
         print("Esperando que el formulario de pre-inscripción cargue...")
         
         # Capturar screenshot antes de interactuar con el formulario
-        driver.save_screenshot(f"pre_inscripcion_{int(time.time())}.png")
+        ruta_completa = os.path.join(dir_screenchost,f"pre_inscripcion_{int(time.time())}.png")
+        driver.save_screenshot(ruta_completa)
         
         # --- Nombres ---
         print("Buscando campo de nombres...")
@@ -36,9 +55,8 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
             # Interactuar con el campo
             campo_nombres_pre.click()
             campo_nombres_pre.clear()
-            for letra in nombres_excel:
-                campo_nombres_pre.send_keys(letra)
-                time.sleep(0.05)
+            campo_nombres_pre.send_keys(nombres_excel)
+
                 
             print(f"✅ Se llenó el campo Nombres con: {nombres_excel}")
             logging.info(f"Se llenó el campo Nombres con: {nombres_excel}")
@@ -67,10 +85,10 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                 campo_primer_apellido_pre.send_keys(letra)
                 time.sleep(0.05)
                 
-            print(f"✅ Se llenó el campo Primer apellido con: {primer_apellido}")
+            print(f"Se llenó el campo Primer apellido con: {primer_apellido}")
             logging.info(f"Se llenó el campo Primer apellido con: {primer_apellido}")
         except Exception as e:
-            print(f"❌ Error al llenar el campo Primer apellido: {str(e)}")
+            print(f"Error al llenar el campo Primer apellido: {str(e)}")
             logging.error(f"Error al llenar el campo Primer apellido: {str(e)}")
 
         try:
@@ -88,10 +106,10 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                 campo_segundo_apellido_pre.send_keys(letra)
                 time.sleep(0.05)
                 
-            print(f"✅ Se llenó el campo Segundo apellido con: {segundo_apellido}")
+            print(f"Se llenó el campo Segundo apellido con: {segundo_apellido}")
             logging.info(f"Se llenó el campo Segundo apellido con: {segundo_apellido}")
         except Exception as e:
-            print(f"❌ Error al llenar el campo Segundo apellido: {str(e)}")
+            print(f"Error al llenar el campo Segundo apellido: {str(e)}")
             logging.error(f"Error al llenar el campo Segundo apellido: {str(e)}")
 
         # --- Fecha de Nacimiento ---
@@ -108,10 +126,10 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
             campo_fecha_nacimiento.clear()
             campo_fecha_nacimiento.send_keys('01-01-2000')  # Formato DDMMYYYY
             
-            print("✅ Se llenó el campo Fecha de Nacimiento con: 01-01-2000")
-            logging.info("Se llenó el campo Fecha de Nacimiento con: 01-01-2000")
+            print("Se llenó el campo Fecha de Nacimiento")
+            logging.info("Se llenó el campo Fecha de Nacimiento")
         except Exception as e:
-            print(f"❌ Error al llenar el campo Fecha de Nacimiento: {str(e)}")
+            print(f"Error al llenar el campo Fecha de Nacimiento: {str(e)}")
             logging.error(f"Error al llenar el campo Fecha de Nacimiento: {str(e)}")
 
         # --- Género ---
@@ -125,7 +143,7 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                     EC.element_to_be_clickable((By.NAME, 'genero'))
                 )
                             
-                # Haz scroll hacia el elemento
+                # Hacer scroll hacia el elemento
                 driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", elemento_genero)
                 time.sleep(0.5)
 
@@ -137,17 +155,17 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                 selector_genero.select_by_value(genero)
                 time.sleep(1)
                 
-                print(f"✅ Se seleccionó el género: {genero} ({'Femenino' if genero == '1' else 'Masculino'})")
+                print(f"Se seleccionó el género: {genero} ({'Femenino' if genero == '1' else 'Masculino'})")
                 logging.info(f"Se seleccionó el género: {genero} ({'Femenino' if genero == '1' else 'Masculino'})")
             else:
-                print("⚠️ No se pudo determinar el género, intentando seleccionar por defecto Masculino")
+                print("No se pudo determinar el género, intentando seleccionar por defecto Masculino")
                 selector_genero = Select(WebDriverWait(driver, 8).until(
                     EC.element_to_be_clickable((By.NAME, 'genero'))
                 ))
                 selector_genero.select_by_value('0')  # Masculino por defecto
                 logging.warning(f"No se pudo determinar el género para: {nombres_excel}, se seleccionó Masculino por defecto")
         except Exception as e:
-            print(f"❌ Error al seleccionar el género: {str(e)}")
+            print(f"Error al seleccionar el género: {str(e)}")
             logging.error(f"Error al seleccionar el género: {str(e)}")
 
         # Verificar si hay un botón para continuar y hacer clic en él
@@ -162,9 +180,8 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                     driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", botonVerificar)
                     time.sleep(0.5)
                     driver.execute_script("arguments[0].click();", botonVerificar)
-                    print("✅ Se hizo clic en el botón para verificar")
+                    print("Se hizo clic en el botón para verificar")
                     logging.info("Se hizo clic en el botón para verificar")
-                    
                     # Esperar un momento para que se procese la verificación
                     time.sleep(2)
                     
@@ -179,56 +196,73 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                             driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", botonContinuar)
                             time.sleep(0.5)
                             driver.execute_script("arguments[0].click();", botonContinuar)
-                            print("✅ Se hizo clic en el botón para continuar/inscribir")
+                            print("Se hizo clic en el botón para continuar/inscribir")
                             logging.info("Se hizo clic en el botón para continuar/inscribir")
                         else:
-                            print("⚠️ El botón para continuar/inscribir no está visible")
+                            print("El botón para continuar/inscribir no está visible")
                     except Exception as e:
-                        print(f"❌ Error al buscar/hacer clic en el botón continuar/inscribir: {str(e)}")
+                        print(f"Error al buscar/hacer clic en el botón continuar/inscribir: {str(e)}")
                         logging.error(f"Error al buscar/hacer clic en el botón continuar/inscribir: {str(e)}")
                 else:
-                    print("⚠️ El botón para verificar no está visible")
+                    print("El botón para verificar no está visible")
             except Exception as e:
-                print(f"❌ Error al buscar/hacer clic en el botón verificar: {str(e)}")
+                print(f"Error al buscar/hacer clic en el botón verificar: {str(e)}")
                 logging.error(f"Error al buscar/hacer clic en el botón verificar: {str(e)}")
 
         except Exception as e:
-            print(f"❌ Error general al manejar los botones: {str(e)}")
+            print(f"Error general al manejar los botones: {str(e)}")
             logging.error(f"Error general al manejar los botones: {str(e)}")
-        # Capturar screenshot después de llenar el formulario
-        driver.save_screenshot(f"pre_inscripcion_completada_{int(time.time())}.png")
-        print("✅ Formulario de pre-inscripción completado")
         return True
-
     except Exception as e:
         logging.error(f"Error general al llenar los campos antes de la inscripción: {str(e)}")
-        print(f"❌ Error general al llenar los campos antes de inscripción: {str(e)}")
-        
-        # Capturar screenshot en caso de error
-        driver.save_screenshot(f"error_pre_inscripcion_{int(time.time())}.png")
-        return False
+        print(f"Error general al llenar los campos antes de inscripción: {str(e)}")
+
 
 def determinar_genero(nombre):
     """Intenta determinar el género a partir del nombre."""
     nombre = nombre.lower()
+    
+    # Nombres Femeninos (100)
     nombres_femeninos = [
-    'ana', 'maria', 'sofia', 'isabella', 'valentina', 'camila', 'mariana', 'laura',
-    'daniela', 'valeria', 'liz', 'ariana', 'lizeth', 'danna', 'paula', 'juliana',
-    'karla', 'alejandra', 'fernanda', 'samantha', 'antonella', 'lucia', 'martina',
-    'renata', 'ximena', 'gabriela', 'carolina', 'viviana', 'melany', 'abigail',
-    'regina', 'andrea', 'joselyn', 'salome', 'emilia', 'angelica', 'micaela',
-    'jazmin', 'alison', 'karen', 'rosario', 'estrella', 'araceli', 'joana',
-    'milena', 'tania', 'yaqueline', 'noelia', 'vanessa', 'brenda'
-    ] #nombres femeninos
+        'ana', 'maria', 'sofia', 'isabella', 'valentina', 'camila', 'mariana', 'laura',
+        'daniela', 'valeria', 'liz', 'ariana', 'lizeth', 'danna', 'paula', 'juliana',
+        'karla', 'alejandra', 'fernanda', 'samantha', 'antonella', 'lucia', 'martina',
+        'renata', 'ximena', 'gabriela', 'carolina', 'viviana', 'melany', 'abigail',
+        'regina', 'andrea', 'joselyn', 'salome', 'emilia', 'angelica', 'micaela',
+        'jazmin', 'alison', 'karen', 'rosario', 'estrella', 'araceli', 'joana',
+        'milena', 'tania', 'yaqueline', 'noelia', 'vanessa', 'brenda',
+        'helena', 'victoria', 'adriana', 'irene', 'elena', 'claudia', 'erika', 'natalia',
+        'giselle', 'rocío', 'verónica', 'elisa', 'cristina', 'patricia', 'eugenia',
+        'amanda', 'celia', 'ines', 'monica', 'beatriz', 'linda', 'mercedes', 'doris',
+        'alicia', 'berta', 'cecilia', 'diana', 'gloria', 'hortensia', 'juana', 'martha',
+        'rebeca', 'teresa', 'yolanda', 'elizabeth', 'isabel', 'aisha', 'penelope',
+        'catalina', 'alondra', 'esmeralda', 'delfina', 'maite', 'carmen', 'pilar',
+        'consuelo', 'esperanza', 'aura', 'iris', 'grecia', 'kiara', 'mayra', 'nayeli',
+        'bianca', 'ciara', 'zoe', 'luna', 'chloe', 'sara', 'eva', 'mía', 'nora',
+        'olivia', 'vera', 'maya', 'gala', 'dalia', 'kendra', 'kelly', 'kimberly',
+        'leslie', 'lorena', 'margarita', 'nadia', 'nicole', 'paloma', 'sandra'
+    ]
+    
+    # Nombres Masculinos (100)
     nombres_masculinos = [
-    'juan', 'carlos', 'luis', 'andres', 'sebastian', 'mateo', 'santiago', 'alejandro',
-    'daniel', 'gabriel', 'miguel', 'jose', 'diego', 'tomás', 'manuel', 'antonio',
-    'adrian', 'julian', 'felipe', 'fernando', 'ricardo', 'rafael', 'pedro', 'joel',
-    'nicolas', 'emiliano', 'marcos', 'david', 'lucas', 'cristian', 'axel', 'isaac',
-    'eduardo', 'hugo', 'benjamin', 'matias', 'victor', 'francisco', 'gael',
-    'esteban', 'jeronimo', 'ian', 'rodrigo', 'bryan', 'elias', 'mauricio', 'raul',
-    'alvaro', 'omar', 'julio'
-    ] #nombres masculinos
+        'juan', 'carlos', 'luis', 'andres', 'sebastian', 'mateo', 'santiago', 'alejandro',
+        'daniel', 'gabriel', 'miguel', 'jose', 'diego', 'tomás', 'manuel', 'antonio',
+        'adrian', 'julian', 'felipe', 'fernando', 'ricardo', 'rafael', 'pedro', 'joel',
+        'nicolas', 'emiliano', 'marcos', 'david', 'lucas', 'cristian', 'axel', 'isaac',
+        'eduardo', 'hugo', 'benjamin', 'matias', 'victor', 'francisco', 'gael',
+        'esteban', 'jeronimo', 'ian', 'rodrigo', 'bryan', 'elias', 'mauricio', 'raul',
+        'alvaro', 'omar', 'julio', 'alberto', 'arturo', 'javier', 'sergio', 'oscar', 
+        'héctor', 'enrique', 'pablo',
+        'ramón', 'roberto', 'alfonso', 'camilo', 'dario', 'erick', 'gonzalo', 'guillermo',
+        'horacio', 'ignacio', 'jaime', 'jorge', 'leonardo', 'marcelo', 'néstor', 'oreste',
+        'pascual', 'ramiro', 'rené', 'rubén', 'salvador', 'teodoro', 'ulises', 'vicente',
+        'walter', 'xavier', 'yair', 'abel', 'alan', 'benito', 'braulio', 'césar',
+        'demian', 'denis', 'efrén', 'fabian', 'gregorio', 'iker', 'israel', 'jesús',
+        'kevin', 'leo', 'maximiliano', 'neil', 'oliver', 'pablo', 'quique', 'samuel',
+        'tito', 'toni', 'troy', 'unai', 'yago', 'zenón', 'saúl', 'josué', 'noé',
+        'amadeo', 'apolonio', 'basilio', 'cipriano', 'cleto', 'domenico', 'fabio',
+        'federico', 'hernan', 'leonel'
+    ] 
 
     primer_nombre = nombre.split(' ')[0] # Tomamos el primer nombre
 

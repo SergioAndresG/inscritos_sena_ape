@@ -40,6 +40,10 @@ def login(driver):
         driver.get(URL_LOGIN)
         logging.info("Abriendo página de login...")
         
+        wait.until(
+            EC.invisibility_of_element_located((By.ID, "content-load"))
+        )
+        
         # Esperar a que el radio button esté disponible
         radio_persona = wait.until(EC.element_to_be_clickable(
             (By.XPATH, "//input[@type='radio' and @name='tipousuario' and @value='0']")
