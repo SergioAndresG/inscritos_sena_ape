@@ -64,6 +64,7 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 service = ChromeService(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
 wait = WebDriverWait(driver, 10)  # Espera explícita de 10 segundos
+wait_rapido = WebDriverWait(driver, 3) # Espera mas corta
 
 # Definir estilos de colores para .xls
 style_procesando = xlwt.easyxf('pattern: pattern solid, fore_colour light_blue')
@@ -175,7 +176,7 @@ def main(ruta_excel_param, progress_queue=None):
                 print( f"\n===== Procesando estudiante {i+1}/{total_registros}: {nombres} {apellidos} =====\n")
                 
                 # Verificar si el estudiante ya existe
-                existe = verificar_estudiante_con_CC_primero(tipo_doc, num_doc, nombres, apellidos, driver, wait)
+                existe = verificar_estudiante_con_CC_primero(tipo_doc, num_doc, nombres, apellidos, driver, wait, wait_rapido)
                 
                 # Si existe es None, hubo error en la verificación
                 if existe is None:
@@ -302,7 +303,7 @@ def main(ruta_excel_param, progress_queue=None):
                     # Intentar redirigir manualmente
                     driver.get(URL_VERIFICACION)
                     print("Reintentando verificación...")
-                    existe = verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait) 
+                    existe = verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait, wait_rapido) 
                     if not existe:
                         print("Reintentando llenar datos...")
                         if llenar_datos_antes_de_inscripcion(nombres, apellidos,driver,wait):
