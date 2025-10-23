@@ -19,14 +19,12 @@ from xlutils.copy import copy
 from URLS.urls import URL_LOGIN
 
 
-
-
 # -- Funcion que Permite el Logueo del Funcionario APE (Agencia Publica de Empleo)
-def login(driver):
+def login(driver, user, password):
     
     # --- Credenciales de login desde variables de entorno ---
-    USUARIO_LOGIN = os.getenv('USUARIO_LOGIN')
-    CONTRASENA_LOGIN = os.getenv('CONTRASENA_LOGIN')
+    USUARIO_LOGIN = user
+    CONTRASENA_LOGIN = password
     if not USUARIO_LOGIN or not CONTRASENA_LOGIN:
         error_msg = "Error: Las credenciales de login no están configuradas en el archivo .env"
         logging.error(error_msg)
