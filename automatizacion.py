@@ -1,4 +1,5 @@
 import time
+import os
 import sys
 import logging
 from selenium import webdriver
@@ -84,7 +85,7 @@ class QueueStream:
         # Necesario para la interfaz de archivo, pero no hace nada aquí.
         pass
 
-def main(ruta_excel_param, progress_queue=None):
+def main(ruta_excel_param, progress_queue=None, username=None, password=None):
     # Hacemos globales las variables que se usarán en todo el script
     global RUTA_EXCEL, df, wb, sheet, read_sheet, column_indices, header_row
 
@@ -105,7 +106,7 @@ def main(ruta_excel_param, progress_queue=None):
 
     try:
         # Realizar login
-        if not login(driver):
+        if not login(driver, username, password):
             logging.error("No se pudo completar el login. Abortando proceso.")
             return
 
