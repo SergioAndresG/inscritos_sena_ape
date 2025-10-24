@@ -15,3 +15,7 @@ __pycache__/
 logoSena.png
 automatizacion_aprendices_*.log
 pre_inscripcion_*.png
+
+/dist
+/build
+
