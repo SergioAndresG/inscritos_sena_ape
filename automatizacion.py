@@ -3,6 +3,7 @@ import os
 import sys
 import os
 import logging
+import threading
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -87,7 +88,7 @@ class QueueStream:
         # Necesario para la interfaz de archivo, pero no hace nada aquí.
         pass
 
-def main(ruta_excel_param, progress_queue=None, username=None, password=None):
+def main(ruta_excel_param, progress_queue=None, username=None, password=None, stop_event=threading.Event):
     # Hacemos globales las variables que se usarán en todo el script
     global RUTA_EXCEL, df, wb, sheet, read_sheet, column_indices, header_row
 
@@ -131,6 +132,9 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None):
         # Procesar cada registro en el DataFrame de pandas
         total_registros = len(df)
         for i, fila in df.iterrows():
+            if stop_event.is_set():
+                progress_queue.put(("log", f"Proceso detenido por el usuario en Tarea {i-1}.\n"))
+                return # Salimos de la función limpiamente
             # El índice real en Excel es el índice en pandas + 6 (header_row + 2)
             excel_row = i + header_row + 1
             
