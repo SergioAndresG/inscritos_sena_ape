@@ -84,10 +84,6 @@ def preparar_excel(ruta_excel):
         logging.info(f"Archivo Excel cargado correctamente: {ruta_excel}")
         logging.info(f"Total de registros: {len(df)}")
         
-        # Mostrar las primeras filas para verificar la estructura
-        print("Estructura del archivo Excel:")
-        print(df.head())
-        
         # Devolver todos los objetos necesarios para el script principal
         return df, wb, sheet, read_sheet, column_indices, header_row
         
