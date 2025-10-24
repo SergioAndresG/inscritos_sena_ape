@@ -7,7 +7,7 @@ import threading
 # permite pasar mesajes (progreso, logs) desde los logs de las funciones a la vista del usuario
 import queue
 # función principal que realiza la automatización
-from automatizacion import main
+from automatizacion import main # main debe aceptar (ruta, progress_queue, username, password, stop_event)
 # Para manejar credenciales
 import json
 import os
@@ -173,7 +173,8 @@ class CredentialsDialog(ctk.CTkToplevel):
 
 
 class App(ctk.CTk):
-    """ --- Metodo (__init__) --- """
+    """Clase principal de la aplicación con la interfaz de usuario."""
+    
     def __init__(self):
         
         super().__init__()
@@ -181,14 +182,21 @@ class App(ctk.CTk):
         # Inicializar el gestor de credenciales
         self.credentials_manager = CredentialsManager()
         
+        # Estado de control de hilo (¡CRÍTICO para detener el proceso!)
+        self.stop_event = threading.Event()
+        self.process_thread = None
+        
         # Establece el titulo de la ventana
         self.title("Automatización de Aprendices SENA")
         # Establece el tamaño de la ventana
         self.geometry("800x750")
-        self.resizable(True, True) # Permitir redimensionar
-        self.iconbitmap("Iconos/logoSena.ico")
+        self.resizable(True, True) 
+        try:
+            self.iconbitmap("Iconos/logoSena.ico")
+        except Exception:
+            pass # Ignora si el icono no existe
 
-        # Frame superior para credenciales - SOLO PACK
+        # Frame superior para credenciales 
         credentials_frame = ctk.CTkFrame(self, fg_color="transparent")
         credentials_frame.pack(pady=10, padx=20, fill="x")
         
@@ -206,7 +214,8 @@ class App(ctk.CTk):
             text="⚙️ Configurar Credenciales",
             command=self.open_credentials_dialog,
             width=200,
-            fg_color="#1f538d"
+            fg_color="#1f538d",
+            hover_color="#133860"
         )
         self.config_credentials_button.pack(side="right", padx=10)
 
@@ -214,32 +223,53 @@ class App(ctk.CTk):
         separator = ctk.CTkFrame(self, height=2, fg_color="gray")
         separator.pack(pady=10, padx=20, fill="x")
 
-        # Etiqueta para seleccionar el archivo de excel - SOLO PACK
+        # Etiqueta para seleccionar el archivo de excel 
         self.label = ctk.CTkLabel(self, text="Selecciona el archivo Excel:")
         self.label.pack(pady=10)
 
-        # Un campo de texto, donde se muestra la ruta del archivo seleccionado - SOLO PACK
+        # Un campo de texto, donde se muestra la ruta del archivo seleccionado 
         self.file_entry = ctk.CTkEntry(self, width=400)
         self.file_entry.pack(pady=5)
 
-        # Botón para abrir el dialogo de la selección de archivos - SOLO PACK
+        # Botón para abrir el dialogo de la selección de archivos 
         self.browse_button = ctk.CTkButton(self, text="Buscar archivo", command=self.browse_file)
         self.browse_button.pack(pady=5)
+        
+        # Frame para agrupar los botones de Iniciar y Detener (¡CORREGIDO!)
+        self.button_frame = ctk.CTkFrame(self, fg_color="transparent")
+        self.button_frame.pack(pady=10)
 
-        # Botón para iniciar el proceso - SOLO PACK
-        self.start_button = ctk.CTkButton(self, text="Iniciar proceso", command=self.start_process)
-        self.start_button.pack(pady=10)
+        # Botón para iniciar el proceso (Movido a button_frame)
+        self.start_button = ctk.CTkButton(
+            self.button_frame, 
+            text="▶️ Iniciar proceso", 
+            command=self.start_process,
+            fg_color="#1F7A8C", 
+            hover_color="#133D50"
+        )
+        self.start_button.pack(side="left", padx=10)
 
-        # Etiqueta que muestra el progreso - SOLO PACK
+        # Boton de detener el proceso (Movido a button_frame y estado inicial disabled)
+        self.stop_button = ctk.CTkButton(
+            self.button_frame, 
+            text="⏹️ Detener proceso", 
+            command=self.stop_process, 
+            state="disabled", 
+            fg_color="#E05B5B", 
+            hover_color="#A53D3D"
+        )
+        self.stop_button.pack(side="left", padx=10)
+
+        # Etiqueta que muestra el progreso 
         self.progress_label = ctk.CTkLabel(self, text="")
         self.progress_label.pack()
 
-        # Etiqueta que muestra visualmente el avance - SOLO PACK
+        # Etiqueta que muestra visualmente el avance 
         self.progress_bar = ctk.CTkProgressBar(self, width=600)
         self.progress_bar.set(0)
         self.progress_bar.pack(pady=5)
         
-        # Un area de texto para mostrar los logs - SOLO PACK
+        # Un area de texto para mostrar los logs 
         self.textbox = ctk.CTkTextbox(self, width=600, height=200)
         self.textbox.pack(pady=10)
 
@@ -287,31 +317,59 @@ class App(ctk.CTk):
             messagebox.showwarning("Advertencia", "Debes seleccionar un archivo Excel.")
             return
         
-        # Se desahabilitan los botones para evitar acciones durante el procesammiento
+        # --- Configuración de UI para inicio ---
+        self.stop_event.clear() # Limpia la señal de detención
         self.start_button.configure(state="disabled")
         self.browse_button.configure(state="disabled")
         self.config_credentials_button.configure(state="disabled")
+        self.stop_button.configure(state="normal") # Habilita el botón de detención
         # Resetea la barra del progreso y actualiza la etiqueta de progreso
         self.progress_bar.set(0)
         # Muestra un mensaje en el textbox
         self.progress_label.configure(text="Iniciando...")
-        self.textbox.insert("end", f"Iniciando proceso para {ruta}\n")
+        self.textbox.insert("end", f"\n--- PROCESO INICIADO ---\nIniciando proceso para {ruta}\n")
         self.textbox.see("end")
         
-        # Ejecutar en otro hilo para no congelar la interfaz
-        threading.Thread(target=self.run_main, args=(ruta, self.progress_queue), daemon=True).start()
+        # Ejecutar en otro hilo (¡CORREGIDO! Ahora pasa 'stop_event')
+        self.process_thread = threading.Thread(
+            target=self.run_main, 
+            args=(ruta, self.progress_queue, self.stop_event), 
+            daemon=True
+        )
+        self.process_thread.start()
+        
         # Iniciar el chequeo de la cola de progreso
         self.after(100, self.check_progress_queue)
 
+
+    """ MÉTODO stop_process """
+    def stop_process(self):
+        # 1. Activa la señal de detención
+        self.stop_event.set()
+        
+        # 2. Actualiza la UI de inmediato
+        self.stop_button.configure(state="disabled")
+        self.progress_label.configure(text="Detención solicitada...")
+        self.textbox.insert("end", "⚠️ Solicitud de detención enviada. Esperando a que el proceso termine su tarea actual...\n")
+        self.textbox.see("end")
+
+
     """ MÉTODO run_main """
-    def run_main(self, ruta, progress_queue):
+    # ¡CORREGIDO! Ahora acepta 'stop_event' como argumento
+    def run_main(self, ruta, progress_queue, stop_event): 
         # Obtener credenciales
         username, password = self.credentials_manager.load_credentials()
         
         try:
-            # Pasamos la cola y las credenciales a la función principal
-            main(ruta, progress_queue=progress_queue, username=username, password=password)
-            progress_queue.put(("log", "✅ Proceso completado correctamente\n"))
+            # Pasamos todos los argumentos, incluyendo credenciales y stop_event
+            main(ruta, progress_queue=progress_queue, username=username, password=password, stop_event=stop_event)
+            
+            # Revisar el estado de detención para reportar el resultado final
+            if stop_event.is_set():
+                progress_queue.put(("log", "🛑 Proceso detenido por el usuario.\n"))
+            else:
+                progress_queue.put(("log", "✅ Proceso completado correctamente\n"))
+                
         except Exception as e:
             progress_queue.put(("log", f"❌ Error: {e}\n"))
         finally:
@@ -331,9 +389,14 @@ class App(ctk.CTk):
                     self.textbox.insert("end", data)
                     self.textbox.see("end")
                 elif message_type == "finish":
+                    # Revertir el estado de los botones a la normalidad
                     self.start_button.configure(state="normal")
                     self.browse_button.configure(state="normal")
                     self.config_credentials_button.configure(state="normal")
+                    self.stop_button.configure(state="disabled")
+                    self.progress_label.configure(text="Proceso Finalizado.")
+                    self.textbox.insert("end", f"--- PROCESO FINALIZADO ---\n")
+                    self.textbox.see("end")
                     return
         except queue.Empty:
             pass
