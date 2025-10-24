@@ -24,21 +24,10 @@ def preparar_excel(ruta_excel):
         # Configurar pandas para leer correctamente los números de documento
         pd.set_option('display.float_format', lambda x: '%.0f' % x)
         
-        # Leer el archivo Excel, saltando las primeras 4 filas y definiendo los encabezados
-        # La fila 5 (índice 4) contiene los encabezados reales
+        # Leer el archivo Excel
         df_raw = pd.read_excel(ruta_excel, header=None, engine='xlrd')
         
-        # Extraer la información de la ficha desde las primeras filas
-        ficha_info = {
-            'Ficha': df_raw.iloc[1, 1] if df_raw.shape[0] > 1 and df_raw.shape[1] > 1 else "N/A",
-            'Estado': df_raw.iloc[2, 1] if df_raw.shape[0] > 2 and df_raw.shape[1] > 1 else "N/A",
-            'Fecha': df_raw.iloc[3, 1] if df_raw.shape[0] > 3 and df_raw.shape[1] > 1 else "N/A"
-        }
-        
-        logging.info(f"Información de ficha: {ficha_info}")
-        print(f"Información de ficha: {ficha_info}")
-        
-        # Ahora leemos el archivo nuevamente pero estableciendo la fila 5 como encabezado
+        # Ahora leemos el archivo nuevamente
         df = pd.read_excel(ruta_excel, header=4, dtype={
             'Número de Documento': str,
             'Celular': str
@@ -64,7 +53,6 @@ def preparar_excel(ruta_excel):
         logging.info(f"Archivo Excel cargado correctamente: {ruta_excel}")
         logging.info(f"Total de registros: {len(df)}")
         
-        # ----- PREPARAR EL ARCHIVO PARA COLOREAR CELDAS -----
         # Cargar el libro de trabajo con xlrd para leer (necesario para formato)
         rb = xlrd.open_workbook(ruta_excel, formatting_info=True)
         # Hacer una copia editable
