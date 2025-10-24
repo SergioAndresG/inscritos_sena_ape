@@ -11,7 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
 
-dir_screenchost = "Screenschot"
+dir_screenchost = "Screensshot"
 os.makedirs(dir_screenchost, exist_ok=True)
 
 
