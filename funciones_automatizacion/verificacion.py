@@ -1,24 +1,9 @@
 import os
 import time
 import logging
-from datetime import datetime
-import pandas as pd
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from dotenv import load_dotenv
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options
-import traceback
-from openpyxl import load_workbook
-from openpyxl.styles import PatternFill
-import xlrd
-import xlwt
-from xlutils.copy import copy
 
 
 URL_VERIFICACION = 'https://agenciapublicadeempleo.sena.edu.co/spe-web/spe/funcionario/oferta'
@@ -34,18 +19,18 @@ TIPOS_DOCUMENTO = {
 }
 
 
-def verificar_estudiante_con_CC_primero(tipo_doc, num_doc, nombres, apellidos, driver, wait):
+def verificar_estudiante_con_CC_primero(tipo_doc, num_doc, nombres, apellidos, driver, wait, wait_rapido=None):
     """
     Intenta verificar al estudiante primero con CC, y luego con el tipo de documento
     original solo si no se encontró con CC."""
     if tipo_doc == "CC":
         # Si ya es CC, verificamos directamente
         print("Tipo de documento ya es CC, verificando directamente...")
-        return verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait)
+        return verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait, wait_rapido)
     else:
         # Primero intentamos con CC
         print(f"Intentando verificar primero con CC para documento {num_doc}...")
-        encontrado_con_cc = verificar_estudiante("CC", num_doc, nombres, apellidos, driver, wait)
+        encontrado_con_cc = verificar_estudiante("CC", num_doc, nombres, apellidos, driver, wait, wait_rapido)
         
         # Si lo encontramos con CC, retornamos True
         if encontrado_con_cc is True:
@@ -55,9 +40,9 @@ def verificar_estudiante_con_CC_primero(tipo_doc, num_doc, nombres, apellidos, d
         # Si la verificación con CC es None (error) o False (no encontrado),
         # intentamos con el tipo de documento original
         print(f"No se encontró con CC, intentando con tipo original {tipo_doc}")
-        return verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait)
+        return verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait, wait_rapido)
 
-def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait):
+def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait, wait_rapido=None):
     """Verifica si un estudiante ya está registrado en el sistema"""
     max_intentos = 3
     
@@ -68,15 +53,15 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait):
             
             # Esperar a que la página cargue completamente
             print("Esperando que la página cargue...")
-            wait.until(EC.invisibility_of_element_located((By.ID, 'content-load')))
-            wait.until(EC.visibility_of_element_located((By.ID, 'dropTipoIdentificacion')))
+            wait_rapido.until(EC.invisibility_of_element_located((By.ID, 'content-load')))
+            wait_rapido.until(EC.visibility_of_element_located((By.ID, 'dropTipoIdentificacion')))
             print("Página cargada correctamente")
             
             logging.info(f"Verificando estudiante: {nombres} {apellidos} - Documento: {num_doc} - Tipo Doc: {tipo_doc}")
             
             
             # Seleccionar tipo de documento
-            tipo_doc_dropdown = wait.until(EC.element_to_be_clickable((By.ID, 'dropTipoIdentificacion')))
+            tipo_doc_dropdown = wait_rapido.until(EC.element_to_be_clickable((By.ID, 'dropTipoIdentificacion')))
             driver.execute_script("arguments[0].scrollIntoView(true);", tipo_doc_dropdown)
             print("Seleccionando tipo de documento...")
             
@@ -98,76 +83,54 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait):
             # Completar número de documento
             print("Ingresando número de documento...")
             campo_num_id.click()
-
-            wait.until(lambda d: campo_num_id.get_attribute('value') == '' or True)
             campo_num_id.clear()
             # Ingresar el documento
             campo_num_id.send_keys(str(num_doc))
 
-            wait.until(lambda d: campo_num_id.get_attribute('value') == '' or str(num_doc))
+            # CORRECCIÓN: Verificar que el valor se ingresó correctamente
+            wait_rapido.until(lambda d: campo_num_id.get_attribute('value') == str(num_doc))
             print(f"Documento ingresado: {num_doc}")
-            
 
-            # Hacer clic en buscar con JavaScript
+            # Hacer clic en buscar
             print("Haciendo clic en buscar...")
-            boton_buscar = wait.until(EC.presence_of_element_located((By.XPATH, "//button[@id='btnBuscar']")))
+            boton_buscar = wait_rapido.until(EC.element_to_be_clickable((By.XPATH, "//button[@id='btnBuscar']")))
             driver.execute_script("arguments[0].scrollIntoView(true);", boton_buscar)
             driver.execute_script("arguments[0].click();", boton_buscar)
-            
-           # Esperar que aparezca el loader y luego desaparezca
-            try:
-                wait.until(EC.visibility_of_element_located((By.ID, 'content-load')))
-            except:
-                pass  # Si no aparece el loader, continuar
-            
-            wait.until(EC.invisibility_of_element_located((By.ID, 'content-load')))
-            print("Esperando resultados...")
 
-            # Esperar que aparezca algún contenido (tabla o formulario)
-            wait.until(lambda d: len(d.find_elements(By.TAG_NAME, 'table')) > 0 or 
-                                len(d.find_elements(By.NAME, 'nombres')) > 0)
-
-            # VERIFICAR LA EXSITENCIA DEL USUARIO
-            # 1. Verificar si hay una tabla de resultados con datos
-            tablas = driver.find_elements(By.TAG_NAME, "table")
-            for tabla in tablas:
-                if tabla.is_displayed():
-                    filas = tabla.find_elements(By.TAG_NAME, "tr")
-                    if filas and len(filas) > 1:  # Si hay más de una fila (encabezado + datos)
-                        print(f"✅ ENCONTRADO: Tabla con {len(filas)} filas tiene resultados")
-                        return True
-                    
-            # 2. Verificar si aparece un formulario para completar datos (caso en que no existe)
+            # Esperar que aparezca el loader y luego desaparezca
             try:
-                # Buscar campos típicos del formulario de pre-inscripción
-                campos_formulario = driver.find_elements(By.CSS_SELECTOR, 'input[name="nombres], input[name="primerApellido"]')
-                
-                if len(campos_formulario) >= 2 and all(campo.is_displayed() for campo in campos_formulario):
-                    print(f"❌ NO ENCONTRADO: Se muestra formulario para completar datos de {num_doc}")
-                    return False
+                wait_rapido.until(EC.visibility_of_element_located((By.ID, 'content-load')))
             except:
                 pass
+
+            wait_rapido.until(EC.invisibility_of_element_located((By.ID, 'content-load')))
+            print("Esperando resultados...")
             
-            # 3. Verificar mensajes explícitos
-            page_source = driver.page_source.lower()
-            if "no se encontraron resultados" in page_source:
-                print(f"❌ NO ENCONTRADO: No hay resultados para el estudiante {num_doc}")
-                return False
-                
-            # 4. Buscar indicadores positivos
-            if any(indicator in page_source for indicator in ["ya existe", "encontrado", str(num_doc)]):
-                print(f"✅ ENCONTRADO: Indicadores sugieren que el estudiante {num_doc} existe")
-                return True
-            
-            # Si no se pudo determinar claramente, verificar la URL actual
-            # Generalmente cuando no existe el estudiante, la página redirige a un formulario
-            if "/inscripcion" in driver.current_url or "/register" in driver.current_url:
-                print(f"❌ NO ENCONTRADO: Redirigido a formulario para {num_doc}")
-                return False
-                
-            # Por defecto, asumir que no existe si no hay evidencia clara
-            print(f"❓ INDETERMINADO: No hay evidencia clara sobre {num_doc}, asumiendo que no existe")
-            return False
+            try:
+                # Esperar que la tabla tenga contenido REAL
+                wait_rapido.until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, "#bus-table_wrapper tbody tr"))
+                )
+
+                filas = driver.find_elements(By.CSS_SELECTOR, "#bus-table_wrapper tbody tr")
+                        
+                # Verificar que no sea una fila de "sin resultados"
+                if len(filas) > 0:
+                    primera_fila_texto = filas[0].text.lower()  # ✅ CORRECCIÓN
+                    
+                    if 'no se encontraron' in primera_fila_texto or 'sin resultados' in primera_fila_texto:
+                        print(f"❌ NO ENCONTRADO: Tabla vacía o sin resultados para {num_doc}")
+                        return False
+                    
+                    print(f"✅ ENCONTRADO: Tabla con {len(filas)} fila(s) de resultados")
+                    return True
+                else:
+                    print(f"❌ NO ENCONTRADO: Tabla sin filas para {num_doc}")
+                    return False
+                    
+            except Exception as e:
+                print(f"❌ NO ENCONTRADO: Timeout o error ({str(e)}) esperando resultados para {num_doc}")
+                return False 
                 
         except Exception as e:
             logging.error(f"Error en intento {intento}: {str(e)}")

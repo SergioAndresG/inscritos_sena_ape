@@ -215,33 +215,43 @@ class App(ctk.CTk):
         separator.pack(pady=10, padx=20, fill="x")
 
         # Etiqueta para seleccionar el archivo de excel
-        self.label = ctk.CTkLabel(self, text="Selecciona el archivo Excel:")
-        self.label.pack(pady=10)
+        self.label = ctk.CTkLabel(self, text="Selecciona el archivo Excel:", font=ctk.CTkFont(size=14, weight="bold"))
+        self.label.grid(row=0, column=0, pady=(20, 10), padx=20, sticky="n")
 
         # Un campo de texto, donde se muestra la ruta del archivo seleccionado
-        self.file_entry = ctk.CTkEntry(self, width=400)
-        self.file_entry.pack(pady=5)
+        self.file_entry = ctk.CTkEntry(self, width=500, placeholder_text="Ruta del archivo .xls")
+        self.file_entry.grid(row=1, column=0, pady=5, padx=20, sticky="n")
 
         # Botón para abrir el dialogo de la selección de archivos
         self.browse_button = ctk.CTkButton(self, text="Buscar archivo", command=self.browse_file)
-        self.browse_button.pack(pady=5)
+        self.browse_button.grid(row=2, column=0, pady=5, padx=20, sticky="n")
+
+        # Contenedor para los botones de inicio y detención
+        self.button_frame = ctk.CTkFrame(self, fg_color="transparent")
+        self.button_frame.grid(row=3, column=0, pady=10, padx=20, sticky="n")
+        self.button_frame.columnconfigure((0, 1), weight=1)
 
         # Botón para iniciar el proceso
-        self.start_button = ctk.CTkButton(self, text="Iniciar proceso", command=self.start_process)
-        self.start_button.pack(pady=10)
+        self.start_button = ctk.CTkButton(self.button_frame, text="▶️ Iniciar proceso", command=self.start_process, fg_color="#1F7A8C", hover_color="#133D50")
+        self.start_button.grid(row=0, column=0, padx=10, pady=0)
+
+        # Nuevo Botón para detener el proceso (inicialmente deshabilitado)
+        self.stop_button = ctk.CTkButton(self.button_frame, text="⏹️ Detener proceso", command=self.stop_process, state="disabled", fg_color="#E05B5B", hover_color="#A53D3D")
+        self.stop_button.grid(row=0, column=1, padx=10, pady=0)
 
         # Etiqueta que muestra el progreso
-        self.progress_label = ctk.CTkLabel(self, text="")
-        self.progress_label.pack()
+        self.progress_label = ctk.CTkLabel(self, text="Esperando archivo...", text_color="#F9F9F9")
+        self.progress_label.grid(row=4, column=0, pady=(10, 0), padx=20, sticky="n")
 
         # Etiqueta que muestra visualmente el avance
         self.progress_bar = ctk.CTkProgressBar(self, width=600)
         self.progress_bar.set(0)
-        self.progress_bar.pack(pady=5)
+        self.progress_bar.grid(row=5, column=0, pady=5, padx=20, sticky="n")
         
         # Un area de texto para mostrar los logs
-        self.textbox = ctk.CTkTextbox(self, width=600, height=200)
-        self.textbox.pack(pady=10)
+        self.textbox = ctk.CTkTextbox(self, width=600, height=250, wrap="word", activate_scrollbars=True, font=ctk.CTkFont(family="Consolas"))
+        self.textbox.grid(row=6, column=0, pady=(10, 20), padx=20, sticky="nsew")
+        self.textbox.insert("end", "Consola de Logs:\n")
 
         # Una cola para recibir mensajes del proceso
         self.progress_queue = queue.Queue()
@@ -269,7 +279,6 @@ class App(ctk.CTk):
         if filepath:
             self.file_entry.delete(0, "end")
             self.file_entry.insert(0, filepath)
-
     """ MÉTODO start_process """
     def start_process(self):
         # Verificar que existan credenciales
@@ -287,20 +296,26 @@ class App(ctk.CTk):
             messagebox.showwarning("Advertencia", "Debes seleccionar un archivo Excel.")
             return
         
-        # Se desahabilitan los botones para evitar acciones durante el procesammiento
+        # 1. Configuración de estado y UI
+        self.stop_event.clear() # Asegura que la señal de detención esté desactivada
         self.start_button.configure(state="disabled")
         self.browse_button.configure(state="disabled")
         self.config_credentials_button.configure(state="disabled")
         # Resetea la barra del progreso y actualiza la etiqueta de progreso
         self.progress_bar.set(0)
-        # Muestra un mensaje en el textbox
         self.progress_label.configure(text="Iniciando...")
-        self.textbox.insert("end", f"Iniciando proceso para {ruta}\n")
+        self.textbox.insert("end", f"\n--- PROCESO INICIADO ---\nIniciando proceso para {ruta}\n")
         self.textbox.see("end")
         
-        # Ejecutar en otro hilo para no congelar la interfaz
-        threading.Thread(target=self.run_main, args=(ruta, self.progress_queue), daemon=True).start()
-        # Iniciar el chequeo de la cola de progreso
+        # 2. Ejecutar en otro hilo para no congelar la interfaz
+        self.process_thread = threading.Thread(
+            target=self.run_main, 
+            args=(ruta, self.progress_queue, self.stop_event), 
+            daemon=True
+        )
+        self.process_thread.start()
+        
+        # 3. Iniciar el chequeo de la cola de progreso
         self.after(100, self.check_progress_queue)
 
     """ MÉTODO run_main """
@@ -313,7 +328,7 @@ class App(ctk.CTk):
             main(ruta, progress_queue=progress_queue, username=username, password=password)
             progress_queue.put(("log", "✅ Proceso completado correctamente\n"))
         except Exception as e:
-            progress_queue.put(("log", f"❌ Error: {e}\n"))
+            progress_queue.put(("log", f"❌ Error fatal: {e}\n"))
         finally:
             progress_queue.put(("finish", None))
 
@@ -330,7 +345,9 @@ class App(ctk.CTk):
                 elif message_type == "log":
                     self.textbox.insert("end", data)
                     self.textbox.see("end")
+                
                 elif message_type == "finish":
+                    # El proceso terminó (éxito, error o detención)
                     self.start_button.configure(state="normal")
                     self.browse_button.configure(state="normal")
                     self.config_credentials_button.configure(state="normal")
