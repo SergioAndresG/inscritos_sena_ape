@@ -31,7 +31,6 @@ from funciones_automatizacion.meses_busqueda import verificar_meses_busqueda
 from funciones_loggs.loggs_funciones import loggs
 from URLS.urls import URL_FORMULARIO, URL_VERIFICACION
 
-sys.stdout.reconfigure(encoding='utf-8')
 
 #Funcion que preapara los logs en un archivo y maneja su durabilidad en la aplicación
 loggs()
@@ -88,10 +87,10 @@ class QueueStream:
         # Necesario para la interfaz de archivo, pero no hace nada aquí.
         pass
 
+
 def main(ruta_excel_param, progress_queue=None, username=None, password=None, stop_event=threading.Event):
     # Hacemos globales las variables que se usarán en todo el script
     global RUTA_EXCEL, df, wb, sheet, read_sheet, column_indices, header_row
-
     RUTA_EXCEL = ruta_excel_param
     original_stdout = sys.stdout  # Guardar la salida estándar original
     if progress_queue:
