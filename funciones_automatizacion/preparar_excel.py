@@ -80,9 +80,6 @@ def preparar_excel(ruta_excel):
                     column_indices[expected_column] = col
                     break
         
-        print(f"Índices de columnas encontrados: {column_indices}")
-        logging.info(f"Índices de columnas encontrados: {column_indices}")
-        
         # Registrar información del archivo
         logging.info(f"Archivo Excel cargado correctamente: {ruta_excel}")
         logging.info(f"Total de registros: {len(df)}")
