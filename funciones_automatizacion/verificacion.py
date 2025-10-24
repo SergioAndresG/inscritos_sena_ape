@@ -129,7 +129,7 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait, wa
                     return False
                     
             except Exception as e:
-                print(f"❌ NO ENCONTRADO: Timeout o error ({str(e)}) esperando resultados para {num_doc}")
+                print(f"NO ENCONTRADO")
                 return False 
                 
         except Exception as e:
