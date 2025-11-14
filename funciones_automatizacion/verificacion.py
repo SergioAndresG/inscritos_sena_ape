@@ -116,7 +116,7 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait, wa
                         
                 # Verificar que no sea una fila de "sin resultados"
                 if len(filas) > 0:
-                    primera_fila_texto = filas[0].text.lower()  # ✅ CORRECCIÓN
+                    primera_fila_texto = filas[0].text.lower() 
                     
                     if 'no se encontraron' in primera_fila_texto or 'sin resultados' in primera_fila_texto:
                         print(f"❌ NO ENCONTRADO: Tabla vacía o sin resultados para {num_doc}")

@@ -16,7 +16,7 @@ def llenar_formulario_ubicaciones_nacimiento(driver,wait):
         
         print("⚪ Ingresando Datos de Nacimiento")
         
-        # 1. Hacer clic en el botón "Seleccionar" para el municipio de nacimiento
+        # Hacer clic en el botón "Seleccionar" para el municipio de nacimiento
         # Usar un selector mucho más específico
         seleccionar_boton = wait.until(
             EC.element_to_be_clickable((By.XPATH, 
@@ -27,13 +27,13 @@ def llenar_formulario_ubicaciones_nacimiento(driver,wait):
         print("✅ Se hizo clic en el botón Seleccionar para datos de nacimiento")
         time.sleep(1)
         
-        # 2. Verificar que el dropdown se haya abierto
+        #  Verificar que el dropdown se haya abierto
         dropdown = wait.until(
             EC.visibility_of_element_located((By.ID, "dropNacimiento"))
         )
         print("✅ Se abrió el dropdown de nacimiento correctamente")
         
-        # 3. Importante: CAMBIAR AL CONTEXTO DEL DROPDOWN
+        #  Importante: CAMBIAR AL CONTEXTO DEL DROPDOWN
         # En vez de buscar por ID directamente (lo cual puede encontrar elementos duplicados),
         # vamos a buscar elementos dentro del dropdown específico
         
@@ -63,7 +63,7 @@ def llenar_formulario_ubicaciones_nacimiento(driver,wait):
         Select(muni_select).select_by_visible_text('Mosquera')
         print("✅ Se seleccionó Mosquera en el desplegable de Municipio (Nacimiento).")
         
-        # 4. Cerrar el dropdown haciendo clic en algún otro elemento para confirmar la selección
+        # Cerrar el dropdown haciendo clic en algún otro elemento para confirmar la selección
         try:
             fecha_input = driver.find_element(By.ID, "fechaNacimiento")
             fecha_input.click()
