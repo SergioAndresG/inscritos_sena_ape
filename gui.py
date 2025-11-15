@@ -355,7 +355,6 @@ class App(ctk.CTk):
 
 
     """ MÉTODO run_main """
-    # ¡CORREGIDO! Ahora acepta 'stop_event' como argumento
     def run_main(self, ruta, progress_queue, stop_event): 
         # Obtener credenciales
         username, password = self.credentials_manager.load_credentials()
