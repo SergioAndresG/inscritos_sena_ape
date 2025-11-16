@@ -111,47 +111,47 @@ def preparar_excel(ruta_excel):
         if mapeo_perfiles:
             logging.info("Mapeo de perfiles cargado. Rellenando columna")
 
-        # Obtener el nombre del programa desde la celda de "Ficha de Caracterización"
-        # Esta info esta en la fila 1, despues de "Ficha de Caracterizacion"
-
-        try:
-            ficha_caracterización = obtener_nombre_ficha(read_sheet)
-            if ficha_caracterización:
-                nombre_programa = extraer_nombre_ficha(ficha_caracterización)
-            
-                if nombre_programa:
-                    perfil = buscar_perfil_ocupacional(nombre_programa, mapeo_perfiles)
-
-                    if perfil:
-                        logging.info(f"Progrma: {nombre_programa} -> Perfil: {perfil}")
-
-                        # LLenar la columna de perfil ocupacional en el DataFrame
-                        df['Perfil Ocupacional'] = perfil
-
-                        # Tambien escribir en el Excel 
-                        col_perfil = column_indices['Perfil Ocupacional']
-                        for row_idx in range(header_row + 1, read_sheet.nrows):
-                            # Solo escirbir en filas que tengan documeto
-                            if 'Número de Documento' in column_indices:
-                                doc_col = column_indices['Número de Documento']
-                                try:
-                                    doc_value = read_sheet.cell_value(row_idx, doc_col)
-                                    if doc_value:
-                                        sheet.write(row_idx, col_perfil, perfil)
-                                except:
-                                    pass
-                        # Guardar cambios en el Excel
-                        wb.save(ruta_excel)
-                        
-                        logging.info(f"Perfil ocupacional '{perfil}' asignado a todos los aprendices")
-                    else:
-                        logging.warning(f"No se encontró perfil para el programa: {nombre_programa}")
-                        logging.warning("Se debe asignar manualmente el perfil ocupacional")
-                else:
-                    logging.warning("No se pudo extraer el nombre del programa")
+            # Obtener el nombre del programa desde la celda de "Ficha de Caracterización"
+            # Esta info esta en la fila 1, despues de "Ficha de Caracterizacion"
+            try:
+                ficha_caracterización = obtener_nombre_ficha(read_sheet)
+                if ficha_caracterización:
+                    nombre_programa = extraer_nombre_ficha(ficha_caracterización)
                 
-        except Exception as e:
-            logging.error(f"Error al procesar perfil ocupacional: {e}")
+                    if nombre_programa:
+                        perfil = buscar_perfil_ocupacional(nombre_programa, mapeo_perfiles)
+
+                        if perfil:
+                            logging.info(f"Progrma: {nombre_programa} -> Perfil: {perfil}")
+
+                            # LLenar la columna de perfil ocupacional en el DataFrame
+                            df['Perfil Ocupacional'] = perfil
+
+                            # Tambien escribir en el Excel 
+                            col_perfil = column_indices['Perfil Ocupacional']
+                            for row_idx in range(header_row + 1, read_sheet.nrows):
+                                # Solo escirbir en filas que tengan documeto
+                                if 'Número de Documento' in column_indices:
+                                    doc_col = column_indices['Número de Documento']
+                                    try:
+                                        doc_value = read_sheet.cell_value(row_idx, doc_col)
+                                        if doc_value:
+                                            sheet.write(row_idx, col_perfil, perfil)
+                                    except:
+                                        pass
+                            # Guardar cambios en el Excel
+                            wb.save(ruta_excel)
+                            
+                            logging.info(f"Perfil ocupacional '{perfil}' asignado a todos los aprendices")
+                        else:
+                            logging.warning(f"No se encontró perfil para el programa: {nombre_programa}")
+                            logging.warning("Se debe asignar manualmente el perfil ocupacional")
+                    else:
+                        logging.warning("No se pudo extraer el nombre del programa")
+                    
+            except Exception as e:
+                logging.error(f"Error al procesar perfil ocupacional: {e}")
+            wb.save(ruta_excel)                
 
         # Comprobar si existen las columnas esperadas
         missing_columns = [col for col in expected_columns if col not in column_indices]
