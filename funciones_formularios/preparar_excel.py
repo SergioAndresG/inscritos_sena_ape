@@ -3,7 +3,7 @@ import logging
 import pandas as pd
 import xlrd
 from xlutils.copy import copy
-from perfilesOcupacionales.gestorDePerfilesOcupacionales import extraer_nombre_ficha, cargar_mapeo_perfiles, buscar_perfil_ocupacional
+from perfilesOcupacionales.gestorDePerfilesOcupacionales import extraer_nombre_ficha, cargar_mapeo_perfiles, buscar_perfil_ocupacional, obtener_nombre_ficha
 
 # Mapeo de tipos de documento
 TIPOS_DOCUMENTO = {
@@ -115,39 +115,40 @@ def preparar_excel(ruta_excel):
         # Esta info esta en la fila 1, despues de "Ficha de Caracterizacion"
 
         try:
-            ficha_caracyerización = read_sheet.cell_value(1,1)
-            nombre_programa = extraer_nombre_ficha(ficha_caracyerización)
+            ficha_caracterización = obtener_nombre_ficha(read_sheet)
+            if ficha_caracterización:
+                nombre_programa = extraer_nombre_ficha(ficha_caracterización)
+            
+                if nombre_programa:
+                    perfil = buscar_perfil_ocupacional(nombre_programa, mapeo_perfiles)
 
-            if nombre_programa:
-                perfil = buscar_perfil_ocupacional(nombre_programa, mapeo_perfiles)
+                    if perfil:
+                        logging.info(f"Progrma: {nombre_programa} -> Perfil: {perfil}")
 
-                if perfil:
-                    logging.info(f"Progrma: {nombre_programa} -> Perfil: {perfil}")
+                        # LLenar la columna de perfil ocupacional en el DataFrame
+                        df['Perfil Ocupacional'] = perfil
 
-                    # LLenar la columna de perfil ocupacional en el DataFrame
-                    df['Perfil Ocupacional'] = perfil
-
-                    # Tambien escribir en el Excel 
-                    col_perfil = column_indices['Perfil Ocupacional']
-                    for row_idx in range(header_row + 1, read_sheet.nrows):
-                        # Solo escirbir en filas que tengan documeto
-                        if 'Número de Documento' in column_indices:
-                            doc_col = column_indices['Número de Documento']
-                            try:
-                                doc_value = read_sheet.cell_value(row_idx, doc_col)
-                                if doc_value:
-                                    sheet.write(row_idx, col_perfil, perfil)
-                            except:
-                                pass
-                    # Guardar cambios en el Excel
-                    wb.save(ruta_excel)
-                    
-                    logging.info(f"Perfil ocupacional '{perfil}' asignado a todos los aprendices")
+                        # Tambien escribir en el Excel 
+                        col_perfil = column_indices['Perfil Ocupacional']
+                        for row_idx in range(header_row + 1, read_sheet.nrows):
+                            # Solo escirbir en filas que tengan documeto
+                            if 'Número de Documento' in column_indices:
+                                doc_col = column_indices['Número de Documento']
+                                try:
+                                    doc_value = read_sheet.cell_value(row_idx, doc_col)
+                                    if doc_value:
+                                        sheet.write(row_idx, col_perfil, perfil)
+                                except:
+                                    pass
+                        # Guardar cambios en el Excel
+                        wb.save(ruta_excel)
+                        
+                        logging.info(f"Perfil ocupacional '{perfil}' asignado a todos los aprendices")
+                    else:
+                        logging.warning(f"No se encontró perfil para el programa: {nombre_programa}")
+                        logging.warning("Se debe asignar manualmente el perfil ocupacional")
                 else:
-                    logging.warning(f"No se encontró perfil para el programa: {nombre_programa}")
-                    logging.warning("Se debe asignar manualmente el perfil ocupacional")
-            else:
-                logging.warning("No se pudo extraer el nombre del programa")
+                    logging.warning("No se pudo extraer el nombre del programa")
                 
         except Exception as e:
             logging.error(f"Error al procesar perfil ocupacional: {e}")
