@@ -34,3 +34,18 @@ def extraer_nombre_ficha(nombre_ficha):
         return partes[1].strip().upper()
     return str(nombre_ficha).strip().upper()
 
+def buscar_perfil_ocupacional(nombre_del_prgrama, mapeo):
+    """
+    Busca  el perfil ocupacional correspodiente al programa 
+    los busca por conincidencia exacta
+    """
+    if not nombre_del_prgrama:
+        return None
+    
+    # Coincidencia exacta
+    if nombre_del_prgrama in mapeo:
+        return mapeo[nombre_del_prgrama]
+    
+    # Si no encuentra conicidencia no retorna nada
+    return None
+
