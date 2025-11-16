@@ -16,6 +16,7 @@ logoSena.png
 automatizacion_aprendices_*.log
 pre_inscripcion_*.png
 
+# Archivos que construyen el aplicativo .exe
 /dist
 /build
 
