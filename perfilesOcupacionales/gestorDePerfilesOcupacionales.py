@@ -49,3 +49,41 @@ def buscar_perfil_ocupacional(nombre_del_prgrama, mapeo):
     # Si no encuentra conicidencia no retorna nada
     return None
 
+def obtener_nombre_ficha(read_sheet):
+    """
+    Obtiene el nombre de la ficha desde el Excel.
+    Maneja celdas combinadas buscando en múltiples columnas posibles.
+    """
+    fila_ficha = 1  # Fila 2 en Excel = índice 1 en Python
+    
+    # Intentar leer desde varias columnas posibles (B, C, D, E)
+    columnas_posibles = [1, 2, 3, 4]  # Índices de columnas B, C, D, E
+    
+    for col_idx in columnas_posibles:
+        try:
+            valor = read_sheet.cell_value(fila_ficha, col_idx)
+            if valor and str(valor).strip():  # Si tiene contenido
+                # Verificar que contenga el número de ficha (patrón: números seguidos de guion)
+                if '-' in str(valor) or str(valor).isdigit():
+                    logging.info(f"Ficha encontrada en fila {fila_ficha+1}, columna {col_idx+1}: {valor}")
+                    return str(valor).strip()
+        except IndexError:
+            continue
+    
+    # Si no encontró nada, intentar leer merged_cells
+    try:
+        merged_ranges = read_sheet.merged_cells
+        for crange in merged_ranges:
+            rlo, rhi, clo, chi = crange  # row_low, row_high, col_low, col_high
+            if rlo <= fila_ficha < rhi:  # Si la fila está en el rango combinado
+                # Leer el valor de la primera celda del rango
+                valor = read_sheet.cell_value(rlo, clo)
+                if valor and str(valor).strip():
+                    logging.info(f"Ficha encontrada en celda combinada: {valor}")
+                    return str(valor).strip()
+    except AttributeError:
+        # merged_cells no disponible en todas las versiones de xlrd
+        pass
+    
+    logging.warning("No se pudo encontrar el nombre de la ficha en el archivo")
+    return None
