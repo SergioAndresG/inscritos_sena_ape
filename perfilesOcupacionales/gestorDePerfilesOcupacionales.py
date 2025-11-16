@@ -3,7 +3,7 @@ import logging
 import pandas as pd
 
 # Definimos la función que va decodificar los datos de el archivo json
-def cargar_mapeo_perfiles(ruta_json='perfiles_ocupacionales.json'):
+def cargar_mapeo_perfiles(ruta_json='perfilesOcupacionales/perfiles_ocupacionales.json'):
     """
     Carga el mapeo de programas a perfiles ocupacionales desde el json
     """
