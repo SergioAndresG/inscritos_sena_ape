@@ -289,7 +289,6 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                             print("✅ Se hizo click en el boton de Guardar Correctamente")
                             print("Esperando respuesta")
                             logging.info("Se hizo click en el boton de Guardar")
-                            time.sleep(10)
                             resultado_esperiencia_laboral = experiencia_laboral(driver,  perfil_ocupacional)
                             if resultado_esperiencia_laboral == False:
                                 # Colorear fila como error
