@@ -20,6 +20,23 @@ def experiencia_laboral(driver, perfil_excel):
             alerta.accept() # Aceptamos la alerta
             print("Alerta aceptada")
             time.sleep(1)
+
+            # Clasificar el tipo de alerta
+            texto_lower = texto_alerta.lower()
+
+            if "error" in texto_lower or "intente nuevamente" in texto_lower or "ha ocurrido" in texto_lower:
+                logging.error(f"Alerta de error detectada: {texto_alerta}")
+                print(f"❌ ERROR DETECTADO EN ALERTA: {texto_alerta}")
+                return False  # Error crítico
+                
+            elif "guardados correctamente" in texto_lower or "éxito" in texto_lower:
+                logging.info(f"Alerta de éxito: {texto_alerta}")
+                print(f"✅ Datos guardados correctamente")
+                # Continuar normalmente
+            else:
+                # Alerta desconocida, por precaución tratarla como advertencia
+                logging.warning(f"Alerta desconocida: {texto_alerta}")
+                print(f"⚠️ Alerta no reconocida: {texto_alerta}")
         except:
             print("No hay alertas pendientes, continuando con el flujo normal")
         
