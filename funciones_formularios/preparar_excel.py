@@ -3,6 +3,7 @@ import logging
 import pandas as pd
 import xlrd
 from xlutils.copy import copy
+from perfilesOcupacionales.perfilExcepcion import PerfilOcupacionalNoEncontrado
 from perfilesOcupacionales.gestorDePerfilesOcupacionales import extraer_nombre_ficha, cargar_mapeo_perfiles, buscar_perfil_ocupacional, obtener_nombre_ficha
 
 # Mapeo de tipos de documento
@@ -146,8 +147,8 @@ def preparar_excel(ruta_excel):
                             
                             logging.info(f"Perfil ocupacional '{perfil}' asignado a todos los aprendices")
                         else:
-                            logging.warning(f"No se encontró perfil para el programa: {nombre_programa}")
-                            programa_sin_perfil = nombre_programa
+                            logging.error(f"No se encontró perfil para el programa: {nombre_programa}")
+                            raise PerfilOcupacionalNoEncontrado
                     else:
                         logging.warning("No se pudo extraer el nombre del programa")
                     
