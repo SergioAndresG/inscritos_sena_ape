@@ -155,9 +155,14 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                 # Colorear la fila actual como "procesando"
                 for col_name, col_idx in column_indices.items():
                     try:
-                        sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_procesando)
-                    except Exception as e:
-                        print(f"Error al colorear celda {col_name}: {str(e)}")
+                        # leer del dataframe si la columna existe, sino del readsheet
+                        if col_name in df.columns:
+                            valor = fila[col_name]
+                        else:
+                            valor = read_sheet.cell_value(excel_row, col_idx)
+                        sheet.write(excel_row, col_idx, valor, style_procesando)
+                    except:
+                        print(f"Error al colorear celda {col_name}: {str(e)}")                    
                 
                 # Guardar los cambios para que sean visibles inmediatamente
                 try:
@@ -190,9 +195,14 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                     # Colorear fila como error
                     for col_name, col_idx in column_indices.items():
                         try:
-                            sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_error)
-                        except Exception as e:
-                            print(f"Error al colorear celda {col_name}: {str(e)}")
+                            # leer del dataframe si la columna existe, sino del readsheet
+                            if col_name in df.columns:
+                                valor = fila[col_name]
+                            else:
+                                valor = read_sheet.cell_value(excel_row, col_idx)
+                            sheet.write(excel_row, col_idx, valor, style_error)
+                        except:
+                            print(f"Error al colorear celda {col_name}: {str(e)}")  
                     wb.save(RUTA_EXCEL)
                     contador_saltados += 1
                     continue
@@ -205,9 +215,14 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                     # Colorear fila como ya existente
                     for col_name, col_idx in column_indices.items():
                         try:
-                            sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_ya_existe)
-                        except Exception as e:
-                            print(f"Error al colorear celda {col_name}: {str(e)}")
+                            # leer del dataframe si la columna existe, sino del readsheet
+                            if col_name in df.columns:
+                                valor = fila[col_name]
+                            else:
+                                valor = read_sheet.cell_value(excel_row, col_idx)
+                            sheet.write(excel_row, col_idx, valor, style_ya_existe)
+                        except:
+                            print(f"Error al colorear celda {col_name}: {str(e)}")  
                     wb.save(RUTA_EXCEL)
                     contador_ya_existentes += 1
                     continue
@@ -238,8 +253,13 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                             # Colorear fila como ya existente
                             for col_name, col_idx in column_indices.items():
                                 try:
-                                    sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_ya_existe)
-                                except Exception as e:
+                                    # leer del dataframe si la columna existe, sino del readsheet
+                                    if col_name in df.columns:
+                                        valor = fila[col_name]
+                                    else:
+                                        valor = read_sheet.cell_value(excel_row, col_idx)
+                                    sheet.write(excel_row, col_idx, valor, style_ya_existe)
+                                except:
                                     print(f"Error al colorear celda {col_name}: {str(e)}")
                                     
                             # Guardamos en el archivo la modificacion del estudiante
@@ -276,9 +296,14 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                             # Colorear fila como procesado exitosamente
                             for col_name, col_idx in column_indices.items():
                                 try:
-                                    sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_procesado)
-                                except Exception as e:
-                                    print(f"Error al colorear celda {col_name}: {str(e)}")
+                                    # leer del dataframe si la columna existe, sino del readsheet
+                                    if col_name in df.columns:
+                                        valor = fila[col_name]
+                                    else:
+                                        valor = read_sheet.cell_value(excel_row, col_idx)
+                                    sheet.write(excel_row, col_idx, valor, style_procesado)
+                                except:
+                                    print(f"Error al colorear celda {col_name}: {str(e)}")  
                             wb.save(RUTA_EXCEL)
                             print(f"Excel actualizado: marcando fila {excel_row + 1} como 'procesado'")
                             contador_procesados_exitosamente += 1
@@ -298,8 +323,13 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                         # Colorear fila como error
                         for col_name, col_idx in column_indices.items():
                             try:
-                                sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_error)
-                            except Exception as e:
+                                # leer del dataframe si la columna existe, sino del readsheet
+                                if col_name in df.columns:
+                                    valor = fila[col_name]
+                                else:
+                                    valor = read_sheet.cell_value(excel_row, col_idx)
+                                sheet.write(excel_row, col_idx, valor, style_error)
+                            except:
                                 print(f"Error al colorear celda {col_name}: {str(e)}")
                         wb.save(RUTA_EXCEL)
                 else:
@@ -335,9 +365,14 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                 # Colorear fila como error
                 for col_name, col_idx in column_indices.items():
                     try:
-                        sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_error)
-                    except Exception as write_error:
-                        print(f"Error al colorear celda {col_name}: {str(write_error)}")
+                        # leer del dataframe si la columna existe, sino del readsheet
+                        if col_name in df.columns:
+                            valor = fila[col_name]
+                        else:
+                            valor = read_sheet.cell_value(excel_row, col_idx)
+                        sheet.write(excel_row, col_idx, valor, style_error)
+                    except:
+                        print(f"Error al colorear celda {col_name}: {str(e)}")
                 try:
                     wb.save(RUTA_EXCEL)
                     print(f"Excel actualizado: marcando fila {excel_row + 1} como 'error'")
