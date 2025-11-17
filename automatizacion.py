@@ -30,6 +30,7 @@ from funciones_formularios.form_datos_residencia import llenar_formulario_ubicac
 from funciones_formularios.meses_busqueda import verificar_meses_busqueda
 from funciones_loggs.loggs_funciones import loggs
 from URLS.urls import URL_FORMULARIO, URL_VERIFICACION
+from perfilesOcupacionales.perfilExcepcion import PerfilOcupacionalNoEncontrado
 
 
 #Funcion que preapara los logs en un archivo y maneja su durabilidad en la aplicación
@@ -101,10 +102,22 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
         df, wb, sheet, read_sheet, column_indices, header_row, programa_sin_perfil = preparar_excel(RUTA_EXCEL)
         logging.info(f"Archivo Excel '{RUTA_EXCEL}' cargado y listo para procesar.")
         print(f" Archivo Excel '{os.path.basename(RUTA_EXCEL)}' cargado y listo.")
+    except PerfilOcupacionalNoEncontrado as e:
+        # Capturar la exepcion especifica de perfil no encontrado
+        nombre_programa = e.nombre_programa
+        logging.warning(f"Perfil no encontrado para: {nombre_programa}")
+
+        # Enviar señal a la GUI para mostrar el diálogo
+        if progress_queue:
+            progress_queue.put(("solicitar_perfil", nombre_programa))
+            # Esperar respuesta del usuario
+            # Detener el proceso mientras el usuario da respuesta
+            progress_queue.put(("log", f"Proceso detenido por falta de perfil ocuapcional para: '{nombre_programa}\n'"))
+            progress_queue.put(("log", f"Ingresa el perfil ocupacional y reinicia el proceso"))
     except (FileNotFoundError, Exception) as e:
         logging.error(f"Error fatal al preparar el archivo Excel: {e}")
-        print(f" Error fatal al preparar el archivo Excel: {e}")
-        return # Salir de la función main si no se puede cargar el Excel
+        print(f"Error fatal al preparar el archivo Excel: {e}")
+        return
 
     try:
         # Realizar login
