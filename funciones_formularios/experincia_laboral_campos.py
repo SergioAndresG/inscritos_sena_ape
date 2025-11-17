@@ -26,7 +26,7 @@ def experiencia_laboral(driver, perfil_excel):
 
             if "error" in texto_lower or "intente nuevamente" in texto_lower or "ha ocurrido" in texto_lower:
                 logging.error(f"Alerta de error detectada: {texto_alerta}")
-                print(f"❌ ERROR DETECTADO EN ALERTA: {texto_alerta}")
+                print(f" ERROR DETECTADO EN ALERTA: {texto_alerta}")
                 return False  # Error crítico
                 
             elif "guardados correctamente" in texto_lower or "éxito" in texto_lower:
@@ -107,16 +107,16 @@ def experiencia_laboral(driver, perfil_excel):
                     print(f"❌ Error al hacer clic en el tab: {str(e)}")
             
             # Esperar un momento para que la interfaz responda
-            time.sleep(2)
+            time.sleep(1)
                 
         # Resto del código para intereses ocupacionales
         try:
-            print("Buscando el botón 'add-int'...")
+            print("Buscando el botón...")
             intereses_ocupacionales = WebDriverWait(driver, 10).until(
                 EC.element_to_be_clickable((By.ID, 'add-int'))
             )
             intereses_ocupacionales.click()
-            print("✅ Se hizo clic en el botón 'add-int'")
+            print(" Se hizo clic en el botón")
             # --- Intereses Ocupacionales ---
             print("Iniciando proceso de agregar interés ocupacional...")
 
@@ -144,7 +144,7 @@ def experiencia_laboral(driver, perfil_excel):
                 print(f"Advertencia al manipular el contenedor: {str(e)}")
 
             # Ahora buscar específicamente el campo de entrada con el XPath más preciso
-            print("Buscando el campo de entrada 'ocu-nombre' dentro del formulario 'int-ocu-search'...")
+            print("Buscando el campo de entrada dentro del formulario...")
             campo_nombre = WebDriverWait(driver, 5).until(
                 EC.visibility_of_element_located((By.XPATH, "//form[@id='int-ocu-search']//input[@id='ocu-nombre']"))
             )
@@ -154,7 +154,7 @@ def experiencia_laboral(driver, perfil_excel):
             print(f"Intentando ingresar texto: '{perfil_excel}'")
             campo_nombre.send_keys(perfil_excel)
             time.sleep(1)  # Añade una espera después de enviar las teclas
-            print("Buscando el botón de búsqueda 'ocu-nombre-btn'...")
+            print("Buscando el botón de búsqueda...")
             boton_busqueda = WebDriverWait(driver, 15).until(
                 EC.element_to_be_clickable((By.XPATH, "//form[@id='int-ocu-search']//button[@id='ocu-nombre-btn']"))
             )
@@ -195,7 +195,7 @@ def experiencia_laboral(driver, perfil_excel):
                 time.sleep(3) # Espera a que se complete la adición
 
             except Exception as e:
-                print(f"❌ No se pudo encontrar o hacer clic en el botón 'Seleccionar' para '{perfil_excel}': {e}")
+                print(f" No se pudo encontrar o hacer clic en el botón 'Seleccionar' para '{perfil_excel}': {e}")
                 # Verificar que el interés se haya agregado correctamente
                 try:
                     texto_encontrado = driver.find_elements(By.XPATH, f"//*[contains(text(), '{perfil_excel}')]")
@@ -203,17 +203,17 @@ def experiencia_laboral(driver, perfil_excel):
                         print(f"✅ Verificado: El interés '{perfil_excel}' se agregó correctamente")
                         return True
                     else:
-                        print(f"⚠️ No se encontró confirmación visual del interés agregado")
+                        print(f" No se encontró confirmación visual del interés agregado")
                         return False
                 except:
                     print("No se pudo verificar la adición del interés")
                     return False
         except Exception as e:
-            print(f"❌ Error general en intereses_ocupacionales: {str(e)}")
+            print(f" Error general en intereses_ocupacionales: {str(e)}")
             traceback.print_exc()
             return False
     except Exception as e:
-        print(f"❌ Error general en experiencia_laboral: {e}")
+        print(f" Error general en experiencia_laboral: {e}")
         # Capturar una captura de pantalla para depuración
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         screenshot_path = f"error_screenshot_{timestamp}.png"
