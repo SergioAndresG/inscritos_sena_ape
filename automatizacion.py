@@ -90,7 +90,7 @@ class QueueStream:
 
 def main(ruta_excel_param, progress_queue=None, username=None, password=None, stop_event=threading.Event):
     # Hacemos globales las variables que se usarán en todo el script
-    global RUTA_EXCEL, df, wb, sheet, read_sheet, column_indices, header_row
+    global RUTA_EXCEL, df, wb, sheet, read_sheet, column_indices, header_row, programa_sin_perfil
     RUTA_EXCEL = ruta_excel_param
     original_stdout = sys.stdout  # Guardar la salida estándar original
     if progress_queue:
@@ -98,7 +98,7 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
 
     try:
         # Llamamos a la nueva función para preparar el Excel
-        df, wb, sheet, read_sheet, column_indices, header_row = preparar_excel(RUTA_EXCEL)
+        df, wb, sheet, read_sheet, column_indices, header_row, programa_sin_perfil = preparar_excel(RUTA_EXCEL)
         logging.info(f"Archivo Excel '{RUTA_EXCEL}' cargado y listo para procesar.")
         print(f" Archivo Excel '{os.path.basename(RUTA_EXCEL)}' cargado y listo.")
     except (FileNotFoundError, Exception) as e:
