@@ -16,6 +16,7 @@ TIPOS_DOCUMENTO = {
 }
 
 def preparar_excel(ruta_excel):
+    programa_sin_perfil = None
     # --- Cargar el archivo Excel con pandas y preparar para colorear celdas ---
     try:
         if not os.path.exists(ruta_excel):
@@ -120,7 +121,6 @@ def preparar_excel(ruta_excel):
                 
                     if nombre_programa:
                         perfil = buscar_perfil_ocupacional(nombre_programa, mapeo_perfiles)
-                        programa_sin_perfil = None
                         
                         if perfil:
 
