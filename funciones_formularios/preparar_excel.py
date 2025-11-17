@@ -120,8 +120,10 @@ def preparar_excel(ruta_excel):
                 
                     if nombre_programa:
                         perfil = buscar_perfil_ocupacional(nombre_programa, mapeo_perfiles)
-
+                        programa_sin_perfil = None
+                        
                         if perfil:
+
                             logging.info(f"Progrma: {nombre_programa} -> Perfil: {perfil}")
 
                             # LLenar la columna de perfil ocupacional en el DataFrame
@@ -145,7 +147,7 @@ def preparar_excel(ruta_excel):
                             logging.info(f"Perfil ocupacional '{perfil}' asignado a todos los aprendices")
                         else:
                             logging.warning(f"No se encontró perfil para el programa: {nombre_programa}")
-                            logging.warning("Se debe asignar manualmente el perfil ocupacional")
+                            programa_sin_perfil = nombre_programa
                     else:
                         logging.warning("No se pudo extraer el nombre del programa")
                     
@@ -169,7 +171,7 @@ def preparar_excel(ruta_excel):
         logging.info(f"Columnas en el archivo Excel: {list(column_indices.keys())}")
         
         # Devolver todos los objetos necesarios para el script principal
-        return df, wb, sheet, read_sheet, column_indices, header_row
+        return df, wb, sheet, read_sheet, column_indices, header_row, programa_sin_perfil
         
     except Exception as e:
         logging.error(f"Error configurando el excel: {e}")
