@@ -87,3 +87,25 @@ def obtener_nombre_ficha(read_sheet):
     
     logging.warning("No se pudo encontrar el nombre de la ficha en el archivo")
     return None
+
+def agregar_perfil_a_json(nombre_programa, perfil_ocupacional, ruta_json='perfilesOcupacionales/perfiles_ocupacionales.json'):
+    """
+    Agrega un nuevo mapeo de programa -> perfil al archivo JSON
+    """
+    try:
+        # Cargar el JSON actual
+        mapeo_actual = cargar_mapeo_perfiles(ruta_json)
+        
+        # Agregar el nuevo mapeo
+        mapeo_actual[nombre_programa] = perfil_ocupacional
+        
+        # Guardar de vuelta en el JSON
+        with open(ruta_json, 'w', encoding='utf-8') as f:
+            json.dump(mapeo_actual, f, ensure_ascii=False, indent=4)
+        
+        logging.info(f"Perfil agregado al JSON: {nombre_programa} -> {perfil_ocupacional}")
+        return True
+        
+    except Exception as e:
+        logging.error(f"Error al agregar perfil al JSON: {e}")
+        return False
