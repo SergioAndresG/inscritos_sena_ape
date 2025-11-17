@@ -290,8 +290,26 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                             print("Esperando respuesta")
                             logging.info("Se hizo click en el boton de Guardar")
                             time.sleep(10)
-                            experiencia_laboral(driver,  perfil_ocupacional)
-                            time.sleep(5)
+                            resultado_esperiencia_laboral = experiencia_laboral(driver,  perfil_ocupacional)
+                            if resultado_esperiencia_laboral == False:
+                                # Colorear fila como error
+                                for col_name, col_idx in column_indices.items():
+                                    try:
+                                        # leer del dataframe si la columna existe, sino del readsheet
+                                        if col_name in df.columns:
+                                            valor = fila[col_name]
+                                        else:
+                                            valor = read_sheet.cell_value(excel_row, col_idx)
+                                        sheet.write(excel_row, col_idx, valor, style_error)
+                                    except:
+                                        print(f"Error al colorear celda {col_name}: {str(e)}")  
+                                wb.save(RUTA_EXCEL)
+                                print(f"Excel actualizado: marcando fila {excel_row + 1} como 'error")
+                                contador_errores += 1
+
+                                driver.get(URL_VERIFICACION)
+                                time.sleep(2)
+                                continue
                             
                             # Colorear fila como procesado exitosamente
                             for col_name, col_idx in column_indices.items():
