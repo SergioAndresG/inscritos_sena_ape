@@ -430,6 +430,11 @@ class App(ctk.CTk):
                 elif message_type == "log":
                     self.textbox.insert("end", data)
                     self.textbox.see("end")
+
+                elif message_type == "solicitar_perfil":
+                    nombre_programa = data
+                    self.show_dialog_profile(nombre_programa)
+                    
                 elif message_type == "finish":
                     # Revertir el estado de los botones a la normalidad
                     self.start_button.configure(state="normal")
