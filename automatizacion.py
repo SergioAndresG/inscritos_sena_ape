@@ -88,7 +88,6 @@ class QueueStream:
         # Necesario para la interfaz de archivo, pero no hace nada aquí.
         pass
 
-
 def main(ruta_excel_param, progress_queue=None, username=None, password=None, stop_event=threading.Event):
     # Hacemos globales las variables que se usarán en todo el script
     global RUTA_EXCEL, df, wb, sheet, read_sheet, column_indices, header_row, programa_sin_perfil
@@ -110,10 +109,11 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
         # Enviar señal a la GUI para mostrar el diálogo
         if progress_queue:
             progress_queue.put(("solicitar_perfil", nombre_programa))
-            # Esperar respuesta del usuario
-            # Detener el proceso mientras el usuario da respuesta
-            progress_queue.put(("log", f"Proceso detenido por falta de perfil ocuapcional para: '{nombre_programa}\n'"))
-            progress_queue.put(("log", f"Ingresa el perfil ocupacional y reinicia el proceso"))
+            progress_queue.put(("log", f" Proceso detenido: falta perfil para '{nombre_programa}'\n"))
+            progress_queue.put(("log", f" Ingresa el perfil ocupacional y reinicia el proceso\n"))
+            progress_queue.put(("finish", None))
+        return
+    
     except (FileNotFoundError, Exception) as e:
         logging.error(f"Error fatal al preparar el archivo Excel: {e}")
         print(f"Error fatal al preparar el archivo Excel: {e}")
