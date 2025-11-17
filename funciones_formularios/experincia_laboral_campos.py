@@ -14,7 +14,7 @@ def experiencia_laboral(driver, perfil_excel):
     try:
         # Primero verificamos si hay alguna alerta presente y la aceptamos
         try:
-            alerta = WebDriverWait(driver, 3).until(EC.alert_is_present())
+            alerta = WebDriverWait(driver, 2).until(EC.alert_is_present())
             texto_alerta = alerta.text
             print("Alerta detectada")
             alerta.accept() # Aceptamos la alerta
