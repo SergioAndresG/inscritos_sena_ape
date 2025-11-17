@@ -12,7 +12,7 @@ class DialogoPerfilOcupacional(ctk.CTkToplevel):
         
         # Configuración de la ventana
         self.title("Perfil Ocupacional No Encontrado")
-        self.geometry("550x300")
+        self.geometry("550x350")
         self.resizable(False, False)
         
         # Hacer modal
@@ -69,26 +69,12 @@ class DialogoPerfilOcupacional(ctk.CTkToplevel):
             text="✓ Guardar y Continuar",
             command=self.guardar_perfil,
             width=200,
-            height=40,
+            height=50,
             font=ctk.CTkFont(size=14, weight="bold"),
             fg_color="#2b9348",
             hover_color="#1f6f30"
         )
         save_button.pack(side="left", padx=10)
-        
-        # Botón Saltar
-        skip_button = ctk.CTkButton(
-            button_container,
-            text="⏭️ Saltar Este Estudiante",
-            command=self.saltar,
-            width=200,
-            height=40,
-            font=ctk.CTkFont(size=14),
-            fg_color="#d62828",
-            hover_color="#9d0208"
-        )
-        skip_button.pack(side="left", padx=10)
-        
         # Focus en el campo de entrada
         self.perfil_entry.focus()
         
