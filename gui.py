@@ -308,6 +308,19 @@ class App(ctk.CTk):
             messagebox.showwarning("Advertencia", "Debes seleccionar un archivo Excel.")
             return
         
+        # Limpiar cola de mensajes antiguos
+        while not self.progress_queue.empty():
+            try:
+                self.progress_queue.get_nowait()
+            except queue.Empty:
+                break
+        
+        # Limpiar UI
+        self.textbox.delete("1.0", "end")
+        self.progress_bar.set(0)
+        self.progress_percentage.configure(text="0%")
+        self.progress_bar.configure(progress_color=COLORS["accent"])
+        
         # Configuración UI
         self.stop_event.clear()
         self.start_button.configure(state="disabled", text="⏳ Iniciando...")
@@ -321,8 +334,15 @@ class App(ctk.CTk):
         
         self.progress_label.configure(text="Preparando automatización...")
         self.progress_percentage.configure(text="...")
-        self.textbox.insert("end", f"\n{'='*50}\n▶️ PROCESO INICIADO\n{'='*50}\n")
-        self.textbox.insert("end", f"📂 Archivo: {ruta}\n")
+        
+        # Logs iniciales
+        from datetime import datetime
+        timestamp = datetime.now().strftime("%H:%M:%S")
+        
+        self.textbox.insert("end", f"{'='*50}\n")
+        self.textbox.insert("end", f"▶️ PROCESO INICIADO - {timestamp}\n")
+        self.textbox.insert("end", f"{'='*50}\n")
+        self.textbox.insert("end", f"📂 Archivo: {ruta}\n\n")
         self.textbox.see("end")
         
         # Iniciar thread
@@ -336,10 +356,10 @@ class App(ctk.CTk):
 
     """ MÉTODO stop_process """
     def stop_process(self):
-        # 1. Activa la señal de detención
+        # Activa la señal de detención
         self.stop_event.set()
         
-        # 2. Actualiza la UI de inmediato
+        # Actualiza la UI de inmediato
         self.stop_button.configure(state="disabled")
         self.progress_label.configure(text="Detención solicitada...")
         self.textbox.insert("end", "⚠️ Solicitud de detención enviada. Esperando a que el proceso termine su tarea actual...\n")
