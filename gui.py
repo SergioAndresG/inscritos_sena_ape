@@ -131,19 +131,7 @@ class App(ctk.CTk):
         
         super().__init__()
 
-        # Layout principal mejorado
-        main_container = ctk.CTkFrame(self, fg_color="transparent")
-        main_container.pack(fill="both", expand=True, padx=20, pady=20)
-
-        # Columna izquierda - Controles
-        left_panel = ctk.CTkFrame(main_container, fg_color=COLORS["bg_card"], corner_radius=10)
-        left_panel.pack(side="left", fill="both", expand=True, padx=(0, 10))
-
-        # Columna derecha - Logs y progreso
-        right_panel = ctk.CTkFrame(main_container, fg_color=COLORS["bg_card"], corner_radius=10)
-        right_panel.pack(side="right", fill="both", expand=True, padx=(10, 0))
-        
-        # Lógica base
+        # ===== 1. CONFIGURACIÓN INICIAL (PRIMERO) =====
         self.credentials_manager = CredentialsManager()
         self.stop_event = threading.Event()
         self.process_thread = None
@@ -151,16 +139,17 @@ class App(ctk.CTk):
         
         # Configuración Ventana
         self.title("Automatización SENA")
-        self.geometry("700x700")
-        self.minsize(800, 700)
-        try: self.iconbitmap("Iconos/logoSena.ico")
-        except: pass
+        self.geometry("700x700")  # Más ancho para 2 columnas
+        self.minsize(1200, 700)
+        try: 
+            self.iconbitmap("Iconos/logoSena.ico")
+        except: 
+            pass
 
-        # Frame superior para credenciales 
+        # ===== 2. HEADER SUPERIOR (CREDENCIALES) =====
         credentials_frame = ctk.CTkFrame(self, fg_color="transparent")
         credentials_frame.pack(pady=10, padx=20, fill="x")
         
-        # Indicador de credenciales
         self.credentials_status = ctk.CTkLabel(
             credentials_frame,
             text=self._get_credentials_status(),
@@ -168,7 +157,6 @@ class App(ctk.CTk):
         )
         self.credentials_status.pack(side="left", padx=10)
         
-        # Botón para configurar credenciales
         self.config_credentials_button = ctk.CTkButton(
             credentials_frame,
             text="⚙️ Configurar Credenciales",
@@ -182,14 +170,22 @@ class App(ctk.CTk):
         # Separador
         separator = ctk.CTkFrame(self, height=2, fg_color="gray")
         separator.pack(pady=10, padx=20, fill="x")
+
+        # ===== 3. CONTENEDOR PRINCIPAL (2 COLUMNAS) =====
+        main_container = ctk.CTkFrame(self, fg_color="transparent")
+        main_container.pack(fill="both", expand=True, padx=20, pady=10)
+
+        # --- COLUMNA IZQUIERDA: CONTROLES ---
+        left_panel = ctk.CTkFrame(main_container, fg_color=COLORS["bg_card"], corner_radius=10)
+        left_panel.pack(side="left", fill="both", expand=True, padx=(0, 10))
+
+        # Tarjeta de archivo
         file_card = ctk.CTkFrame(left_panel, fg_color=COLORS["terminal_bg"], corner_radius=8)
         file_card.pack(pady=15, padx=15, fill="x")
 
-        # Header de la tarjeta
         ctk.CTkLabel(file_card, text="📁 Archivo Excel", 
                     font=ctk.CTkFont(size=14, weight="bold")).pack(anchor="w", padx=10, pady=(10,5))
 
-        # Frame para el path con botón integrado
         path_frame = ctk.CTkFrame(file_card, fg_color="transparent")
         path_frame.pack(fill="x", padx=10, pady=(0,10))
 
@@ -201,13 +197,12 @@ class App(ctk.CTk):
                                             command=self.browse_file)
         self.browse_button.pack(side="right")
 
-        # Indicador de estado del archivo
         self.file_status = ctk.CTkLabel(file_card, text="", 
                                         font=ctk.CTkFont(size=11),
                                         text_color=COLORS["text_dim"])
         self.file_status.pack(anchor="w", padx=10, pady=(0,10))
 
-        # Frame de acciones centrado
+        # Frame de acciones
         actions_frame = ctk.CTkFrame(left_panel, fg_color="transparent")
         actions_frame.pack(pady=20, padx=15)
 
@@ -236,11 +231,14 @@ class App(ctk.CTk):
         )
         self.stop_button.pack(pady=5)
 
-        # Container para progreso con padding
+        # --- COLUMNA DERECHA: MONITOREO ---
+        right_panel = ctk.CTkFrame(main_container, fg_color=COLORS["bg_card"], corner_radius=10)
+        right_panel.pack(side="right", fill="both", expand=True, padx=(10, 0))
+
+        # Container de progreso
         progress_container = ctk.CTkFrame(right_panel, fg_color="transparent")
         progress_container.pack(pady=15, padx=15, fill="x")
 
-        # Header con estadísticas
         stats_frame = ctk.CTkFrame(progress_container, fg_color="transparent")
         stats_frame.pack(fill="x", pady=(0,10))
 
@@ -253,27 +251,24 @@ class App(ctk.CTk):
                                                 text_color=COLORS["accent"])
         self.progress_percentage.pack(side="right")
 
-        # Frame para logs con header
+        # Barra de progreso
+        self.progress_bar = ctk.CTkProgressBar(progress_container, height=20)
+        self.progress_bar.set(0)
+        self.progress_bar.pack(fill="x")
+
+        # Logs
         logs_frame = ctk.CTkFrame(right_panel, fg_color="transparent")
-        logs_frame.pack(pady=(0,15), padx=15, fill="both", expand=True)
+        logs_frame.pack(pady=(10,15), padx=15, fill="both", expand=True)
 
         ctk.CTkLabel(logs_frame, text="📋 Registro de Actividad",
                     font=ctk.CTkFont(size=14, weight="bold")).pack(anchor="w", pady=(0,10))
 
         self.textbox = ctk.CTkTextbox(logs_frame, 
                                     fg_color=COLORS["terminal_bg"],
-                                    text_color="#FFFFFF",  # Verde terminal
+                                    text_color="#00FF00",
                                     font=ctk.CTkFont(family="Consolas", size=11),
                                     corner_radius=8)
         self.textbox.pack(fill="both", expand=True)
-
-        # Barra de progreso mejorada
-        self.progress_bar = ctk.CTkProgressBar(progress_container, height=20)
-        self.progress_bar.set(0)
-        self.progress_bar.pack(fill="x")
-
-        # Una cola para recibir mensajes del proceso
-        self.progress_queue = queue.Queue()
 
     def _get_credentials_status(self):
         """Obtiene el estado de las credenciales"""
@@ -301,7 +296,6 @@ class App(ctk.CTk):
 
     """ MÉTODO start_process """
     def start_process(self):
-        # Verificar que existan credenciales
         if not self.credentials_manager.credentials_exist():
             messagebox.showwarning(
                 "Advertencia", 
@@ -309,44 +303,36 @@ class App(ctk.CTk):
             )
             return
         
-        # Se valida que haya un archivo seleccionado
         ruta = self.file_entry.get()
-        # Si no hay ninguna ruta, lanzar una ventana advirtiendo
         if not ruta:
             messagebox.showwarning("Advertencia", "Debes seleccionar un archivo Excel.")
             return
         
-        # --- Configuración de UI para inicio ---
-        self.stop_event.clear() # Limpia la señal de detención
-        self.start_button.configure(state="disabled")
+        # Configuración UI
+        self.stop_event.clear()
+        self.start_button.configure(state="disabled", text="⏳ Iniciando...")
         self.browse_button.configure(state="disabled")
         self.config_credentials_button.configure(state="disabled")
-        self.stop_button.configure(state="normal") # Habilita el botón de detención
-        # Resetea la barra del progreso y actualiza la etiqueta de progreso
-        self.progress_bar.set(0)
-        # Muestra un mensaje en el textbox
-        self.progress_label.configure(text="Iniciando...")
-        self.textbox.insert("end", f"\n--- PROCESO INICIADO ---\nIniciando proceso para {ruta}\n")
+        self.stop_button.configure(state="normal")
+        
+        # Progreso indeterminado
+        self.progress_bar.configure(mode="indeterminate")
+        self.progress_bar.start()
+        
+        self.progress_label.configure(text="Preparando automatización...")
+        self.progress_percentage.configure(text="...")
+        self.textbox.insert("end", f"\n{'='*50}\n▶️ PROCESO INICIADO\n{'='*50}\n")
+        self.textbox.insert("end", f"📂 Archivo: {ruta}\n")
         self.textbox.see("end")
         
-        # Ejecutar en otro hilo (¡CORREGIDO! Ahora pasa 'stop_event')
+        # Iniciar thread
         self.process_thread = threading.Thread(
             target=self.run_main, 
             args=(ruta, self.progress_queue, self.stop_event), 
             daemon=True
         )
         self.process_thread.start()
-        
-        # Iniciar el chequeo de la cola de progreso
         self.after(100, self.check_progress_queue)
-
-        # Animación de inicio
-        self.start_button.configure(text="⏳ Iniciando...")
-        self.progress_label.configure(text="Preparando automatización...")
-        # Agregar un efecto de "pulso" en la barra
-        self.progress_bar.configure(mode="indeterminate")
-        self.progress_bar.start()
-
 
     """ MÉTODO stop_process """
     def stop_process(self):
@@ -428,11 +414,29 @@ class App(ctk.CTk):
         try:
             while True:
                 message_type, data = self.progress_queue.get_nowait()
+                
                 if message_type == "progress":
                     current, total = data
                     progress_value = current / total
+                    percentage = int(progress_value * 100)
+                    
+                    # Cambiar de modo indeterminado a determinado
+                    if self.progress_bar.cget("mode") == "indeterminate":
+                        self.progress_bar.stop()
+                        self.progress_bar.configure(mode="determinate")
+                    
                     self.progress_bar.set(progress_value)
+                    self.progress_percentage.configure(text=f"{percentage}%")
                     self.progress_label.configure(text=f"Procesando: {current} de {total}")
+                    
+                    # Cambiar color según progreso
+                    if percentage < 30:
+                        self.progress_bar.configure(progress_color="#FF6B6B")
+                    elif percentage < 70:
+                        self.progress_bar.configure(progress_color="#FFD93D")
+                    else:
+                        self.progress_bar.configure(progress_color=COLORS["accent"])
+                        
                 elif message_type == "log":
                     self.textbox.insert("end", data)
                     self.textbox.see("end")
@@ -442,15 +446,20 @@ class App(ctk.CTk):
                     self.show_dialog_profile(nombre_programa)
                     
                 elif message_type == "finish":
-                    # Revertir el estado de los botones a la normalidad
-                    self.start_button.configure(state="normal")
+                    # Detener animación si está activa
+                    if self.progress_bar.cget("mode") == "indeterminate":
+                        self.progress_bar.stop()
+                        self.progress_bar.configure(mode="determinate")
+                    
+                    self.start_button.configure(state="normal", text="▶️  Iniciar Proceso")
                     self.browse_button.configure(state="normal")
                     self.config_credentials_button.configure(state="normal")
                     self.stop_button.configure(state="disabled")
-                    self.progress_label.configure(text="Proceso Finalizado.")
-                    self.textbox.insert("end", f"--- PROCESO FINALIZADO ---\n")
+                    self.progress_label.configure(text="Proceso Finalizado")
+                    self.textbox.insert("end", f"\n{'='*50}\n✅ PROCESO FINALIZADO\n{'='*50}\n")
                     self.textbox.see("end")
                     return
+                    
         except queue.Empty:
             pass
         self.after(100, self.check_progress_queue)
