@@ -1,50 +1,49 @@
-# importamos las librerias a usar para las interfaces
 import customtkinter as ctk
-# importamos las librerias para abrir dialogos (slección de archivos, mostrar alertas)
 from tkinter import filedialog, messagebox
-# ejecuta el proceso largo (main), para mantener la GUI responsiva
 import threading
-# permite pasar mesajes (progreso, logs) desde los logs de las funciones a la vista del usuario
 import queue
-# función principal que realiza la automatización
-from automatizacion import main # main debe aceptar (ruta, progress_queue, username, password, stop_event)
-# Para manejar credenciales
 import json
 import os
 from pathlib import Path
+from automatizacion import main
 
-# Establecemos temas de la ventana
+# Suponiendo que estas importaciones existen en tu proyecto
+# from automatizacion import main 
+
+# --- CONFIGURACIÓN DE ESTILOS GLOBALES ---
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("green")
 
+# Definición de paleta de colores personalizada (Opcional, para coherencia)
+COLORS = {
+    "bg_card": "#2B2B2B",       # Gris oscuro para fondos de tarjetas
+    "accent": "#2CC985",        # Verde SENA (aproximado)
+    "danger": "#CF6679",        # Rojo suave para errores/detener
+    "text_main": "#FFFFFF",
+    "text_dim": "#A0A0A0",
+    "terminal_bg": "#1E1E1E",   # Fondo muy oscuro para logs
+    "terminal_text": "#00FF00"  # Texto verde hacker
+}
+
 class CredentialsManager:
-    """Clase para manejar las credenciales de forma segura"""
-    
+    # ... (Tu código de CredentialsManager se mantiene IGUAL) ...
     def __init__(self):
-        # Carpeta donde se guardarán las credenciales
         self.config_dir = Path.home() / ".sena_automation"
         self.credentials_file = self.config_dir / "credentials.json"
         self._ensure_config_dir()
     
     def _ensure_config_dir(self):
-        """Crea la carpeta de configuración si no existe"""
         self.config_dir.mkdir(exist_ok=True)
     
     def save_credentials(self, username, password):
-        """Guarda las credenciales en un archivo JSON"""
-        data = {
-            "username": username,
-            "password": password
-        }
+        data = {"username": username, "password": password}
         with open(self.credentials_file, 'w') as f:
             json.dump(data, f)
         return True
     
     def load_credentials(self):
-        """Carga las credenciales desde el archivo JSON"""
         if not self.credentials_file.exists():
             return None, None
-        
         try:
             with open(self.credentials_file, 'r') as f:
                 data = json.load(f)
@@ -53,121 +52,74 @@ class CredentialsManager:
             return None, None
     
     def credentials_exist(self):
-        """Verifica si existen credenciales guardadas"""
         return self.credentials_file.exists()
 
-
 class CredentialsDialog(ctk.CTkToplevel):
-    """Ventana emergente para configurar credenciales"""
+    """Ventana emergente estilizada"""
     
     def __init__(self, parent, credentials_manager):
         super().__init__(parent)
-        
         self.credentials_manager = credentials_manager
         self.result = None
         
-        # Configuración de la ventana
-        self.title("Configurar Credenciales")
-        self.geometry("450x320")
+        # Configuración de ventana
+        self.title("Gestión de Acceso")
+        self.geometry("400x350")
         self.resizable(False, False)
-        
-        # Centrar la ventana
         self.transient(parent)
         self.grab_set()
         
-        # Contenedor principal con padding
-        main_container = ctk.CTkFrame(self, fg_color="transparent")
-        main_container.pack(fill="both", expand=True, padx=20, pady=20)
+        # Fondo principal
+        self.configure(fg_color=COLORS["bg_card"])
+
+        # Header
+        header_frame = ctk.CTkFrame(self, fg_color="transparent")
+        header_frame.pack(pady=(20, 10))
+        ctk.CTkLabel(header_frame, text="🔐 Credenciales SENA", 
+                     font=ctk.CTkFont(size=20, weight="bold")).pack()
+        ctk.CTkLabel(header_frame, text="Tus datos se guardan localmente", 
+                     font=ctk.CTkFont(size=12), text_color=COLORS["text_dim"]).pack()
+
+        # Formulario
+        form_frame = ctk.CTkFrame(self, fg_color="transparent")
+        form_frame.pack(pady=10, padx=30, fill="x")
+
+        ctk.CTkLabel(form_frame, text="Usuario", font=ctk.CTkFont(weight="bold")).pack(anchor="w")
+        self.username_entry = ctk.CTkEntry(form_frame, height=35, placeholder_text="Ej: usuario@sena.edu.co")
+        self.username_entry.pack(fill="x", pady=(5, 15))
+
+        ctk.CTkLabel(form_frame, text="Contraseña", font=ctk.CTkFont(weight="bold")).pack(anchor="w")
+        self.password_entry = ctk.CTkEntry(form_frame, height=35, show="•", placeholder_text="••••••••")
+        self.password_entry.pack(fill="x", pady=(5, 20))
+
+        # Botones
+        btn_frame = ctk.CTkFrame(self, fg_color="transparent")
+        btn_frame.pack(pady=10)
+
+        ctk.CTkButton(btn_frame, text="Cancelar", command=self.cancel, 
+                      fg_color="transparent", border_width=1, border_color=COLORS["danger"], 
+                      text_color=COLORS["danger"], width=100).pack(side="left", padx=10)
         
-        # Título
-        title_label = ctk.CTkLabel(
-            main_container, 
-            text="Ingresa tus credenciales SENA",
-            font=ctk.CTkFont(size=16, weight="bold")
-        )
-        title_label.pack(pady=(0, 20))
-        
-        # Campo de usuario
-        self.username_label = ctk.CTkLabel(main_container, text="Usuario:")
-        self.username_label.pack(pady=(10, 5), anchor="w")
-        
-        self.username_entry = ctk.CTkEntry(
-            main_container, 
-            width=380, 
-            height=35,
-            placeholder_text="Ingresa tu usuario"
-        )
-        self.username_entry.pack(pady=(0, 10))
-        
-        # Campo de contraseña
-        self.password_label = ctk.CTkLabel(main_container, text="Contraseña:")
-        self.password_label.pack(pady=(10, 5), anchor="w")
-        
-        self.password_entry = ctk.CTkEntry(
-            main_container, 
-            width=380, 
-            height=35,
-            placeholder_text="Ingresa tu contraseña", 
-            show="•"
-        )
-        self.password_entry.pack(pady=(0, 20))
-        
-        # Frame para botones con pack en lugar de grid
-        button_container = ctk.CTkFrame(main_container, fg_color="transparent")
-        button_container.pack(pady=(10, 0))
-        
-        # Botón Guardar
-        self.save_button = ctk.CTkButton(
-            button_container, 
-            text="✓ Guardar", 
-            command=self.save_credentials,
-            width=150,
-            height=40,
-            font=ctk.CTkFont(size=14, weight="bold"),
-            fg_color="#2b9348",
-            hover_color="#1f6f30"
-        )
-        self.save_button.pack(side="left", padx=10)
-        
-        # Botón Cancelar
-        self.cancel_button = ctk.CTkButton(
-            button_container, 
-            text="✗ Cancelar", 
-            command=self.cancel,
-            width=150,
-            height=40,
-            font=ctk.CTkFont(size=14),
-            fg_color="#d62828",
-            hover_color="#9d0208"
-        )
-        self.cancel_button.pack(side="left", padx=10)
-        
-        # Cargar credenciales existentes si las hay
+        ctk.CTkButton(btn_frame, text="Guardar Acceso", command=self.save_credentials, 
+                      fg_color=COLORS["accent"], width=140).pack(side="left", padx=10)
+
+        # Pre-carga
         username, password = self.credentials_manager.load_credentials()
-        if username:
-            self.username_entry.insert(0, username)
-        if password:
-            self.password_entry.insert(0, password)
+        if username: self.username_entry.insert(0, username)
+        if password: self.password_entry.insert(0, password)
         
-        # Focus en el campo de usuario
-        self.username_entry.focus()
-    
     def save_credentials(self):
-        """Guarda las credenciales ingresadas"""
+        # ... (Igual que tu código original) ...
         username = self.username_entry.get().strip()
         password = self.password_entry.get().strip()
-        
         if not username or not password:
-            messagebox.showwarning("Advertencia", "Debes completar ambos campos.")
+            messagebox.showwarning("Atención", "Faltan datos requeridos")
             return
-        
         self.credentials_manager.save_credentials(username, password)
         self.result = True
-        messagebox.showinfo("Éxito", "Credenciales guardadas correctamente.")
         self.destroy()
-    
+
     def cancel(self):
-        """Cancela la configuración"""
         self.result = False
         self.destroy()
 
@@ -178,23 +130,31 @@ class App(ctk.CTk):
     def __init__(self):
         
         super().__init__()
+
+        # Layout principal mejorado
+        main_container = ctk.CTkFrame(self, fg_color="transparent")
+        main_container.pack(fill="both", expand=True, padx=20, pady=20)
+
+        # Columna izquierda - Controles
+        left_panel = ctk.CTkFrame(main_container, fg_color=COLORS["bg_card"], corner_radius=10)
+        left_panel.pack(side="left", fill="both", expand=True, padx=(0, 10))
+
+        # Columna derecha - Logs y progreso
+        right_panel = ctk.CTkFrame(main_container, fg_color=COLORS["bg_card"], corner_radius=10)
+        right_panel.pack(side="right", fill="both", expand=True, padx=(10, 0))
         
-        # Inicializar el gestor de credenciales
+        # Lógica base
         self.credentials_manager = CredentialsManager()
-        
-        # Estado de control de hilo (¡CRÍTICO para detener el proceso!)
         self.stop_event = threading.Event()
         self.process_thread = None
+        self.progress_queue = queue.Queue()
         
-        # Establece el titulo de la ventana
-        self.title("Automatización de Aprendices SENA")
-        # Establece el tamaño de la ventana
-        self.geometry("800x750")
-        self.resizable(True, True) 
-        try:
-            self.iconbitmap("Iconos/logoSena.ico")
-        except Exception:
-            pass # Ignora si el icono no existe
+        # Configuración Ventana
+        self.title("Automatización SENA")
+        self.geometry("700x700")
+        self.minsize(800, 700)
+        try: self.iconbitmap("Iconos/logoSena.ico")
+        except: pass
 
         # Frame superior para credenciales 
         credentials_frame = ctk.CTkFrame(self, fg_color="transparent")
@@ -222,56 +182,95 @@ class App(ctk.CTk):
         # Separador
         separator = ctk.CTkFrame(self, height=2, fg_color="gray")
         separator.pack(pady=10, padx=20, fill="x")
+        file_card = ctk.CTkFrame(left_panel, fg_color=COLORS["terminal_bg"], corner_radius=8)
+        file_card.pack(pady=15, padx=15, fill="x")
 
-        # Etiqueta para seleccionar el archivo de excel 
-        self.label = ctk.CTkLabel(self, text="Selecciona el archivo Excel:")
-        self.label.pack(pady=10)
+        # Header de la tarjeta
+        ctk.CTkLabel(file_card, text="📁 Archivo Excel", 
+                    font=ctk.CTkFont(size=14, weight="bold")).pack(anchor="w", padx=10, pady=(10,5))
 
-        # Un campo de texto, donde se muestra la ruta del archivo seleccionado 
-        self.file_entry = ctk.CTkEntry(self, width=400)
-        self.file_entry.pack(pady=5)
+        # Frame para el path con botón integrado
+        path_frame = ctk.CTkFrame(file_card, fg_color="transparent")
+        path_frame.pack(fill="x", padx=10, pady=(0,10))
 
-        # Botón para abrir el dialogo de la selección de archivos 
-        self.browse_button = ctk.CTkButton(self, text="Buscar archivo", command=self.browse_file)
-        self.browse_button.pack(pady=5)
-        
-        # Frame para agrupar los botones de Iniciar y Detener (¡CORREGIDO!)
-        self.button_frame = ctk.CTkFrame(self, fg_color="transparent")
-        self.button_frame.pack(pady=10)
+        self.file_entry = ctk.CTkEntry(path_frame, height=40, 
+                                        placeholder_text="Ningún archivo seleccionado...")
+        self.file_entry.pack(side="left", fill="x", expand=True, padx=(0,10))
 
-        # Botón para iniciar el proceso (Movido a button_frame)
+        self.browse_button = ctk.CTkButton(path_frame, text="Buscar", width=100,
+                                            command=self.browse_file)
+        self.browse_button.pack(side="right")
+
+        # Indicador de estado del archivo
+        self.file_status = ctk.CTkLabel(file_card, text="", 
+                                        font=ctk.CTkFont(size=11),
+                                        text_color=COLORS["text_dim"])
+        self.file_status.pack(anchor="w", padx=10, pady=(0,10))
+
+        # Frame de acciones centrado
+        actions_frame = ctk.CTkFrame(left_panel, fg_color="transparent")
+        actions_frame.pack(pady=20, padx=15)
+
         self.start_button = ctk.CTkButton(
-            self.button_frame, 
-            text="▶️ Iniciar proceso", 
+            actions_frame,
+            text="▶️  Iniciar Proceso",
             command=self.start_process,
-            fg_color="#1F7A8C", 
-            hover_color="#133D50"
+            height=45,
+            width=200,
+            font=ctk.CTkFont(size=14, weight="bold"),
+            fg_color=COLORS["accent"],
+            hover_color="#25B574"
         )
-        self.start_button.pack(side="left", padx=10)
+        self.start_button.pack(pady=5)
 
-        # Boton de detener el proceso (Movido a button_frame y estado inicial disabled)
         self.stop_button = ctk.CTkButton(
-            self.button_frame, 
-            text="⏹️ Detener proceso", 
-            command=self.stop_process, 
-            state="disabled", 
-            fg_color="#E05B5B", 
-            hover_color="#A53D3D"
+            actions_frame,
+            text="⏹️  Detener",
+            command=self.stop_process,
+            height=45,
+            width=200,
+            font=ctk.CTkFont(size=14, weight="bold"),
+            fg_color=COLORS["danger"],
+            hover_color="#B5555D",
+            state="disabled"
         )
-        self.stop_button.pack(side="left", padx=10)
+        self.stop_button.pack(pady=5)
 
-        # Etiqueta que muestra el progreso 
-        self.progress_label = ctk.CTkLabel(self, text="")
-        self.progress_label.pack()
+        # Container para progreso con padding
+        progress_container = ctk.CTkFrame(right_panel, fg_color="transparent")
+        progress_container.pack(pady=15, padx=15, fill="x")
 
-        # Etiqueta que muestra visualmente el avance 
-        self.progress_bar = ctk.CTkProgressBar(self, width=600)
+        # Header con estadísticas
+        stats_frame = ctk.CTkFrame(progress_container, fg_color="transparent")
+        stats_frame.pack(fill="x", pady=(0,10))
+
+        self.progress_label = ctk.CTkLabel(stats_frame, text="Listo para comenzar",
+                                            font=ctk.CTkFont(size=13, weight="bold"))
+        self.progress_label.pack(side="left")
+
+        self.progress_percentage = ctk.CTkLabel(stats_frame, text="0%",
+                                                font=ctk.CTkFont(size=13, weight="bold"),
+                                                text_color=COLORS["accent"])
+        self.progress_percentage.pack(side="right")
+
+        # Frame para logs con header
+        logs_frame = ctk.CTkFrame(right_panel, fg_color="transparent")
+        logs_frame.pack(pady=(0,15), padx=15, fill="both", expand=True)
+
+        ctk.CTkLabel(logs_frame, text="📋 Registro de Actividad",
+                    font=ctk.CTkFont(size=14, weight="bold")).pack(anchor="w", pady=(0,10))
+
+        self.textbox = ctk.CTkTextbox(logs_frame, 
+                                    fg_color=COLORS["terminal_bg"],
+                                    text_color="#FFFFFF",  # Verde terminal
+                                    font=ctk.CTkFont(family="Consolas", size=11),
+                                    corner_radius=8)
+        self.textbox.pack(fill="both", expand=True)
+
+        # Barra de progreso mejorada
+        self.progress_bar = ctk.CTkProgressBar(progress_container, height=20)
         self.progress_bar.set(0)
-        self.progress_bar.pack(pady=5)
-        
-        # Un area de texto para mostrar los logs 
-        self.textbox = ctk.CTkTextbox(self, width=600, height=200)
-        self.textbox.pack(pady=10)
+        self.progress_bar.pack(fill="x")
 
         # Una cola para recibir mensajes del proceso
         self.progress_queue = queue.Queue()
@@ -340,6 +339,13 @@ class App(ctk.CTk):
         
         # Iniciar el chequeo de la cola de progreso
         self.after(100, self.check_progress_queue)
+
+        # Animación de inicio
+        self.start_button.configure(text="⏳ Iniciando...")
+        self.progress_label.configure(text="Preparando automatización...")
+        # Agregar un efecto de "pulso" en la barra
+        self.progress_bar.configure(mode="indeterminate")
+        self.progress_bar.start()
 
 
     """ MÉTODO stop_process """
