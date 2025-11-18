@@ -1,21 +1,22 @@
-import time
+# === LIBRERÍAS ESTÁNDAR DE PYTHON ===
+import logging
 import os
 import sys
-import os
-import logging
 import threading
+import time
+
+# === LIBRERÍAS DE TERCEROS ===
+import xlwt
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from dotenv import load_dotenv
 from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options
-import xlwt
-from funciones_formularios.preparar_excel import preparar_excel
-from funciones_formularios.login import login
+
+# === MÓDULOS LOCALES - Funciones de formularios ===
 from funciones_formularios.campo_estrato import llenar_estrato
 from funciones_formularios.campo_sueldo import llenar_formulario_sueldo
 from funciones_formularios.campo_telefono_correo import llenar_formulario_telefono_correo
@@ -24,13 +25,20 @@ from funciones_formularios.form_campo_estado_civil import llenar_formulario_esta
 from funciones_formularios.form_campo_perfil_ocupacional import llenar_input_perfil_ocupacional
 from funciones_formularios.form_campos_nacimiento import llenar_formulario_ubicaciones_nacimiento
 from funciones_formularios.form_campos_ubicacion_identificacion import llenar_formulario_ubicaciones
-from funciones_formularios.pre_inscripcion import llenar_datos_antes_de_inscripcion
-from funciones_formularios.verificacion import verificar_estudiante_con_CC_primero, verificar_estudiante
 from funciones_formularios.form_datos_residencia import llenar_formulario_ubicacion_residencia
+from funciones_formularios.login import login
 from funciones_formularios.meses_busqueda import verificar_meses_busqueda
+from funciones_formularios.preparar_excel import preparar_excel
+from funciones_formularios.pre_inscripcion import llenar_datos_antes_de_inscripcion
+from funciones_formularios.verificacion import (
+    verificar_estudiante,
+    verificar_estudiante_con_CC_primero
+)
+
+# === MÓDULOS LOCALES - Otros ===
 from funciones_loggs.loggs_funciones import loggs
-from URLS.urls import URL_FORMULARIO, URL_VERIFICACION
 from perfilesOcupacionales.perfilExcepcion import PerfilOcupacionalNoEncontrado
+from URLS.urls import URL_FORMULARIO, URL_VERIFICACION
 
 
 #Funcion que preapara los logs en un archivo y maneja su durabilidad en la aplicación
