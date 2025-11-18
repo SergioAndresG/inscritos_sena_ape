@@ -7,9 +7,6 @@ import os
 from pathlib import Path
 from automatizacion import main
 
-# Suponiendo que estas importaciones existen en tu proyecto
-# from automatizacion import main 
-
 # --- CONFIGURACIÓN DE ESTILOS GLOBALES ---
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("green")
@@ -109,7 +106,6 @@ class CredentialsDialog(ctk.CTkToplevel):
         if password: self.password_entry.insert(0, password)
         
     def save_credentials(self):
-        # ... (Igual que tu código original) ...
         username = self.username_entry.get().strip()
         password = self.password_entry.get().strip()
         if not username or not password:
