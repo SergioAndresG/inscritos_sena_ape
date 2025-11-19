@@ -23,7 +23,6 @@ COLORS = {
 }
 
 class CredentialsManager:
-    # ... (Tu código de CredentialsManager se mantiene IGUAL) ...
     def __init__(self):
         self.config_dir = Path.home() / ".sena_automation"
         self.credentials_file = self.config_dir / "credentials.json"
@@ -127,11 +126,18 @@ class App(ctk.CTk):
         
         super().__init__()
 
-        # ===== 1. CONFIGURACIÓN INICIAL (PRIMERO) =====
+        # ===== CONFIGURACIÓN INICIAL (PRIMERO) =====
         self.credentials_manager = CredentialsManager()
         self.stop_event = threading.Event()
+        self.pause_event = threading.Event()
+        self.pause_event.set()
+
         self.process_thread = None
         self.progress_queue = queue.Queue()
+        
+        # Estado de progreso para reanudar
+        self.current_file = None
+        self.last_processed_index = 0
         
         # Configuración Ventana
         self.title("Automatización SENA")
@@ -142,7 +148,7 @@ class App(ctk.CTk):
         except: 
             pass
 
-        # ===== 2. HEADER SUPERIOR (CREDENCIALES) =====
+        # ===== HEADER SUPERIOR (CREDENCIALES) =====
         credentials_frame = ctk.CTkFrame(self, fg_color="transparent")
         credentials_frame.pack(pady=10, padx=20, fill="x")
         
@@ -167,7 +173,7 @@ class App(ctk.CTk):
         separator = ctk.CTkFrame(self, height=2, fg_color="gray")
         separator.pack(pady=10, padx=20, fill="x")
 
-        # ===== 3. CONTENEDOR PRINCIPAL (2 COLUMNAS) =====
+        # ===== CONTENEDOR PRINCIPAL (2 COLUMNAS) =====
         main_container = ctk.CTkFrame(self, fg_color="transparent")
         main_container.pack(fill="both", expand=True, padx=20, pady=10)
 
@@ -226,6 +232,19 @@ class App(ctk.CTk):
             state="disabled"
         )
         self.stop_button.pack(pady=5)
+
+        self.pause_button = ctk.CTkButton(
+            actions_frame,
+            text="⏸️  Pausar",
+            command=self.toggle_pause,
+            height=45,
+            width=200,
+            font=ctk.CTkFont(size=14, weight="bold"),
+            fg_color="#FFA500",  # Naranja
+            hover_color="#CC8400",
+            state="disabled"
+        )
+        self.pause_button.pack(pady=5)
 
         # --- COLUMNA DERECHA: MONITOREO ---
         right_panel = ctk.CTkFrame(main_container, fg_color=COLORS["bg_card"], corner_radius=10)
@@ -290,6 +309,40 @@ class App(ctk.CTk):
             self.file_entry.delete(0, "end")
             self.file_entry.insert(0, filepath)
 
+    def toggle_pause(self):
+        """Alterna entre pausar y reanudar el proceso"""
+        
+        if self.pause_event.is_set():
+            # Actualmente en ejecución → PAUSAR
+            self.pause_event.clear()
+            
+            self.pause_button.configure(
+                text="▶️  Reanudar",
+                fg_color="#2CC985"  # Verde
+            )
+            self.progress_label.configure(text="⏸️ Proceso pausado")
+            
+            self.textbox.insert("end", "\n" + "="*50 + "\n")
+            self.textbox.insert("end", "⏸️ PROCESO PAUSADO\n")
+            self.textbox.insert("end", "="*50 + "\n")
+            self.textbox.insert("end", "💡 Presiona 'Reanudar' para continuar\n\n")
+            self.textbox.see("end")
+            
+        else:
+            # Actualmente pausado → REANUDAR
+            self.pause_event.set()
+            
+            self.pause_button.configure(
+                text="⏸️  Pausar",
+                fg_color="#FFA500"  # Naranja
+            )
+            self.progress_label.configure(text="▶️ Reanudando proceso...")
+            
+            self.textbox.insert("end", "\n" + "="*50 + "\n")
+            self.textbox.insert("end", "▶️ PROCESO REANUDADO\n")
+            self.textbox.insert("end", "="*50 + "\n\n")
+            self.textbox.see("end")
+
     """ MÉTODO start_process """
     def start_process(self):
         if not self.credentials_manager.credentials_exist():
@@ -323,6 +376,12 @@ class App(ctk.CTk):
         self.browse_button.configure(state="disabled")
         self.config_credentials_button.configure(state="disabled")
         self.stop_button.configure(state="normal")
+
+        # Habilitar botón de pausa cuando inicia
+        self.pause_button.configure(state="normal")
+        
+        # Asegurarse de que NO esté pausado al iniciar
+        self.pause_event.set()
         
         # Progreso indeterminado
         self.progress_bar.configure(mode="indeterminate")
@@ -352,14 +411,47 @@ class App(ctk.CTk):
 
     """ MÉTODO stop_process """
     def stop_process(self):
-        # Activa la señal de detención
+        """Detiene el proceso de automatización"""
+        
+        # Activar señal de detención
         self.stop_event.set()
         
-        # Actualiza la UI de inmediato
-        self.stop_button.configure(state="disabled")
+        # 2. Actualizar UI inmediatamente
+        self.stop_button.configure(state="disabled", text="⏹️ Deteniendo...")
         self.progress_label.configure(text="Detención solicitada...")
-        self.textbox.insert("end", "⚠️ Solicitud de detención enviada. Esperando a que el proceso termine su tarea actual...\n")
+        
+        # Log detallado
+        self.textbox.insert("end", "\n" + "="*50 + "\n")
+        self.textbox.insert("end", "⚠️ DETENCIÓN SOLICITADA\n")
+        self.textbox.insert("end", "="*50 + "\n")
+        self.textbox.insert("end", "⏳ Esperando que termine la tarea actual...\n")
+        self.textbox.insert("end", "💡 El proceso se detendrá en el próximo punto seguro\n\n")
         self.textbox.see("end")
+        
+        # Deshabilitar inicio mientras se detiene
+        self.start_button.configure(state="disabled")
+        self.browse_button.configure(state="disabled")
+        self.config_credentials_button.configure(state="disabled")
+        
+        # Iniciar verificación de detención
+        self.check_stop_completion()
+
+
+    def check_stop_completion(self):
+        """Verifica si el proceso se detuvo completamente"""
+        
+        if self.process_thread and self.process_thread.is_alive():
+            # El thread sigue vivo, verificar de nuevo en 500ms
+            self.after(500, self.check_stop_completion)
+        else:
+            # El thread terminó
+            self.textbox.insert("end", "✅ Proceso detenido correctamente\n\n")
+            self.textbox.see("end")
+            
+            # Resetear UI
+            self._reset_ui_to_ready()
+
+
 
     # Metodo para mostar ventana de dialogo de falta de perfil ocuapcional
     def show_dialog_profile(self, nombre_programa):
@@ -412,7 +504,7 @@ class App(ctk.CTk):
         
         try:
             # Pasamos todos los argumentos, incluyendo credenciales y stop_event
-            main(ruta, progress_queue=progress_queue, username=username, password=password, stop_event=stop_event)
+            main(ruta, progress_queue=progress_queue, username=username, password=password, stop_event=stop_event, pause_event=self.pause_event)
             
             # Revisar el estado de detención para reportar el resultado final
             if stop_event.is_set():
@@ -466,6 +558,8 @@ class App(ctk.CTk):
                     if self.progress_bar.cget("mode") == "indeterminate":
                         self.progress_bar.stop()
                         self.progress_bar.configure(mode="determinate")
+                        self.pause_button.configure(state="disabled")
+                        return
                     
                     self.start_button.configure(state="normal", text="▶️  Iniciar Proceso")
                     self.browse_button.configure(state="normal")
