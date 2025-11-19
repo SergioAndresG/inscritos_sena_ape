@@ -106,7 +106,7 @@ def debug_log(mensaje, progress_queue=None):
         progress_queue.put(("log", f"🔍 {mensaje}\n"))
 
 
-def main(ruta_excel_param, progress_queue=None, username=None, password=None, stop_event=None, pause_event=None):
+def main(ruta_excel_param, progress_queue=None, username=None, password=None, stop_event=threading.Event(), pause_event=None):
     from debug_exe import init_logger, log, close_logger
     init_logger()
     log("="*50)
@@ -130,7 +130,6 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
 
     try:
         # ===== PREPARAR EXCEL =====
-        df, wb, sheet, read_sheet, column_indices, header_row, programa_sin_perfil = preparar_excel(RUTA_EXCEL)
         debug_log("Llamando a preparar_excel...", progress_queue)
         df, wb, sheet, read_sheet, column_indices, header_row, programa_sin_perfil = preparar_excel(RUTA_EXCEL)
         debug_log("preparar_excel completado", progress_queue)
@@ -186,19 +185,14 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
             excel_row = i + header_row + 1
             
             # ===== VERIFICAR DETENCIÓN =====
+            # Verificar si se debe detener
             if stop_event.is_set():
-                print(f"\n{'='*50}")
-                print(f"🛑 PROCESO DETENIDO POR EL USUARIO")
-                print(f"{'='*50}")
-                print(f"📊 Registros procesados: {i}/{total_registros}")
-                print(f"✅ Exitosos: {contador_procesados_exitosamente}")
-                print(f"⚠️ Ya existentes: {contador_ya_existentes}")
-                print(f"❌ Errores: {contador_errores}")
-                print(f"⏭️ Saltados: {contador_saltados}")
-                if progress_queue:
-                    progress_queue.put(("log", f"\n🛑 Proceso detenido en registro {i}/{total_registros}\n"))
-                break  # Salir del bucle
+                progress_queue.put(("log", f"Proceso detenido por el usuario.\n"))
+                return
             
+            if pause_event:
+                pause_event.wait() 
+
             # ===== VERIFICAR PAUSA =====
             if not pause_event.is_set():
                 print(f"\n{'='*50}")
