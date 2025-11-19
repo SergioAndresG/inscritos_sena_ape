@@ -16,7 +16,7 @@ a = Analysis(
         ('funciones_formularios/', 'funciones_formularios'),
         ('funciones_loggs/', 'funciones_loggs'),
         ('URLS/', 'URLS'),
-        ('.env', '.'),
+        ('debug_exe.py', '.'),
     ],
     hiddenimports=[
         # Librerías estándar
