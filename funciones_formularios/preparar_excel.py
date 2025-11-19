@@ -107,49 +107,66 @@ def preparar_excel(ruta_excel):
             if col_perfil_ocupacional not in df.columns:
                 df[col_perfil_ocupacional] = ''
 
-        # Bloque de codigo para ingresar el perfil ocupacional
-        mapeo_perfiles = cargar_mapeo_perfiles()
-                
-        if mapeo_perfiles:
-            logging.info("Mapeo de perfiles cargado. Rellenando columna")
+            # Bloque de codigo para ingresar el perfil ocupacional
+            mapeo_perfiles = cargar_mapeo_perfiles()
 
-            # Obtener el nombre del programa desde la celda de "Ficha de Caracterización"
-            try:
-                ficha_caracterización = obtener_nombre_ficha(read_sheet)
-                if ficha_caracterización:
-                    nombre_programa = extraer_nombre_ficha(ficha_caracterización)
-                
-                    if nombre_programa:
-                        perfil = buscar_perfil_ocupacional(nombre_programa, mapeo_perfiles)
-                        
-                        if perfil:
-                            logging.info(f"Programa: {nombre_programa} -> Perfil: {perfil}")
+            from debug_exe import log  # ← AGREGAR
 
-                            # Llenar la columna de perfil ocupacional en el DataFrame
-                            df['Perfil Ocupacional'] = perfil
+            if mapeo_perfiles:
+                log(f"📋 Mapeo de perfiles cargado con {len(mapeo_perfiles)} programas")
+                logging.info("Mapeo de perfiles cargado. Rellenando columna")
 
-                            # También escribir en el Excel 
-                            col_perfil = column_indices['Perfil Ocupacional']
-                            for row_idx in range(header_row + 1, read_sheet.nrows):
-                                if 'Número de Documento' in column_indices:
-                                    doc_col = column_indices['Número de Documento']
-                                    try:
-                                        doc_value = read_sheet.cell_value(row_idx, doc_col)
-                                        if doc_value:
-                                            sheet.write(row_idx, col_perfil, perfil)
-                                    except:
-                                        pass
-                            # Guardar cambios en el Excel
-                            wb.save(ruta_excel)
-                            logging.info(f"Perfil ocupacional '{perfil}' asignado a todos los aprendices")
+                try:
+                    ficha_caracterización = obtener_nombre_ficha(read_sheet)
+                    
+                    if ficha_caracterización:
+                        nombre_programa = extraer_nombre_ficha(ficha_caracterización)
+                    
+                        if nombre_programa:
+                            perfil = buscar_perfil_ocupacional(nombre_programa, mapeo_perfiles)
+                            
+                            if perfil:
+                                logging.info(f"Programa: {nombre_programa} -> Perfil: {perfil}")
+
+                                # Llenar la columna de perfil ocupacional en el DataFrame
+                                df['Perfil Ocupacional'] = perfil
+
+                                # También escribir en el Excel 
+                                col_perfil = column_indices['Perfil Ocupacional']
+                                for row_idx in range(header_row + 1, read_sheet.nrows):
+                                    if 'Número de Documento' in column_indices:
+                                        doc_col = column_indices['Número de Documento']
+                                        try:
+                                            doc_value = read_sheet.cell_value(row_idx, doc_col)
+                                            if doc_value:
+                                                sheet.write(row_idx, col_perfil, perfil)
+                                        except:
+                                            pass
+                                
+                                wb.save(ruta_excel)
+                                logging.info(f"Perfil ocupacional '{perfil}' asignado a todos los aprendices")
+                                
+                            else:
+                                # ❌ NO SE ENCONTRÓ PERFIL - AQUÍ DEBE LANZAR LA EXCEPCIÓN
+                                log(f"❌❌❌ NO SE ENCONTRÓ PERFIL PARA: {nombre_programa}")
+                                log(f"❌ Programas disponibles en JSON: {list(mapeo_perfiles.keys())}")
+                                log(f"❌ LANZANDO EXCEPCIÓN PerfilOcupacionalNoEncontrado")
+                                logging.error(f"No se encontró perfil para el programa: {nombre_programa}")
+                                raise PerfilOcupacionalNoEncontrado(nombre_programa)
                         else:
-                            logging.error(f"No se encontró perfil para el programa: {nombre_programa}")
-                            raise PerfilOcupacionalNoEncontrado(nombre_programa)
-                    else:
-                        logging.warning("No se pudo extraer el nombre del programa")
-                        
-            except PerfilOcupacionalNoEncontrado:
-                raise                
+                            logging.warning("No se pudo extraer el nombre del programa")
+                            
+                except PerfilOcupacionalNoEncontrado:
+                    raise
+                    
+                except Exception as e:
+                    # Solo capturar otros errores
+                    log(f"❌ Error al procesar perfil ocupacional: {e}")
+                    logging.error(f"Error al procesar perfil ocupacional: {e}")
+                    import traceback
+                    log(traceback.format_exc())
+                    
+                wb.save(ruta_excel)
 
         # Comprobar si existen las columnas esperadas
         missing_columns = [col for col in expected_columns if col not in column_indices]
