@@ -96,44 +96,56 @@ class QueueStream:
         # Necesario para la interfaz de archivo, pero no hace nada aquí.
         pass
 
-def main(ruta_excel_param, progress_queue=None, username=None, password=None, stop_event=threading.Event):
+def main(ruta_excel_param, progress_queue=None, username=None, password=None, stop_event=None, pause_event=None):
+    # ===== VALIDAR EVENTOS =====
+    if stop_event is None:
+        stop_event = threading.Event()
+    if pause_event is None:
+        pause_event = threading.Event()
+        pause_event.set()  # Por defecto no pausado
+    
     # Hacemos globales las variables que se usarán en todo el script
     global RUTA_EXCEL, df, wb, sheet, read_sheet, column_indices, header_row, programa_sin_perfil
     RUTA_EXCEL = ruta_excel_param
-    original_stdout = sys.stdout  # Guardar la salida estándar original
+    original_stdout = sys.stdout
+    
     if progress_queue:
-        sys.stdout = QueueStream(progress_queue) # Redirigir print() a la GUI
+        sys.stdout = QueueStream(progress_queue)
 
     try:
-        # Llamamos a la nueva función para preparar el Excel
+        # ===== PREPARAR EXCEL =====
         df, wb, sheet, read_sheet, column_indices, header_row, programa_sin_perfil = preparar_excel(RUTA_EXCEL)
         logging.info(f"Archivo Excel '{RUTA_EXCEL}' cargado y listo para procesar.")
-        print(f" Archivo Excel '{os.path.basename(RUTA_EXCEL)}' cargado y listo.")
+        print(f"✅ Archivo Excel '{os.path.basename(RUTA_EXCEL)}' cargado y listo.")
+        
     except PerfilOcupacionalNoEncontrado as e:
-        # Capturar la exepcion especifica de perfil no encontrado
         nombre_programa = e.nombre_programa
         logging.warning(f"Perfil no encontrado para: {nombre_programa}")
-
-        # Enviar señal a la GUI para mostrar el diálogo
+        
         if progress_queue:
             progress_queue.put(("solicitar_perfil", nombre_programa))
-            progress_queue.put(("log", f" Proceso detenido: falta perfil para '{nombre_programa}'\n"))
-            progress_queue.put(("log", f" Ingresa el perfil ocupacional y reinicia el proceso\n"))
+            progress_queue.put(("log", f"⚠️ Proceso detenido: falta perfil para '{nombre_programa}'\n"))
+            progress_queue.put(("log", f"💡 Ingresa el perfil ocupacional y reinicia el proceso\n"))
             progress_queue.put(("finish", None))
         return
     
     except (FileNotFoundError, Exception) as e:
         logging.error(f"Error fatal al preparar el archivo Excel: {e}")
-        print(f"Error fatal al preparar el archivo Excel: {e}")
+        print(f"❌ Error fatal al preparar el archivo Excel: {e}")
         return
 
     try:
+        # ===== VERIFICAR DETENCIÓN ANTES DE LOGIN =====
+        if stop_event.is_set():
+            print("🛑 Proceso detenido antes de iniciar login")
+            return
+        
         # Realizar login
         if not login(driver, username, password):
             logging.error("No se pudo completar el login. Abortando proceso.")
             return
 
-        # Establecer los nombres de columnas según tu archivo Excel
+        # Establecer columnas
         COLUMNA_TIPO_DOC = 'Tipo de Documento'
         COLUMNA_NUM_DOC = 'Número de Documento'
         COLUMNA_NOMBRES = 'Nombre'
@@ -143,26 +155,65 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
         COLUMNA_ESTADO = 'Estado'
         COLUMNA_PERFIL = 'Perfil Ocupacional'
         
-        # Contadores para estadísticas
+        # Contadores
         contador_procesados_exitosamente = 0
         contador_ya_existentes = 0
         contador_errores = 0
         contador_saltados = 0
         
-        # Procesar cada registro en el DataFrame de pandas
         total_registros = len(df)
+        
+        # =====  BUCLE PRINCIPAL CON CONTROL DE PAUSA/DETENCIÓN =====
         for i, fila in df.iterrows():
-            if stop_event.is_set():
-                progress_queue.put(("log", f"Proceso detenido por el usuario en Tarea {i-1}.\n"))
-                return # Salimos de la función limpiamente
-            # El índice real en Excel es el índice en pandas + 6 (header_row + 2)
             excel_row = i + header_row + 1
             
-            # Enviar progreso a la GUI si la cola está disponible
+            # ===== VERIFICAR DETENCIÓN =====
+            if stop_event.is_set():
+                print(f"\n{'='*50}")
+                print(f"🛑 PROCESO DETENIDO POR EL USUARIO")
+                print(f"{'='*50}")
+                print(f"📊 Registros procesados: {i}/{total_registros}")
+                print(f"✅ Exitosos: {contador_procesados_exitosamente}")
+                print(f"⚠️ Ya existentes: {contador_ya_existentes}")
+                print(f"❌ Errores: {contador_errores}")
+                print(f"⏭️ Saltados: {contador_saltados}")
+                if progress_queue:
+                    progress_queue.put(("log", f"\n🛑 Proceso detenido en registro {i}/{total_registros}\n"))
+                break  # Salir del bucle
+            
+            # ===== VERIFICAR PAUSA =====
+            if not pause_event.is_set():
+                print(f"\n{'='*50}")
+                print(f"⏸️ PROCESO PAUSADO")
+                print(f"{'='*50}")
+                print(f"📍 Pausado en registro: {i + 1}/{total_registros}")
+                print(f"💡 Esperando reanudación...")
+                
+                if progress_queue:
+                    progress_queue.put(("log", f"\n⏸️ Pausado en registro {i + 1}/{total_registros}\n"))
+                
+                # Esperar hasta que se reanude o se detenga
+                while not pause_event.is_set():
+                    if stop_event.is_set():
+                        print("🛑 Detenido durante pausa")
+                        if progress_queue:
+                            progress_queue.put(("log", "🛑 Proceso detenido durante pausa\n"))
+                        return
+                    time.sleep(0.5)  # Verificar cada 500ms
+                
+                print(f"\n{'='*50}")
+                print(f"▶️ PROCESO REANUDADO")
+                print(f"{'='*50}")
+                print(f"📍 Continuando desde registro: {i + 1}/{total_registros}\n")
+                
+                if progress_queue:
+                    progress_queue.put(("log", f"\n▶️ Reanudado desde registro {i + 1}/{total_registros}\n"))
+            
+            # ===== ENVIAR PROGRESO =====
             if progress_queue:
                 progress_queue.put(("progress", (i + 1, total_registros)))
 
-            # Inicializar variables para evitar errores en bloques except
+            # Inicializar variables
             nombres = "Sin nombre"
             apellidos = "Sin apellido"
             tipo_doc = ""
@@ -173,26 +224,21 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
             perfil_ocupacional = ""
             
             try:
-                # Colorear la fila actual como "procesando"
+                # ===== COLOREAR COMO PROCESANDO =====
                 for col_name, col_idx in column_indices.items():
                     try:
-                        # leer del dataframe si la columna existe, sino del readsheet
                         if col_name in df.columns:
                             valor = fila[col_name]
                         else:
                             valor = read_sheet.cell_value(excel_row, col_idx)
                         sheet.write(excel_row, col_idx, valor, style_procesando)
-                    except:
-                        print(f"Error al colorear celda {col_name}: {str(e)}")                    
+                    except Exception as e:
+                        print(f"⚠️ Error al colorear celda {col_name}: {str(e)}")
                 
-                # Guardar los cambios para que sean visibles inmediatamente
-                try:
-                    wb.save(RUTA_EXCEL)
-                    print(f"Excel actualizado: marcando fila {excel_row + 1} como 'procesando'")
-                except Exception as e:
-                    print(f"Error al guardar Excel: {str(e)}")
+                wb.save(RUTA_EXCEL)
+                print(f"📝 Excel actualizado: marcando fila {excel_row + 1} como 'procesando'")
                 
-                # Extraer datos del estudiante
+                # ===== EXTRAER DATOS =====
                 tipo_doc = str(fila[COLUMNA_TIPO_DOC])
                 num_doc = str(fila[COLUMNA_NUM_DOC])
                 nombres = str(fila[COLUMNA_NOMBRES])
@@ -203,234 +249,251 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                 perfil_ocupacional = str(fila[COLUMNA_PERFIL])
                 
                 logging.info(f"Procesando estudiante {i+1}/{total_registros}: {nombres} {apellidos}")
-                print( f"\n===== Procesando estudiante {i+1}/{total_registros}: {nombres} {apellidos} =====\n")
+                print(f"\n{'='*50}")
+                print(f"📋 Procesando {i+1}/{total_registros}: {nombres} {apellidos}")
+                print(f"{'='*50}\n")
                 
-                # Verificar si el estudiante ya existe
+                # ===== VERIFICAR DETENCIÓN ANTES DE VERIFICACIÓN =====
+                if stop_event.is_set():
+                    print("🛑 Detención solicitada antes de verificar estudiante")
+                    break
+                
+                # ===== VERIFICAR SI EXISTE =====
                 existe = verificar_estudiante_con_CC_primero(tipo_doc, num_doc, nombres, apellidos, driver, wait, wait_rapido)
                 
-                # Si existe es None, hubo error en la verificación
                 if existe is None:
                     logging.warning(f"Saltando estudiante debido a error en verificación: {nombres} {apellidos}")
-                    print(f"⚠️ Saltando estudiante debido a error en verificación: {nombres} {apellidos}")
+                    print(f"⚠️ Saltando estudiante debido a error en verificación")
                     
-                    # Colorear fila como error
                     for col_name, col_idx in column_indices.items():
                         try:
-                            # leer del dataframe si la columna existe, sino del readsheet
                             if col_name in df.columns:
                                 valor = fila[col_name]
                             else:
                                 valor = read_sheet.cell_value(excel_row, col_idx)
                             sheet.write(excel_row, col_idx, valor, style_error)
                         except:
-                            print(f"Error al colorear celda {col_name}: {str(e)}")  
+                            pass
                     wb.save(RUTA_EXCEL)
                     contador_saltados += 1
                     continue
-                    
-                # Si el estudiante ya existe, pasar al siguiente
+                
                 if existe:
-                    logging.info(f"El estudiante {nombres} {apellidos} ya existe en el sistema. Pasando al siguiente.")
-                    print(f"✅ El estudiante {nombres} {apellidos} ya existe en el sistema. Pasando al siguiente.")
+                    logging.info(f"El estudiante {nombres} {apellidos} ya existe en el sistema")
+                    print(f"✅ Estudiante ya existe en el sistema")
                     
-                    # Colorear fila como ya existente
                     for col_name, col_idx in column_indices.items():
                         try:
-                            # leer del dataframe si la columna existe, sino del readsheet
                             if col_name in df.columns:
                                 valor = fila[col_name]
                             else:
                                 valor = read_sheet.cell_value(excel_row, col_idx)
                             sheet.write(excel_row, col_idx, valor, style_ya_existe)
                         except:
-                            print(f"Error al colorear celda {col_name}: {str(e)}")  
+                            pass
                     wb.save(RUTA_EXCEL)
                     contador_ya_existentes += 1
                     continue
                 
-                # Si llegamos aquí, el estudiante no existe
-                logging.info(f"El estudiante {nombres} {apellidos} no existe. Procediendo con el registro.")
-                print(f"📝 El estudiante {nombres} {apellidos} no existe. Procediendo con el registro.")
+                # ===== VERIFICAR DETENCIÓN ANTES DE REGISTRO =====
+                if stop_event.is_set():
+                    print("🛑 Detención solicitada antes de registrar estudiante")
+                    break
                 
-                # Verificar si ya estamos en el formulario de pre-inscripción
+                logging.info(f"El estudiante {nombres} {apellidos} no existe. Procediendo con el registro.")
+                print(f"📝 Estudiante no existe. Procediendo con registro...")
+                
+                # ===== PROCESO DE REGISTRO (con verificaciones intercaladas) =====
                 if URL_VERIFICACION in driver.current_url:
-                    print("Detectado formulario de pre-inscripción")
-                    # Llenar los datos iniciales
+                    print("📄 Formulario de pre-inscripción detectado")
+                    
+                    if stop_event.is_set():
+                        break
+                    
                     if llenar_datos_antes_de_inscripcion(nombres, apellidos, driver):
-                        print("Pre-inscripción completada. Esperando formulario completo...")
+                        print("✅ Pre-inscripción completada")
                         
-                        # Esperar a que cargue el formulario este visible y no este el load
                         wait.until(EC.invisibility_of_element_located((By.ID, "content-load")))
                         wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "well")))
 
-                        # verificamos que no tenga meses de busqueda dentro del fomulario
+                        if stop_event.is_set():
+                            break
+                        
                         ya_registrado = verificar_meses_busqueda(driver)
                         
-                        # si los tiene pasamos con el siguiente usuario
                         if ya_registrado:
-                            logging.info(f"El estudiante {nombres} {apellidos} ya está registrado (mesesBusqueda > 1). Pasando al siguiente.")
-                            print(f"✅ El estudiante {nombres} {apellidos} ya está registrado. Pasando al siguiente.")
+                            logging.info(f"El estudiante {nombres} {apellidos} ya está registrado")
+                            print(f"✅ Estudiante ya registrado (meses de búsqueda > 1)")
                             
-                            # Colorear fila como ya existente
                             for col_name, col_idx in column_indices.items():
                                 try:
-                                    # leer del dataframe si la columna existe, sino del readsheet
                                     if col_name in df.columns:
                                         valor = fila[col_name]
                                     else:
                                         valor = read_sheet.cell_value(excel_row, col_idx)
                                     sheet.write(excel_row, col_idx, valor, style_ya_existe)
                                 except:
-                                    print(f"Error al colorear celda {col_name}: {str(e)}")
-                                    
-                            # Guardamos en el archivo la modificacion del estudiante
+                                    pass
+                            
                             wb.save(RUTA_EXCEL)
-                            # Aumentamos el contador
                             contador_ya_existentes += 1
-                            continue  # Pasar al siguiente estudiante
+                            continue
                         
+                        if stop_event.is_set():
+                            break
                         
-                        # Verificar si estamos en la página del formulario completo
+                        # ===== LLENAR FORMULARIO CON VERIFICACIONES =====
                         if driver.current_url == URL_FORMULARIO or "formulario" in driver.current_url.lower():
-                            print("Formulario completo detectado. Procediendo a llenar...")
+                            print("📋 Llenando formulario completo...")
+                            
+                            # Cada función de llenado podría verificar stop_event internamente
                             llenar_formulario_ubicaciones(driver)
+                            if stop_event.is_set(): break
+                            
                             llenar_formulario_ubicaciones_nacimiento(driver, wait)
+                            if stop_event.is_set(): break
+                            
                             llenar_formulario_ubicacion_residencia(driver)
+                            if stop_event.is_set(): break
+                            
                             llenar_formulario_estado_civil(driver)
+                            if stop_event.is_set(): break
+                            
                             llenar_formulario_sueldo(driver)
+                            if stop_event.is_set(): break
+                            
                             llenar_estrato(driver)
+                            if stop_event.is_set(): break
+                            
                             llenar_formulario_telefono_correo(celular, correo, driver)
-                            llenar_input_perfil_ocupacional(estado,driver)
-                            print("✅ Formulario con datos basicos llenado correcctamente")
-                            #boton de guardar inforamacion
+                            if stop_event.is_set(): break
+                            
+                            llenar_input_perfil_ocupacional(estado, driver)
+                            if stop_event.is_set(): break
+                            
+                            print("✅ Formulario con datos básicos llenado correctamente")
+                            
+                            # Guardar información
                             botonGuardar = WebDriverWait(driver, 10).until(
                                 EC.element_to_be_clickable((By.ID, 'submitNewOft'))
                             )
                             botonGuardar.click()
-                            print("✅ Se hizo click en el boton de Guardar Correctamente")
-                            print("Esperando respuesta")
+                            print("✅ Click en botón Guardar")
                             logging.info("Se hizo click en el boton de Guardar")
-                            resultado_esperiencia_laboral = experiencia_laboral(driver,  perfil_ocupacional)
-                            if resultado_esperiencia_laboral == False:
-                                # Colorear fila como error
+                            
+                            if stop_event.is_set():
+                                break
+                            
+                            resultado_experiencia_laboral = experiencia_laboral(driver, perfil_ocupacional)
+                            
+                            if resultado_experiencia_laboral == False:
                                 for col_name, col_idx in column_indices.items():
                                     try:
-                                        # leer del dataframe si la columna existe, sino del readsheet
                                         if col_name in df.columns:
                                             valor = fila[col_name]
                                         else:
                                             valor = read_sheet.cell_value(excel_row, col_idx)
                                         sheet.write(excel_row, col_idx, valor, style_error)
                                     except:
-                                        print(f"Error al colorear celda {col_name}: {str(e)}")  
+                                        pass
                                 wb.save(RUTA_EXCEL)
-                                print(f"Excel actualizado: marcando fila {excel_row + 1} como 'error")
+                                print(f"❌ Error en experiencia laboral")
                                 contador_errores += 1
-
                                 driver.get(URL_VERIFICACION)
                                 time.sleep(2)
                                 continue
                             
-                            # Colorear fila como procesado exitosamente
+                            # ===== ÉXITO =====
                             for col_name, col_idx in column_indices.items():
                                 try:
-                                    # leer del dataframe si la columna existe, sino del readsheet
                                     if col_name in df.columns:
                                         valor = fila[col_name]
                                     else:
                                         valor = read_sheet.cell_value(excel_row, col_idx)
                                     sheet.write(excel_row, col_idx, valor, style_procesado)
                                 except:
-                                    print(f"Error al colorear celda {col_name}: {str(e)}")  
+                                    pass
                             wb.save(RUTA_EXCEL)
-                            print(f"Excel actualizado: marcando fila {excel_row + 1} como 'procesado'")
+                            print(f"✅ Registro completado exitosamente")
                             contador_procesados_exitosamente += 1
 
                         else:
-                            print(f"⚠️ No se detectó redirección al formulario completo. URL actual: {driver.current_url}")
-                            # Colorear fila como error
+                            print(f"⚠️ No se detectó formulario completo. URL: {driver.current_url}")
                             for col_name, col_idx in column_indices.items():
                                 try:
                                     sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_error)
-                                except Exception as e:
-                                    print(f"Error al colorear celda {col_name}: {str(e)}")
+                                except:
+                                    pass
                             wb.save(RUTA_EXCEL)
                             contador_errores += 1
                     else:
-                        print(" No se pudo completar la pre-inscripción")
-                        # Colorear fila como error
+                        print("❌ No se pudo completar la pre-inscripción")
                         for col_name, col_idx in column_indices.items():
                             try:
-                                # leer del dataframe si la columna existe, sino del readsheet
                                 if col_name in df.columns:
                                     valor = fila[col_name]
                                 else:
                                     valor = read_sheet.cell_value(excel_row, col_idx)
                                 sheet.write(excel_row, col_idx, valor, style_error)
                             except:
-                                print(f"Error al colorear celda {col_name}: {str(e)}")
+                                pass
                         wb.save(RUTA_EXCEL)
+                        contador_errores += 1
                 else:
-                    print(f"⚠️ No se redirigió al formulario de pre-inscripción. URL actual: {driver.current_url}")
-                    # Intentar redirigir manualmente
+                    print(f"⚠️ No se redirigió al formulario. URL: {driver.current_url}")
                     driver.get(URL_VERIFICACION)
-                    print("Reintentando verificación...")
-                    existe = verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait, wait_rapido) 
+                    print("🔄 Reintentando verificación...")
+                    existe = verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait, wait_rapido)
                     if not existe:
-                        print("Reintentando llenar datos...")
-                        if llenar_datos_antes_de_inscripcion(nombres, apellidos,driver,wait):
-                            # Si la reinscripción funciona, colorear como procesado
+                        print("🔄 Reintentando llenar datos...")
+                        if llenar_datos_antes_de_inscripcion(nombres, apellidos, driver, wait):
                             for col_name, col_idx in column_indices.items():
                                 try:
                                     sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_procesado)
-                                except Exception as e:
-                                    print(f"Error al colorear celda {col_name}: {str(e)}")
+                                except:
+                                    pass
                             contador_procesados_exitosamente += 1
                         else:
-                            # Si falla, colorear como error
                             for col_name, col_idx in column_indices.items():
                                 try:
                                     sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_error)
-                                except Exception as e:
-                                    print(f"Error al colorear celda {col_name}: {str(e)}")
+                                except:
+                                    pass
                             contador_errores += 1
                         wb.save(RUTA_EXCEL)
                     
             except Exception as e:
                 logging.error(f"Error procesando estudiante {nombres} {apellidos}: {str(e)}")
-                print(f" Error procesando estudiante {nombres} {apellidos}: {str(e)}")
+                print(f"❌ Error procesando estudiante: {str(e)}")
                 
-                # Colorear fila como error
                 for col_name, col_idx in column_indices.items():
                     try:
-                        # leer del dataframe si la columna existe, sino del readsheet
                         if col_name in df.columns:
                             valor = fila[col_name]
                         else:
                             valor = read_sheet.cell_value(excel_row, col_idx)
                         sheet.write(excel_row, col_idx, valor, style_error)
                     except:
-                        print(f"Error al colorear celda {col_name}: {str(e)}")
+                        pass
+                
                 try:
                     wb.save(RUTA_EXCEL)
-                    print(f"Excel actualizado: marcando fila {excel_row + 1} como 'error'")
+                    print(f"📝 Excel actualizado: marcando como error")
                 except Exception as save_error:
-                    print(f"Error al guardar Excel: {str(save_error)}")
-                    
-                    contador_errores += 1
+                    print(f"⚠️ Error al guardar Excel: {str(save_error)}")
                 
-                # Volver a la página de verificación para el siguiente estudiante
+                contador_errores += 1
+                
                 try:
                     driver.get(URL_VERIFICACION)
                     time.sleep(2)
                 except Exception as nav_error:
-                    print(f"Error al navegar: {str(nav_error)}")
-            
+                    print(f"⚠️ Error al navegar: {str(nav_error)}")
+        
+        # ===== RESUMEN FINAL =====
         try:
-            # Encontrar la primera fila vacía después de los datos
-            fila_resumen = total_registros + header_row + 3  # +3 para dejar espacio
+            fila_resumen = total_registros + header_row + 3
             
-            # Crear estilos para el resumen
             style_titulo_resumen = xlwt.XFStyle()
             font_titulo = xlwt.Font()
             font_titulo.bold = True
@@ -446,31 +509,39 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
             font_resumen.bold = True
             style_resumen.font = font_resumen
             
-            # Escribir el resumen
             sheet.write(fila_resumen, 0, "RESUMEN DE PROCESAMIENTO", style_titulo_resumen)
             sheet.write(fila_resumen + 1, 0, f"Aprendices procesados exitosamente:", style_resumen)
             sheet.write(fila_resumen + 1, 1, contador_procesados_exitosamente, style_resumen)
+            sheet.write(fila_resumen + 2, 0, f"Ya existentes:", style_resumen)
+            sheet.write(fila_resumen + 2, 1, contador_ya_existentes, style_resumen)
+            sheet.write(fila_resumen + 3, 0, f"Errores:", style_resumen)
+            sheet.write(fila_resumen + 3, 1, contador_errores, style_resumen)
+            sheet.write(fila_resumen + 4, 0, f"Saltados:", style_resumen)
+            sheet.write(fila_resumen + 4, 1, contador_saltados, style_resumen)
             sheet.write(fila_resumen + 5, 0, "Total procesados:", style_resumen)
             sheet.write(fila_resumen + 5, 1, total_registros, style_resumen)
             
-            # Guardar los cambios finales
             wb.save(RUTA_EXCEL)
+            print("\n📊 Resumen guardado en Excel")
             
         except Exception as e:
-            print(f"Error al escribir resumen en Excel: {str(e)}")
-            logging.error(f"Error al escribir resumen en Excel: {str(e)}")
-                
-                
-        logging.info("✅ Proceso completado exitosamente")
-        print("\n===== ✅ Proceso completado exitosamente =====\n")
+            print(f"⚠️ Error al escribir resumen: {str(e)}")
+            logging.error(f"Error al escribir resumen: {str(e)}")
+        
+        # ===== MENSAJE FINAL =====
+        if stop_event.is_set():
+            logging.info("🛑 Proceso detenido por el usuario")
+            print("\n🛑 Proceso detenido por el usuario")
+        else:
+            logging.info("✅ Proceso completado exitosamente")
+            print("\n✅ Proceso completado exitosamente")
             
     except Exception as e:
         logging.error(f"Error general en el proceso: {str(e)}")
-        print(f"Error general: {str(e)}")
+        print(f"❌ Error general: {str(e)}")
         
     finally:
-        sys.stdout = original_stdout # Restaurar la salida estándar
-        # Cerrar el navegador al finalizar
+        sys.stdout = original_stdout
         driver.quit()
         logging.info("Navegador cerrado")
         print("🔒 Navegador cerrado")
