@@ -1,16 +1,64 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+block_cipher = None
 
 a = Analysis(
-
-    ['gui.py'], 
+    ['gui.py'],
     pathex=[],
     binaries=[],
-    # Incluimos automatizacion.py en la raíz y el icono dentro de una carpeta 'Iconos'
-    datas=[('automatizacion.py', '.'), ('Iconos/logoSena.ico', 'Iconos')],
-    
-    # Unificamos y mantenemos las importaciones útiles para Tkinter/CustomTkinter
-    hiddenimports=['json', 'os', 'pathlib', 'queue', 'threading', 'tkinter'],
+    datas=[
+        # Archivo principal
+        ('automatizacion.py', '.'),
+        # Icono
+        ('Iconos/logoSena.ico', 'Iconos'),
+        ('perfilesOcupacionales/', 'perfilesOcupacionales'),
+        ('perfilesOcupacionales/perfiles_ocupacionales.json', 'perfilesOcupacionales'),
+        ('funciones_formularios/', 'funciones_formularios'),
+        ('funciones_loggs/', 'funciones_loggs'),
+        ('URLS/', 'URLS'),
+        ('.env', '.'),
+    ],
+    hiddenimports=[
+        # Librerías estándar
+        'json',
+        'os',
+        'pathlib',
+        'queue',
+        'threading',
+        'tkinter',
+        'logging',
+        'sys',
+        'time',
+        
+        # CustomTkinter y dependencias
+        'customtkinter',
+        'PIL',
+        'PIL._tkinter_finder',
+        
+        # Selenium y dependencias
+        'selenium',
+        'selenium.webdriver',
+        'selenium.webdriver.chrome.service',
+        'selenium.webdriver.common.by',
+        'selenium.webdriver.support.ui',
+        'selenium.webdriver.support.expected_conditions',
+        
+        # Pandas y Excel
+        'pandas',
+        'xlrd',
+        'xlwt',
+        'xlutils',
+        'xlutils.copy',
+        
+        'perfilesOcupacionales.gestorDePerfilesOcupacionales',
+        'perfilesOcupacionales.dialogo_perfil',
+        'perfilesOcupacionales.perfilExcepcion',
+        
+        # Otros
+        'dotenv',
+        'webdriver_manager',
+        'webdriver_manager.chrome',
+    ],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -18,12 +66,14 @@ a = Analysis(
     noarchive=False,
     optimize=0,
 )
-pyz = PYZ(a.pure)
+
+pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
 exe = EXE(
     pyz,
     a.scripts,
     a.binaries,
+    a.zipfiles,
     a.datas,
     [],
     name='SENA_Automation_App',
@@ -33,18 +83,11 @@ exe = EXE(
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    
-    
-    # 1. Añadimos el icono al ejecutable final 
-    icon='Iconos/logoSena.ico', 
-    
-    # Cambiar a False para ocultar la ventana de consola negra
-    console=False, 
-    
-    # 3. Quitamos hiddenimports=[] repetido
+    console=False,  # Sin consola
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon='Iconos/logoSena.ico',
 )
