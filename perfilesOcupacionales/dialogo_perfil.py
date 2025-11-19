@@ -8,6 +8,10 @@ class DialogoPerfilOcupacional(ctk.CTkToplevel):
         super().__init__(parent)
         
         self.nombre_programa = nombre_programa
+        self.resultado = None
+        super().__init__(parent)
+        
+        self.nombre_programa = nombre_programa
         self.resultado = None  # Almacenará el perfil ingresado
         
         # Configuración de la ventana
