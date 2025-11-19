@@ -6,6 +6,9 @@ import json
 import os
 from pathlib import Path
 from automatizacion import main
+from debug_exe import log
+from perfilesOcupacionales.dialogo_perfil import DialogoPerfilOcupacional
+from perfilesOcupacionales.gestorDePerfilesOcupacionales import agregar_perfil_a_json
 
 # --- CONFIGURACIÓN DE ESTILOS GLOBALES ---
 ctk.set_appearance_mode("dark")
@@ -452,50 +455,53 @@ class App(ctk.CTk):
             self._reset_ui_to_ready()
 
 
-
     # Metodo para mostar ventana de dialogo de falta de perfil ocuapcional
     def show_dialog_profile(self, nombre_programa):
         """Muestra el diálogo para solicitar un perfil ocupacional"""
-        from perfilesOcupacionales.dialogo_perfil import DialogoPerfilOcupacional
-        from perfilesOcupacionales.gestorDePerfilesOcupacionales import agregar_perfil_a_json
-        
-        # Crear y mostrar el diálogo
-        dialogo = DialogoPerfilOcupacional(self, nombre_programa)
-        self.wait_window(dialogo)
-        
-        if dialogo.resultado:
-            perfil_ingresado = dialogo.resultado
-            exito = agregar_perfil_a_json(nombre_programa, perfil_ingresado)
-            
-            if exito:
-                self.textbox.insert("end", f"✅ Perfil agregado: {nombre_programa} -> {perfil_ingresado}\n")
-                self.textbox.see("end")
-                
-                # Preguntar si desea reiniciar automáticamente
-                respuesta = messagebox.askyesno(
-                    "Perfil Agregado",
-                    f"El perfil '{perfil_ingresado}' ha sido agregado correctamente.\n\n"
-                    f"¿Deseas reiniciar el proceso automáticamente?"
-                )
-                
-                if respuesta:
-                    self.textbox.insert("end", f"🔄 Reiniciando proceso...\n")
-                    self.textbox.see("end")
-                    self.after(500, self.start_process)
-                else:
-                    self.textbox.insert("end", f"ℹ️ Inicia el proceso manualmente cuando estés listo.\n")
-                    self.start_button.configure(state="normal")
-                    self.browse_button.configure(state="normal")
-                    self.config_credentials_button.configure(state="normal")
-            else:
-                self.textbox.insert("end", f"❌ Error al guardar el perfil\n")
-                messagebox.showerror("Error", "No se pudo guardar el perfil")
-        else:
-            self.textbox.insert("end", f"⏭️ Proceso cancelado por el usuario\n")
-            self.start_button.configure(state="normal")
-            self.browse_button.configure(state="normal")
-            self.config_credentials_button.configure(state="normal")
+        try:
+            """Muestra el diálogo para solicitar un perfil ocupacional"""
+            dialogo = DialogoPerfilOcupacional(self, nombre_programa)
+            self.wait_window(dialogo)
 
+            # Crear y mostrar el diálogo
+            dialogo = DialogoPerfilOcupacional(self, nombre_programa)
+            self.wait_window(dialogo)
+            
+            if dialogo.resultado:
+                perfil_ingresado = dialogo.resultado
+                exito = agregar_perfil_a_json(nombre_programa, perfil_ingresado)
+                
+                if exito:
+                    self.textbox.insert("end", f"✅ Perfil agregado: {nombre_programa} -> {perfil_ingresado}\n")
+                    self.textbox.see("end")
+                    
+                    # Preguntar si desea reiniciar automáticamente
+                    respuesta = messagebox.askyesno(
+                        "Perfil Agregado",
+                        f"El perfil '{perfil_ingresado}' ha sido agregado correctamente.\n\n"
+                        f"¿Deseas reiniciar el proceso automáticamente?"
+                    )
+                    
+                    if respuesta:
+                        self.textbox.insert("end", f"🔄 Reiniciando proceso...\n")
+                        self.textbox.see("end")
+                        self.after(500, self.start_process)
+                    else:
+                        self.textbox.insert("end", f"ℹ️ Inicia el proceso manualmente cuando estés listo.\n")
+                        self.start_button.configure(state="normal")
+                        self.browse_button.configure(state="normal")
+                        self.config_credentials_button.configure(state="normal")
+                else:
+                    self.textbox.insert("end", f"❌ Error al guardar el perfil\n")
+                    messagebox.showerror("Error", "No se pudo guardar el perfil")
+            else:
+                self.textbox.insert("end", f"⏭️ Proceso cancelado por el usuario\n")
+                self.start_button.configure(state="normal")
+                self.browse_button.configure(state="normal")
+                self.config_credentials_button.configure(state="normal")
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
 
     """ MÉTODO run_main """
     def run_main(self, ruta, progress_queue, stop_event): 
@@ -550,9 +556,10 @@ class App(ctk.CTk):
                     self.textbox.see("end")
 
                 elif message_type == "solicitar_perfil":
+                    from debug_exe import log
                     nombre_programa = data
                     self.show_dialog_profile(nombre_programa)
-                    
+
                 elif message_type == "finish":
                     # Detener animación si está activa
                     if self.progress_bar.cget("mode") == "indeterminate":
