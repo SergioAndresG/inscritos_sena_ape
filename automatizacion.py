@@ -39,6 +39,8 @@ from funciones_formularios.verificacion import (
 from funciones_loggs.loggs_funciones import loggs
 from perfilesOcupacionales.perfilExcepcion import PerfilOcupacionalNoEncontrado
 from URLS.urls import URL_FORMULARIO, URL_VERIFICACION
+from debug_exe import close_logger, get_log_path
+
 
 
 #Funcion que preapara los logs en un archivo y maneja su durabilidad en la aplicación
@@ -96,7 +98,21 @@ class QueueStream:
         # Necesario para la interfaz de archivo, pero no hace nada aquí.
         pass
 
+def debug_log(mensaje, progress_queue=None):
+    """Helper para loggear tanto en consola como en GUI"""
+    print(mensaje)
+    logging.info(mensaje)
+    if progress_queue:
+        progress_queue.put(("log", f"🔍 {mensaje}\n"))
+
+
 def main(ruta_excel_param, progress_queue=None, username=None, password=None, stop_event=None, pause_event=None):
+    from debug_exe import init_logger, log, close_logger
+    init_logger()
+    log("="*50)
+    log("INICIO DE main()")
+    log(f"Ruta Excel: {ruta_excel_param}")
+    log(f"progress_queue: {progress_queue is not None}")
     # ===== VALIDAR EVENTOS =====
     if stop_event is None:
         stop_event = threading.Event()
@@ -115,8 +131,9 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
     try:
         # ===== PREPARAR EXCEL =====
         df, wb, sheet, read_sheet, column_indices, header_row, programa_sin_perfil = preparar_excel(RUTA_EXCEL)
-        logging.info(f"Archivo Excel '{RUTA_EXCEL}' cargado y listo para procesar.")
-        print(f"✅ Archivo Excel '{os.path.basename(RUTA_EXCEL)}' cargado y listo.")
+        debug_log("Llamando a preparar_excel...", progress_queue)
+        df, wb, sheet, read_sheet, column_indices, header_row, programa_sin_perfil = preparar_excel(RUTA_EXCEL)
+        debug_log("preparar_excel completado", progress_queue)
         
     except PerfilOcupacionalNoEncontrado as e:
         nombre_programa = e.nombre_programa
@@ -125,9 +142,10 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
         if progress_queue:
             progress_queue.put(("solicitar_perfil", nombre_programa))
             progress_queue.put(("log", f"⚠️ Proceso detenido: falta perfil para '{nombre_programa}'\n"))
-            progress_queue.put(("log", f"💡 Ingresa el perfil ocupacional y reinicia el proceso\n"))
+            progress_queue.put(("log", f"📝 Ingresa el perfil ocupacional y reinicia el proceso\n"))
             progress_queue.put(("finish", None))
-        return
+        else:
+            return
     
     except (FileNotFoundError, Exception) as e:
         logging.error(f"Error fatal al preparar el archivo Excel: {e}")
@@ -545,6 +563,11 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
         driver.quit()
         logging.info("Navegador cerrado")
         print("🔒 Navegador cerrado")
+        
+        log_path = get_log_path()
+        if log_path:
+            print(f"\n📝 Archivo de log guardado en:\n{log_path}")
+        close_logger()
         
 if __name__ == "__main__":
     import sys
