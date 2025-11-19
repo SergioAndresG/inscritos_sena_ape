@@ -8,16 +8,23 @@ def cargar_mapeo_perfiles(ruta_json='perfilesOcupacionales/perfiles_ocupacionale
     Carga el mapeo de programas a perfiles ocupacionales desde el json
     """
     try:
-        # abrimos la ruta del archivo
-        with open(ruta_json, 'r', encoding='utf-8') as f: # decodificamos en formato utf-8
-            return json.load(f) # retornamos decodificado
+        import sys
+        import os
+        
+        # Cuando se ejecuta como .exe, el directorio base es diferente
+        if getattr(sys, 'frozen', False):
+            base_path = sys._MEIPASS
+            ruta_json = os.path.join(base_path, ruta_json)
+        
+        with open(ruta_json, 'r', encoding='utf-8') as f:
+            contenido = json.load(f)
+            return contenido
+            
     except FileNotFoundError:
-        # Si no existe la ruta devolvemos un error
         logging.warning(f"No se encontro el archivo {ruta_json}")
         return {}
-    except json.JSONDecodeError:
-        # Si hay un error mas profundo retornamos el error exacto
-        logging.error(f"Error al lerr el json {ruta_json}")
+    except json.JSONDecodeError as e:
+        logging.error(f"Error al leer el json {ruta_json}")
         return {}
     
 def extraer_nombre_ficha(nombre_ficha):
@@ -34,19 +41,21 @@ def extraer_nombre_ficha(nombre_ficha):
         return partes[1].strip().upper()
     return str(nombre_ficha).strip().upper()
 
-def buscar_perfil_ocupacional(nombre_del_prgrama, mapeo):
+def buscar_perfil_ocupacional(nombre_del_programa, mapeo):
     """
-    Busca  el perfil ocupacional correspodiente al programa 
-    los busca por conincidencia exacta
+    Busca el perfil ocupacional correspondiente al programa 
     """
-    if not nombre_del_prgrama:
+    from debug_exe import log
+    
+    if not nombre_del_programa:
         return None
     
     # Coincidencia exacta
-    if nombre_del_prgrama in mapeo:
-        return mapeo[nombre_del_prgrama]
+    if nombre_del_programa in mapeo:
+        perfil = mapeo[nombre_del_programa]
+        log(f" Coincidencia exacta encontrada: {perfil}")
+        return perfil
     
-    # Si no encuentra conicidencia no retorna nada
     return None
 
 def obtener_nombre_ficha(read_sheet):
