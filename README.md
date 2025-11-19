@@ -719,20 +719,6 @@ pyinstaller SENA_Automation_App.spec
 
 ---
 
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
-
----
-
-## 🙏 Agradecimientos
-
-- **Equipo APE SENA**: Por el apoyo y feedback durante el desarrollo
-- **Instructores y Coordinadores**: Por probar y validar la herramienta
-- **Comunidad Open Source**: Selenium, Python, CustomTkinter
-
----
-
 ## 📧 Contacto y Soporte
 
 ### ¿Necesitas ayuda?
