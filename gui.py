@@ -456,12 +456,14 @@ class App(ctk.CTk):
     
     def _reset_ui_after_dialog(self):
         """Resetea la UI después de cerrar el diálogo (SIN reiniciar proceso)"""
-        self.start_button.configure(state="normal")
+        self.start_button.configure(state="normal", text="▶️  Iniciar Proceso")
         self.browse_button.configure(state="normal")
         self.config_credentials_button.configure(state="normal")
         self.stop_button.configure(state="disabled")
-        self.progress_label.configure(text="")
+        self.pause_button.configure(state="disabled") 
+        self.progress_label.configure(text="Listo para comenzar")
         self.progress_bar.set(0)
+        self.progress_percentage.configure(text="0%")
 
     def _reset_ui_for_restart(self):
         """Resetea la UI preparándola para reiniciar el proceso"""
@@ -471,11 +473,12 @@ class App(ctk.CTk):
         self.textbox.insert("end", "\n")
 
 
-    # Metodo para mostar ventana de dialogo de falta de perfil ocuapcional
     def show_dialog_profile(self, nombre_programa):
         """Muestra el diálogo para solicitar un perfil ocupacional"""
         try:
-            """Muestra el diálogo para solicitar un perfil ocupacional"""
+            # Deshabilitar botón de pausa mientras está el diálogo
+            self.pause_button.configure(state="disabled")
+            
             # Crear y mostrar el diálogo
             dialogo = DialogoPerfilOcupacional(self, nombre_programa)
             self.wait_window(dialogo)
@@ -499,21 +502,22 @@ class App(ctk.CTk):
                         self.textbox.insert("end", f"🔄 Reiniciando proceso...\n")
                         self.textbox.see("end")
                         self._reset_ui_for_restart()
-                        self.after(1500, self.start_process)
+                        self.after(1000, self.start_process)
                     else:
                         self.textbox.insert("end", f"ℹ️ Inicia el proceso manualmente cuando estés listo.\n")
                         self._reset_ui_after_dialog()
                 else:
                     self.textbox.insert("end", f"❌ Error al guardar el perfil\n")
                     messagebox.showerror("Error", "No se pudo guardar el perfil")
+                    self._reset_ui_after_dialog()  
             else:
                 self.textbox.insert("end", f"⏭️ Proceso cancelado por el usuario\n")
-                self.start_button.configure(state="normal")
-                self.browse_button.configure(state="normal")
-                self.config_credentials_button.configure(state="normal")
+                self._reset_ui_after_dialog()  
+                
         except Exception as e:
             import traceback
             traceback.print_exc()
+            self._reset_ui_after_dialog()  
 
     """ MÉTODO run_main """
     def run_main(self, ruta, progress_queue, stop_event): 
@@ -577,8 +581,9 @@ class App(ctk.CTk):
                     if self.progress_bar.cget("mode") == "indeterminate":
                         self.progress_bar.stop()
                         self.progress_bar.configure(mode="determinate")
-                        self.pause_button.configure(state="disabled")
-                        return
+                    
+                    # Deshabilitar TODOS los controles de proceso
+                    self.pause_button.configure(state="disabled")
                     
                     self.start_button.configure(state="normal", text="▶️  Iniciar Proceso")
                     self.browse_button.configure(state="normal")
