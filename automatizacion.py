@@ -4,7 +4,6 @@ import os
 import sys
 import threading
 import time
-
 # === LIBRERÍAS DE TERCEROS ===
 import xlwt
 from dotenv import load_dotenv
@@ -15,7 +14,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
-
+from openpyxl.styles import PatternFill, Font, Alignment
 # === MÓDULOS LOCALES - Funciones de formularios ===
 from funciones_formularios.campo_estrato import llenar_estrato
 from funciones_formularios.campo_sueldo import llenar_formulario_sueldo
@@ -28,20 +27,17 @@ from funciones_formularios.form_campos_ubicacion_identificacion import llenar_fo
 from funciones_formularios.form_datos_residencia import llenar_formulario_ubicacion_residencia
 from funciones_formularios.login import login
 from funciones_formularios.meses_busqueda import verificar_meses_busqueda
-from funciones_formularios.preparar_excel import preparar_excel
+from funciones_excel.preparar_excel import preparar_excel
 from funciones_formularios.pre_inscripcion import llenar_datos_antes_de_inscripcion
 from funciones_formularios.verificacion import (
     verificar_estudiante,
     verificar_estudiante_con_CC_primero
 )
-
 # === MÓDULOS LOCALES - Otros ===
 from funciones_loggs.loggs_funciones import loggs
 from perfilesOcupacionales.perfilExcepcion import PerfilOcupacionalNoEncontrado
 from URLS.urls import URL_FORMULARIO, URL_VERIFICACION
 from debug_exe import close_logger, get_log_path
-
-
 
 #Funcion que preapara los logs en un archivo y maneja su durabilidad en la aplicación
 loggs()
@@ -62,27 +58,11 @@ TIPOS_DOCUMENTO = {
 # --- Variables Globales ---
 # Se definirán dentro de la función main para que sean accesibles en todo el script
 RUTA_EXCEL = ""
-
-chrome_options = Options()
-
-# Descomentar la siguiente línea para modo headless (sin interfaz gráfica), para visualizar el funcionamiento del aplicativo
-# chrome_options.add_argument("--headless")
-chrome_options.add_argument("--window-size=1920,1080")
-chrome_options.add_argument("--disable-gpu")
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--disable-dev-shm-usage")
-
-
-service = ChromeService(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service, options=chrome_options)
-wait = WebDriverWait(driver, 10)  # Espera explícita de 10 segundos
-wait_rapido = WebDriverWait(driver, 3) # Espera mas corta
-
-# Definir estilos de colores para .xls
-style_procesando = xlwt.easyxf('pattern: pattern solid, fore_colour light_blue')
-style_procesado = xlwt.easyxf('pattern: pattern solid, fore_colour light_green')
-style_ya_existe = xlwt.easyxf('pattern: pattern solid, fore_colour light_yellow')
-style_error = xlwt.easyxf('pattern: pattern solid, fore_colour red')
+# Estilos para .xlsx
+fill_procesando = PatternFill(start_color="ADD8E6", end_color="ADD8E6", fill_type="solid")  # Azul claro
+fill_procesado = PatternFill(start_color="90EE90", end_color="90EE90", fill_type="solid")   # Verde claro
+fill_ya_existe = PatternFill(start_color="FFFFE0", end_color="FFFFE0", fill_type="solid")   # Amarillo claro
+fill_error = PatternFill(start_color="FF6B6B", end_color="FF6B6B", fill_type="solid")       # Rojo
 
 class QueueStream:
     """Un objeto tipo archivo que escribe en una cola de progreso."""
@@ -105,14 +85,26 @@ def debug_log(mensaje, progress_queue=None):
     if progress_queue:
         progress_queue.put(("log", f"🔍 {mensaje}\n"))
 
-
 def main(ruta_excel_param, progress_queue=None, username=None, password=None, stop_event=threading.Event(), pause_event=None):
     from debug_exe import init_logger, log, close_logger
+    chrome_options = Options()
+
+    # Descomentar la siguiente línea para modo headless (sin interfaz gráfica), para visualizar el funcionamiento del aplicativo
+    # chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+
+
+    service = ChromeService(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=chrome_options)
+    wait = WebDriverWait(driver, 10)  # Espera explícita de 10 segundos
+    wait_rapido = WebDriverWait(driver, 3) # Espera mas corta
+
+
     init_logger()
-    log("="*50)
-    log("INICIO DE main()")
     log(f"Ruta Excel: {ruta_excel_param}")
-    log(f"progress_queue: {progress_queue is not None}")
     # ===== VALIDAR EVENTOS =====
     if stop_event is None:
         stop_event = threading.Event()
@@ -131,7 +123,7 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
     try:
         # ===== PREPARAR EXCEL =====
         debug_log("Llamando a preparar_excel...", progress_queue)
-        df, wb, sheet, read_sheet, column_indices, header_row, programa_sin_perfil = preparar_excel(RUTA_EXCEL)
+        df, wb, sheet, read_sheet, column_indices, header_row, programa_sin_perfil, RUTA_EXCEL = preparar_excel(ruta_excel_param)
         debug_log("preparar_excel completado", progress_queue)
         
     except PerfilOcupacionalNoEncontrado as e:
@@ -143,8 +135,8 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
             progress_queue.put(("log", f"⚠️ Proceso detenido: falta perfil para '{nombre_programa}'\n"))
             progress_queue.put(("log", f"📝 Ingresa el perfil ocupacional y reinicia el proceso\n"))
             progress_queue.put(("finish", None))
-        else:
-            return
+        close_logger()
+        return
     
     except (FileNotFoundError, Exception) as e:
         logging.error(f"Error fatal al preparar el archivo Excel: {e}")
@@ -207,19 +199,19 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                 # Esperar hasta que se reanude o se detenga
                 while not pause_event.is_set():
                     if stop_event.is_set():
-                        print("🛑 Detenido durante pausa")
+                        print(" Detenido durante pausa")
                         if progress_queue:
-                            progress_queue.put(("log", "🛑 Proceso detenido durante pausa\n"))
+                            progress_queue.put(("log", " Proceso detenido durante pausa\n"))
                         return
                     time.sleep(0.5)  # Verificar cada 500ms
                 
                 print(f"\n{'='*50}")
-                print(f"▶️ PROCESO REANUDADO")
+                print(f"▶ PROCESO REANUDADO")
                 print(f"{'='*50}")
                 print(f"📍 Continuando desde registro: {i + 1}/{total_registros}\n")
                 
                 if progress_queue:
-                    progress_queue.put(("log", f"\n▶️ Reanudado desde registro {i + 1}/{total_registros}\n"))
+                    progress_queue.put(("log", f"\n▶ Reanudado desde registro {i + 1}/{total_registros}\n"))
             
             # ===== ENVIAR PROGRESO =====
             if progress_queue:
@@ -242,13 +234,14 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                         if col_name in df.columns:
                             valor = fila[col_name]
                         else:
-                            valor = read_sheet.cell_value(excel_row, col_idx)
-                        sheet.write(excel_row, col_idx, valor, style_procesando)
+                            valor = sheet.cell(row=excel_row + 1, column=col_idx + 1).value  # Para openpyxl las filas empiezan en 1
+                        cell = sheet.cell(row=excel_row + 1, column=col_idx + 1, value=valor)
+                        cell.fill = fill_procesando
                     except Exception as e:
-                        print(f"⚠️ Error al colorear celda {col_name}: {str(e)}")
+                        print(f" Error al colorear celda {col_name}: {str(e)}")
                 
                 wb.save(RUTA_EXCEL)
-                print(f"📝 Excel actualizado: marcando fila {excel_row + 1} como 'procesando'")
+                print(f" Excel actualizado: marcando fila {excel_row + 1} como 'procesando'")
                 
                 # ===== EXTRAER DATOS =====
                 tipo_doc = str(fila[COLUMNA_TIPO_DOC])
@@ -262,7 +255,7 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                 
                 logging.info(f"Procesando estudiante {i+1}/{total_registros}: {nombres} {apellidos}")
                 print(f"\n{'='*50}")
-                print(f"📋 Procesando {i+1}/{total_registros}: {nombres} {apellidos}")
+                print(f" Procesando {i+1}/{total_registros}: {nombres} {apellidos}")
                 print(f"{'='*50}\n")
                 
                 # ===== VERIFICAR DETENCIÓN ANTES DE VERIFICACIÓN =====
@@ -282,8 +275,9 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                             if col_name in df.columns:
                                 valor = fila[col_name]
                             else:
-                                valor = read_sheet.cell_value(excel_row, col_idx)
-                            sheet.write(excel_row, col_idx, valor, style_error)
+                                valor = sheet.cell(row=excel_row + 1, column=col_idx + 1).value  # Para openpyxl las filas empiezan en 1
+                            cell = sheet.cell(row=excel_row + 1, column=col_idx + 1, value=valor)
+                            cell.fill = fill_error
                         except:
                             pass
                     wb.save(RUTA_EXCEL)
@@ -299,8 +293,9 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                             if col_name in df.columns:
                                 valor = fila[col_name]
                             else:
-                                valor = read_sheet.cell_value(excel_row, col_idx)
-                            sheet.write(excel_row, col_idx, valor, style_ya_existe)
+                                valor = sheet.cell(row=excel_row + 1, column=col_idx + 1).value  # Para openpyxl las filas empiezan en 1
+                            cell = sheet.cell(row=excel_row + 1, column=col_idx + 1, value=valor)
+                            cell.fill = fill_ya_existe
                         except:
                             pass
                     wb.save(RUTA_EXCEL)
@@ -342,8 +337,9 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                                     if col_name in df.columns:
                                         valor = fila[col_name]
                                     else:
-                                        valor = read_sheet.cell_value(excel_row, col_idx)
-                                    sheet.write(excel_row, col_idx, valor, style_ya_existe)
+                                        valor = sheet.cell(row=excel_row + 1, column=col_idx + 1).value  # Para openpyxl las filas empiezan en 1
+                                    cell = sheet.cell(row=excel_row + 1, column=col_idx + 1, value=valor)
+                                    cell.fill = fill_ya_existe
                                 except:
                                     pass
                             
@@ -404,8 +400,9 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                                         if col_name in df.columns:
                                             valor = fila[col_name]
                                         else:
-                                            valor = read_sheet.cell_value(excel_row, col_idx)
-                                        sheet.write(excel_row, col_idx, valor, style_error)
+                                            valor = sheet.cell(row=excel_row + 1, column=col_idx + 1).value  # Para openpyxl las filas empiezan en 1
+                                        cell = sheet.cell(row=excel_row + 1, column=col_idx + 1, value=valor)
+                                        cell.fill = fill_error
                                     except:
                                         pass
                                 wb.save(RUTA_EXCEL)
@@ -421,8 +418,9 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                                     if col_name in df.columns:
                                         valor = fila[col_name]
                                     else:
-                                        valor = read_sheet.cell_value(excel_row, col_idx)
-                                    sheet.write(excel_row, col_idx, valor, style_procesado)
+                                        valor = sheet.cell(row=excel_row + 1, column=col_idx + 1).value  # Para openpyxl las filas empiezan en 1
+                                    cell = sheet.cell(row=excel_row + 1, column=col_idx + 1, value=valor)
+                                    cell.fill = fill_procesado
                                 except:
                                     pass
                             wb.save(RUTA_EXCEL)
@@ -433,7 +431,9 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                             print(f"⚠️ No se detectó formulario completo. URL: {driver.current_url}")
                             for col_name, col_idx in column_indices.items():
                                 try:
-                                    sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_error)
+                                    valor = sheet.cell(row=excel_row + 1, column=col_idx + 1).value  # Para openpyxl las filas empiezan en 1
+                                    cell = sheet.cell(row=excel_row + 1, column=col_idx + 1, value=valor)
+                                    cell.fill = fill_error
                                 except:
                                     pass
                             wb.save(RUTA_EXCEL)
@@ -445,8 +445,9 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                                 if col_name in df.columns:
                                     valor = fila[col_name]
                                 else:
-                                    valor = read_sheet.cell_value(excel_row, col_idx)
-                                sheet.write(excel_row, col_idx, valor, style_error)
+                                    valor = sheet.cell(row=excel_row + 1, column=col_idx + 1).value  # Para openpyxl las filas empiezan en 1
+                                cell = sheet.cell(row=excel_row + 1, column=col_idx + 1, value=valor)
+                                cell.fill = fill_error
                             except:
                                 pass
                         wb.save(RUTA_EXCEL)
@@ -461,14 +462,18 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                         if llenar_datos_antes_de_inscripcion(nombres, apellidos, driver, wait):
                             for col_name, col_idx in column_indices.items():
                                 try:
-                                    sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_procesado)
+                                    valor = sheet.cell(row=excel_row + 1, column=col_idx + 1).value  # Para openpyxl las filas empiezan en 1
+                                    cell = sheet.cell(row=excel_row + 1, column=col_idx + 1, value=valor)
+                                    cell.fill = fill_procesado
                                 except:
                                     pass
                             contador_procesados_exitosamente += 1
                         else:
                             for col_name, col_idx in column_indices.items():
                                 try:
-                                    sheet.write(excel_row, col_idx, read_sheet.cell_value(excel_row, col_idx), style_error)
+                                    valor = sheet.cell(row=excel_row + 1, column=col_idx + 1).value  # Para openpyxl las filas empiezan en 1
+                                    cell = sheet.cell(row=excel_row + 1, column=col_idx + 1, value=valor)
+                                    cell.fill = fill_error
                                 except:
                                     pass
                             contador_errores += 1
@@ -483,8 +488,9 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                         if col_name in df.columns:
                             valor = fila[col_name]
                         else:
-                            valor = read_sheet.cell_value(excel_row, col_idx)
-                        sheet.write(excel_row, col_idx, valor, style_error)
+                            valor = sheet.cell(row=excel_row + 1, column=col_idx + 1).value  # Para openpyxl las filas empiezan en 1
+                            cell = sheet.cell(row=excel_row + 1, column=col_idx + 1, value=valor)
+                            cell.fill = fill_error
                     except:
                         pass
                 
@@ -504,63 +510,61 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
         
         # ===== RESUMEN FINAL =====
         try:
-            fila_resumen = total_registros + header_row + 3
+            fila_resumen = total_registros + header_row + 3 + 1  # +1 porque openpyxl empieza en 1
+            # Estilos
+            fill_titulo = PatternFill(start_color="0000FF", end_color="0000FF", fill_type="solid")
+            font_titulo = Font(bold=True, color="FFFFFF")
+            font_resumen = Font(bold=True)
+            # Título
+            cell_titulo = sheet.cell(row=fila_resumen, column=1, value="RESUMEN DE PROCESAMIENTO")
+            cell_titulo.fill = fill_titulo
+            cell_titulo.font = font_titulo
+            # Datos
+            sheet.cell(row=fila_resumen + 1, column=1, value="Aprendices ingresados exitosamente:").font = font_resumen
+            sheet.cell(row=fila_resumen + 1, column=2, value=contador_procesados_exitosamente).font = font_resumen
             
-            style_titulo_resumen = xlwt.XFStyle()
-            font_titulo = xlwt.Font()
-            font_titulo.bold = True
-            font_titulo.colour_index = xlwt.Style.colour_map['white']
-            style_titulo_resumen.font = font_titulo
-            pattern_titulo = xlwt.Pattern()
-            pattern_titulo.pattern = xlwt.Pattern.SOLID_PATTERN
-            pattern_titulo.pattern_fore_colour = xlwt.Style.colour_map['blue']
-            style_titulo_resumen.pattern = pattern_titulo
+            sheet.cell(row=fila_resumen + 2, column=1, value="Ya existentes:").font = font_resumen
+            sheet.cell(row=fila_resumen + 2, column=2, value=contador_ya_existentes).font = font_resumen
             
-            style_resumen = xlwt.XFStyle()
-            font_resumen = xlwt.Font()
-            font_resumen.bold = True
-            style_resumen.font = font_resumen
+            sheet.cell(row=fila_resumen + 3, column=1, value="Errores:").font = font_resumen
+            sheet.cell(row=fila_resumen + 3, column=2, value=contador_errores).font = font_resumen
             
-            sheet.write(fila_resumen, 0, "RESUMEN DE PROCESAMIENTO", style_titulo_resumen)
-            sheet.write(fila_resumen + 1, 0, f"Aprendices procesados exitosamente:", style_resumen)
-            sheet.write(fila_resumen + 1, 1, contador_procesados_exitosamente, style_resumen)
-            sheet.write(fila_resumen + 2, 0, f"Ya existentes:", style_resumen)
-            sheet.write(fila_resumen + 2, 1, contador_ya_existentes, style_resumen)
-            sheet.write(fila_resumen + 3, 0, f"Errores:", style_resumen)
-            sheet.write(fila_resumen + 3, 1, contador_errores, style_resumen)
-            sheet.write(fila_resumen + 4, 0, f"Saltados:", style_resumen)
-            sheet.write(fila_resumen + 4, 1, contador_saltados, style_resumen)
-            sheet.write(fila_resumen + 5, 0, "Total procesados:", style_resumen)
-            sheet.write(fila_resumen + 5, 1, total_registros, style_resumen)
+            sheet.cell(row=fila_resumen + 4, column=1, value="Saltados:").font = font_resumen
+            sheet.cell(row=fila_resumen + 4, column=2, value=contador_saltados).font = font_resumen
             
+            sheet.cell(row=fila_resumen + 5, column=1, value="Total procesados:").font = font_resumen
+            sheet.cell(row=fila_resumen + 5, column=2, value=total_registros).font = font_resumen
+
             wb.save(RUTA_EXCEL)
-            print("\n📊 Resumen guardado en Excel")
-            
+            print("\n Resumen guardado en Excel")
         except Exception as e:
-            print(f"⚠️ Error al escribir resumen: {str(e)}")
+            print(f" Error al escribir resumen: {str(e)}")
             logging.error(f"Error al escribir resumen: {str(e)}")
         
         # ===== MENSAJE FINAL =====
         if stop_event.is_set():
-            logging.info("🛑 Proceso detenido por el usuario")
-            print("\n🛑 Proceso detenido por el usuario")
+            logging.info(" Proceso detenido por el usuario")
+            print("\n Proceso detenido por el usuario")
         else:
-            logging.info("✅ Proceso completado exitosamente")
-            print("\n✅ Proceso completado exitosamente")
+            logging.info("Proceso completado exitosamente")
+            print("\n Proceso completado exitosamente")
             
     except Exception as e:
         logging.error(f"Error general en el proceso: {str(e)}")
-        print(f"❌ Error general: {str(e)}")
+        print(f" Error general: {str(e)}")
         
     finally:
         sys.stdout = original_stdout
-        driver.quit()
-        logging.info("Navegador cerrado")
-        print("🔒 Navegador cerrado")
+        try:
+            driver.quit()
+            logging.info("Navegador cerrado")
+            print("🔒 Navegador cerrado")
+        except Exception as e:
+            logging.error(f"Error al cerrar navegador: {e}")
         
         log_path = get_log_path()
         if log_path:
-            print(f"\n📝 Archivo de log guardado en:\n{log_path}")
+            print(f"\n Archivo de log guardado en:\n{log_path}")
         close_logger()
         
 if __name__ == "__main__":
