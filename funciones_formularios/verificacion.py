@@ -34,7 +34,7 @@ def verificar_estudiante_con_CC_primero(tipo_doc, num_doc, nombres, apellidos, d
         
         # Si lo encontramos con CC, retornamos True
         if encontrado_con_cc is True:
-            print(f"✅ Estudiante {num_doc} encontrado con CC, aunque el tipo original era {tipo_doc}")
+            print(f"✓ Estudiante {num_doc} encontrado con CC, aunque el tipo original era {tipo_doc}")
             return True
             
         # Si la verificación con CC es None (error) o False (no encontrado),
@@ -119,13 +119,13 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait, wa
                     primera_fila_texto = filas[0].text.lower() 
                     
                     if 'no se encontraron' in primera_fila_texto or 'sin resultados' in primera_fila_texto:
-                        print(f"❌ NO ENCONTRADO: Tabla vacía o sin resultados para {num_doc}")
+                        print(f"✗ NO ENCONTRADO: Tabla vacía o sin resultados para {num_doc}")
                         return False
                     
-                    print(f"✅ ENCONTRADO: Tabla con {len(filas)} fila(s) de resultados")
+                    print(f"✓ ENCONTRADO: Tabla con {len(filas)} fila(s) de resultados")
                     return True
                 else:
-                    print(f"❌ NO ENCONTRADO: Tabla sin filas para {num_doc}")
+                    print(f"✗ NO ENCONTRADO: Tabla sin filas para {num_doc}")
                     return False
                     
             except Exception as e:

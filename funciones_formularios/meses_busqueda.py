@@ -32,15 +32,15 @@ def verificar_meses_busqueda(driver):
             print(f"Valor actual de mesesBusqueda: {meses_valor}")
             
             if meses_valor > 1:
-                print("✅ El estudiante ya está registrado (mesesBusqueda > 1)")
+                print("✓ El estudiante ya está registrado (mesesBusqueda > 1)")
                 return True
             else:
-                print("📝 El estudiante no está registrado (mesesBusqueda <= 1)")
+                print(" El estudiante no está registrado (mesesBusqueda <= 1)")
                 return False
         else:
-            print("⚠️ Campo mesesBusqueda no tiene valor válido")
+            print("Campo mesesBusqueda no tiene valor válido")
             return False
             
     except Exception as e:
-        print(f"❌ Error al verificar mesesBusqueda: {str(e)}")
+        print(f"✗ Error al verificar mesesBusqueda: {str(e)}")
         return False

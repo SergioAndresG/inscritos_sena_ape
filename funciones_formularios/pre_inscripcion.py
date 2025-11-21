@@ -58,10 +58,10 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
             campo_nombres_pre.send_keys(nombres_excel)
 
                 
-            print(f"✅ Se llenó el campo Nombres con: {nombres_excel}")
+            print(f"✓ Se llenó el campo Nombres con: {nombres_excel}")
             logging.info(f"Se llenó el campo Nombres con: {nombres_excel}")
         except Exception as e:
-            print(f"❌ Error al llenar el campo Nombres: {str(e)}")
+            print(f"✗ Error al llenar el campo Nombres: {str(e)}")
             logging.error(f"Error al llenar el campo Nombres: {str(e)}")
 
         # --- Apellidos ---
@@ -85,11 +85,11 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                 campo_primer_apellido_pre.send_keys(letra)
                 time.sleep(0.05)
                 
-            print(f"Se llenó el campo Primer apellido con: {primer_apellido}")
+            print(f"✓ Se llenó el campo Primer apellido con: {primer_apellido}")
             logging.info(f"Se llenó el campo Primer apellido con: {primer_apellido}")
         except Exception as e:
-            print(f"Error al llenar el campo Primer apellido: {str(e)}")
-            logging.error(f"Error al llenar el campo Primer apellido: {str(e)}")
+            print(f"✗ Error al llenar el campo Primer apellido: {str(e)}")
+            logging.error(f"✗ Error al llenar el campo Primer apellido: {str(e)}")
 
         try:
             print("Buscando campo de segundo apellido...")
@@ -106,10 +106,10 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                 campo_segundo_apellido_pre.send_keys(letra)
                 time.sleep(0.05)
                 
-            print(f"Se llenó el campo Segundo apellido con: {segundo_apellido}")
+            print(f"✓ Se llenó el campo Segundo apellido con: {segundo_apellido}")
             logging.info(f"Se llenó el campo Segundo apellido con: {segundo_apellido}")
         except Exception as e:
-            print(f"Error al llenar el campo Segundo apellido: {str(e)}")
+            print(f"✗ Error al llenar el campo Segundo apellido: {str(e)}")
             logging.error(f"Error al llenar el campo Segundo apellido: {str(e)}")
 
         # --- Fecha de Nacimiento ---
@@ -126,7 +126,7 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
             campo_fecha_nacimiento.clear()
             campo_fecha_nacimiento.send_keys('01-01-2000')  # Formato DDMMYYYY
             
-            print("Se llenó el campo Fecha de Nacimiento")
+            print("✓ Se llenó el campo Fecha de Nacimiento")
             logging.info("Se llenó el campo Fecha de Nacimiento")
         except Exception as e:
             print(f"Error al llenar el campo Fecha de Nacimiento: {str(e)}")
@@ -155,7 +155,7 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                 selector_genero.select_by_value(genero)
                 time.sleep(1)
                 
-                print(f"Se seleccionó el género: {genero} ({'Femenino' if genero == '1' else 'Masculino'})")
+                print(f"✓ Se seleccionó el género: {genero} ({'Femenino' if genero == '1' else 'Masculino'})")
                 logging.info(f"Se seleccionó el género: {genero} ({'Femenino' if genero == '1' else 'Masculino'})")
             else:
                 print("No se pudo determinar el género, intentando seleccionar por defecto Masculino")
@@ -196,7 +196,7 @@ def llenar_datos_antes_de_inscripcion(nombres_excel, apellidos_excel, driver):
                             driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", botonContinuar)
                             time.sleep(0.5)
                             driver.execute_script("arguments[0].click();", botonContinuar)
-                            print("Se hizo clic en el botón para continuar/inscribir")
+                            print("✓ Se hizo clic en el botón para continuar/inscribir")
                             logging.info("Se hizo clic en el botón para continuar/inscribir")
                         else:
                             print("El botón para continuar/inscribir no está visible")

@@ -28,7 +28,7 @@ def llenar_formulario_telefono_correo(telefono_excel, correo_excel, driver):
             # Verificación para valores vacíos o NaN
             telefono_str = str(telefono_excel).lower().strip()
             if telefono_excel is None or pd.isna(telefono_excel) or telefono_str == '' or telefono_str == 'nan' or telefono_str == 'none':
-                print(f"⚠️ El número de teléfono del Excel está vacío o es NaN. Usando el valor por defecto: {telefono_por_defecto}")
+                print(f" El número de teléfono del Excel está vacío o es NaN. Usando el valor por defecto: {telefono_por_defecto}")
                 telefono_a_usar = telefono_por_defecto
             else:
                 telefono_a_usar = str(telefono_excel)
@@ -44,10 +44,10 @@ def llenar_formulario_telefono_correo(telefono_excel, correo_excel, driver):
                 campo_telefono_pre.send_keys(numero)
                 time.sleep(0.02)
             
-            print(f"✅ Se llenó el campo telefono con: {telefono_a_usar}")
+            print(f"✓  Se llenó el campo telefono con: {telefono_a_usar}")
             logging.info(f"Se llenó el campo telefono con: {telefono_a_usar}")
         except Exception as e:
-            print(f"❌ Error al llenar el campo telefono: {str(e)}")
+            print(f"✗ Error al llenar el campo telefono: {str(e)}")
             logging.error(f"Error al llenar el campo telefono: {str(e)}")
         
         # --- Correo ---
@@ -61,7 +61,7 @@ def llenar_formulario_telefono_correo(telefono_excel, correo_excel, driver):
             # Verificar si el correo está vacío o es NaN
             correo_por_defecto = "ejemplo@correo.com"
             if correo_excel is None or pd.isna(correo_excel) or str(correo_excel).strip() == '':
-                print(f"⚠️ El correo del Excel está vacío o es NaN. Usando el valor por defecto: {correo_por_defecto}")
+                print(f" El correo del Excel está vacío o es NaN. Usando el valor por defecto: {correo_por_defecto}")
                 correo_a_usar = correo_por_defecto
             else:
                 correo_a_usar = str(correo_excel)  # Convertir explícitamente a string
@@ -75,10 +75,10 @@ def llenar_formulario_telefono_correo(telefono_excel, correo_excel, driver):
                 campo_correo.send_keys(letra)
                 time.sleep(0.05)
             
-            print(f"✅ Se llenó el campo Correo con: {correo_a_usar}")
+            print(f"✓ Se llenó el campo Correo con: {correo_a_usar}")
             logging.info(f"Se llenó el campo Correo con: {correo_a_usar}")
         except Exception as e:
-            print(f"❌ Error al llenar el campo Correo: {str(e)}")
+            print(f"✗ Error al llenar el campo Correo: {str(e)}")
             logging.error(f"Error al llenar el campo Correo: {str(e)}")
     except Exception as e:
         print(f"Error al llenar campos de Telefono y Correo: {str(e)}")

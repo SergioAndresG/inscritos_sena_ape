@@ -31,12 +31,12 @@ def experiencia_laboral(driver, perfil_excel):
                 
             elif "guardados correctamente" in texto_lower or "éxito" in texto_lower:
                 logging.info(f"Alerta de éxito: {texto_alerta}")
-                print(f"✅ Datos guardados correctamente")
+                print(f"✓ Datos guardados correctamente")
                 # Continuar normalmente
             else:
                 # Alerta desconocida, por precaución tratarla como advertencia
                 logging.warning(f"Alerta desconocida: {texto_alerta}")
-                print(f"⚠️ Alerta no reconocida: {texto_alerta}")
+                print(f" Alerta no reconocida: {texto_alerta}")
         except:
             print("No hay alertas pendientes, continuando con el flujo normal")
         
@@ -57,14 +57,14 @@ def experiencia_laboral(driver, perfil_excel):
             li_elemento_tab = WebDriverWait(driver, 5).until(
                 EC.element_to_be_clickable((By.XPATH, '//li[@data-toggle="tab"]/a[contains(@href, "#tab5")]'))
             )
-            print("✅ Tab localizado con XPath específico")
+            print(" Tab localizado con XPath")
         except:
             try:
                 # Intento 2: Buscar por el texto del enlace si está visible
                 li_elemento_tab = WebDriverWait(driver, 5).until(
                     EC.element_to_be_clickable((By.XPATH, '//a[contains(text(), "Experiencia") or contains(text(), "Laboral")]'))
                 )
-                print("✅ Tab localizado por texto del enlace")
+                print(" Tab localizado por texto del enlace")
             except:
                 try:
                     # Intento 3: JavaScript para buscar por atributos
@@ -72,16 +72,16 @@ def experiencia_laboral(driver, perfil_excel):
                         return document.querySelector('li[data-toggle="tab"] a[href*="#tab5"]') || 
                                document.querySelector('a[href*="experiencia"], a[href*="laboral"]');
                     """)
-                    print("✅ Tab localizado con JavaScript")
+                    print("✓ Tab localizado con JavaScript")
                 except:
                     # Si todo falla, intentar hacer clic directamente en el elemento 'add-int'
-                    print("⚠️ No se pudo localizar el tab. Intentando acceder directamente al formulario...")
+                    print(" No se pudo localizar el tab. Intentando acceder directamente al formulario...")
                     try:
                         # Verificar si el elemento 'add-int' ya está disponible
                         WebDriverWait(driver, 5).until(
                             EC.presence_of_element_located((By.ID, 'add-int'))
                         )
-                        print("✅ El formulario de intereses ya está accesible. Continuando...")
+                        print("✓ El formulario de intereses ya está accesible. Continuando...")
                         li_elemento_tab = None  # No necesitamos el tab
                     except:
                         raise Exception("No se pudo acceder al tab ni al formulario de intereses directamente")
@@ -96,15 +96,15 @@ def experiencia_laboral(driver, perfil_excel):
             try:
                 print("Intentando hacer clic en el tab...")
                 li_elemento_tab.click()
-                print("✅ Se hizo clic en el tab de forma normal")
+                print("✓ Se hizo clic en el tab de forma normal")
             except:
                 # Si falla, intentar con JavaScript
                 try:
                     print("Intentando hacer clic con JavaScript...")
                     driver.execute_script("arguments[0].click();", li_elemento_tab)
-                    print("✅ Se hizo clic en el tab usando JavaScript")
+                    print("✓ Se hizo clic en el tab usando JavaScript")
                 except Exception as e:
-                    print(f"❌ Error al hacer clic en el tab: {str(e)}")
+                    print(f"✗ Error al hacer clic en el tab: {str(e)}")
             
             # Esperar un momento para que la interfaz responda
             time.sleep(1)
@@ -139,7 +139,7 @@ def experiencia_laboral(driver, perfil_excel):
                         }
                     """)
                     time.sleep(1)
-                    print("✅ Se hizo visible el contenedor de búsqueda")
+                    print("✓ Se hizo visible el contenedor de búsqueda")
             except Exception as e:
                 print(f"Advertencia al manipular el contenedor: {str(e)}")
 
@@ -148,7 +148,7 @@ def experiencia_laboral(driver, perfil_excel):
             campo_nombre = WebDriverWait(driver, 5).until(
                 EC.visibility_of_element_located((By.XPATH, "//form[@id='int-ocu-search']//input[@id='ocu-nombre']"))
             )
-            print("✅ Campo 'ocu-nombre' encontrado y visible")
+            print("✓ Campo 'ocu-nombre' encontrado y visible")
 
             # Agregar el valor como texto
             print(f"Intentando ingresar texto: '{perfil_excel}'")
@@ -160,7 +160,7 @@ def experiencia_laboral(driver, perfil_excel):
             )
             boton_busqueda.click()
             driver.execute_script("arguments[0].click();", boton_busqueda)
-            print("✅ Se hizo clic en el botón de búsqueda")
+            print("✓ Se hizo clic en el botón de búsqueda")
             time.sleep(2)
 
             # Buscar botones "Seleccionar" en los resultados
@@ -177,21 +177,21 @@ def experiencia_laboral(driver, perfil_excel):
                 driver.execute_script("arguments[0].click();", boton)
                 time.sleep(1)  # Espera a que se cargue el siguiente paso
                 
-                print(f"✅ Se hizo clic en el botón 'Seleccionar' para: '{perfil_excel}'")
+                print(f"✓ Se hizo clic en el botón 'Seleccionar' para: '{perfil_excel}'")
 
                 # --- Esperar a que aparezca el formulario de agregar interés y hacer clic en "Agregar" ---
                 print("Esperando a que aparezca el formulario 'Agregar interés ocupacional'...")
                 formulario_agregar = WebDriverWait(driver, 10).until(
                     EC.visibility_of_element_located((By.ID, 'int-fadd-group'))
                 )
-                print("✅ Formulario 'Agregar interés ocupacional' visible")
+                print("✓ Formulario 'Agregar interés ocupacional' visible")
 
                 print("Buscando y haciendo clic en el botón 'Agregar'...")
                 boton_agregar = WebDriverWait(driver, 10).until(
                     EC.element_to_be_clickable((By.ID, 'int-fadd-add'))
                 )
                 boton_agregar.click()
-                print("✅ Se hizo clic en el botón 'Agregar'")
+                print("✓ Se hizo clic en el botón 'Agregar'")
                 time.sleep(3) # Espera a que se complete la adición
 
             except Exception as e:
@@ -200,7 +200,7 @@ def experiencia_laboral(driver, perfil_excel):
                 try:
                     texto_encontrado = driver.find_elements(By.XPATH, f"//*[contains(text(), '{perfil_excel}')]")
                     if texto_encontrado:
-                        print(f"✅ Verificado: El interés '{perfil_excel}' se agregó correctamente")
+                        print(f"✓ Verificado: El interés '{perfil_excel}' se agregó correctamente")
                         return True
                     else:
                         print(f" No se encontró confirmación visual del interés agregado")

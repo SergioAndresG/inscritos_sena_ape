@@ -27,5 +27,5 @@ def llenar_estrato(driver):
     except Exception as e:
         error_msg = f"Error al llenar el formulario estrato: {str(e)}"
         logging.error(error_msg)
-        print(f"❌ {error_msg}")
+        print(f"✗ {error_msg}")
         return False

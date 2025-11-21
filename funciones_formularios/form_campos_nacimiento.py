@@ -14,7 +14,7 @@ def llenar_formulario_ubicaciones_nacimiento(driver,wait):
     """Llena los campos de ubicación de Nacimiento evitando conflictos con el primer formulario."""
     try:
         
-        print("⚪ Ingresando Datos de Nacimiento")
+        print("** Ingresando Datos de Nacimiento")
         
         # Hacer clic en el botón "Seleccionar" para el municipio de nacimiento
         # Usar un selector mucho más específico
@@ -24,14 +24,14 @@ def llenar_formulario_ubicaciones_nacimiento(driver,wait):
         )
         driver.execute_script("arguments[0].scrollIntoView(true);", seleccionar_boton)
         seleccionar_boton.click()
-        print("✅ Se hizo clic en el botón Seleccionar para datos de nacimiento")
+        print("✓ Se hizo clic en el botón Seleccionar para datos de nacimiento")
         time.sleep(1)
         
         #  Verificar que el dropdown se haya abierto
         dropdown = wait.until(
             EC.visibility_of_element_located((By.ID, "dropNacimiento"))
         )
-        print("✅ Se abrió el dropdown de nacimiento correctamente")
+        print("✓ Se abrió el dropdown de nacimiento correctamente")
         
         #  Importante: CAMBIAR AL CONTEXTO DEL DROPDOWN
         # En vez de buscar por ID directamente (lo cual puede encontrar elementos duplicados),
@@ -43,7 +43,7 @@ def llenar_formulario_ubicaciones_nacimiento(driver,wait):
             EC.element_to_be_clickable((By.XPATH, "//div[@id='dropNacimiento']//div[contains(@class,'control-group')][1]//select"))
         )
         Select(pais_select).select_by_visible_text('Colombia')
-        print("✅ Se seleccionó Colombia en el desplegable de País (Nacimiento).")
+        print("✓ Se seleccionó Colombia en el desplegable de País (Nacimiento).")
         time.sleep(1.5)  # Esperar más tiempo para que se carguen opciones
         
         # Seleccionar Departamento
@@ -52,7 +52,7 @@ def llenar_formulario_ubicaciones_nacimiento(driver,wait):
             EC.element_to_be_clickable((By.XPATH, "//div[@id='dropNacimiento']//div[contains(@class,'control-group')][2]//select"))
         )
         Select(depto_select).select_by_visible_text('Cundinamarca')
-        print("✅ Se seleccionó Cundinamarca en el desplegable de Departamento (Nacimiento).")
+        print("✓ Se seleccionó Cundinamarca en el desplegable de Departamento (Nacimiento).")
         time.sleep(1.5)
         
         # Seleccionar Municipio
@@ -61,26 +61,26 @@ def llenar_formulario_ubicaciones_nacimiento(driver,wait):
             EC.element_to_be_clickable((By.XPATH, "//div[@id='dropNacimiento']//div[contains(@class,'control-group')][3]//select"))
         )
         Select(muni_select).select_by_visible_text('Mosquera')
-        print("✅ Se seleccionó Mosquera en el desplegable de Municipio (Nacimiento).")
+        print("✓ Se seleccionó Mosquera en el desplegable de Municipio (Nacimiento).")
         
         # Cerrar el dropdown haciendo clic en algún otro elemento para confirmar la selección
         try:
             fecha_input = driver.find_element(By.ID, "fechaNacimiento")
             fecha_input.click()
-            print("✅ Se cerró el dropdown haciendo clic fuera")
+            print("✓ Se cerró el dropdown haciendo clic fuera")
         except:
             # Si el input de fecha no está disponible, intenta hacer clic en cualquier otro elemento
             try:
                 # Buscar un elemento visible y hacer clic en él
                 driver.find_element(By.XPATH, "//h4[contains(text(), 'Datos de nacimiento')]").click()
-                print("✅ Se cerró el dropdown haciendo clic en el título")
+                print("✓ Se cerró el dropdown haciendo clic en el título")
             except:
                 print("No se pudo cerrar el dropdown manualmente")
         
         return True
         
     except Exception as e:
-        print(f"❌ Error al llenar la ubicación de Nacimiento: {e}")
+        print(f"✗ Error al llenar la ubicación de Nacimiento: {e}")
         logging.error(f"Error detallado al llenar la ubicación de Nacimiento: {str(e)}")
         
         # Información adicional de depuración

@@ -20,12 +20,12 @@ def llenar_formulario_sueldo(driver):
         selector_sueldo = Select(sueldo)
         selector_sueldo.select_by_value('3')
         logging.info("Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.")
-        print("✅ Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.")
+        print("✓ Se seleccionó '$ 1.000.000  -  $1.500.000' en el desplegable de Sueldo.")
         time.sleep(1)  # Esperar a que se cargue el estado civil
 
 
     except Exception as e:
         error_msg = f"Error al llenar el formulario sueldo: {str(e)}"
         logging.error(error_msg)
-        print(f"❌ {error_msg}")
+        print(f"✗ {error_msg}")
         return False

@@ -28,7 +28,7 @@ def llenar_formulario_ubicaciones(driver):
         selector_pais = Select(pais_dropdown)
         selector_pais.select_by_visible_text('Colombia')
         logging.info("Se seleccionó Colombia en el desplegable de País.")
-        print("✅ Se seleccionó Colombia en el desplegable de País.")
+        print("✓ Se seleccionó Colombia en el desplegable de País.")
         time.sleep(1)  # Esperar a que se cargue el departamento
 
         # Seleccionar Departamento: Cundinamarca
@@ -36,7 +36,7 @@ def llenar_formulario_ubicaciones(driver):
         selector_departamento = Select(departamento_dropdown)
         selector_departamento.select_by_visible_text('Cundinamarca')
         logging.info("Se seleccionó Cundinamarca en el desplegable de Departamento.")
-        print("✅ Se seleccionó Cundinamarca en el desplegable de Departamento.")
+        print("✓ Se seleccionó Cundinamarca en el desplegable de Departamento.")
         time.sleep(1)  # Esperar a que se cargue el municipio
 
         # Seleccionar Municipio: Mosquera
@@ -44,12 +44,12 @@ def llenar_formulario_ubicaciones(driver):
         selector_municipio = Select(municipio_dropdown)
         selector_municipio.select_by_visible_text('Mosquera')
         logging.info("Se seleccionó Mosquera en el desplegable de Municipio.")
-        print("✅ Se seleccionó Mosquera en el desplegable de Municipio.")
+        print("✓ Se seleccionó Mosquera en el desplegable de Municipio.")
 
         return True
 
     except Exception as e:
         error_msg = f"Error al llenar el formulario principal (ubicación): {str(e)}"
         logging.error(error_msg)
-        print(f"❌ {error_msg}")
+        print(f"✗ {error_msg}")
         return False

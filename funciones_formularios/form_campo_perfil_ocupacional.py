@@ -29,10 +29,10 @@ def llenar_input_perfil_ocupacional(estado, driver):
             campo_perfil_ocupacional.send_keys(letra)
             time.sleep(0.05)
             
-        print(f"✅ Se llenó el campo Perfil Ocupacional con: {estado}")
+        print(f"✓ Se llenó el campo Perfil Ocupacional con: {estado}")
         logging.info(f"Se llenó el campo Perfil Ocupacional con: {estado}")
         return True
     except Exception as e:
-        print(f"❌ Error al llenar el campo Perfil Ocupacional: {str(e)}")
+        print(f"✗ Error al llenar el campo Perfil Ocupacional: {str(e)}")
         logging.error(f"Error al llenar el campo Perfil Ocupacional: {str(e)}")
         return False

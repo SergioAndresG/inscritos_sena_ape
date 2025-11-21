@@ -19,7 +19,7 @@ def llenar_formulario_ubicacion_residencia(driver):
         selector_pais = Select(pais)
         selector_pais.select_by_visible_text('Colombia')
         logging.info("Se seleccionó Colombia en el desplegable de País.")
-        print("✅ Se seleccionó Colombia en el desplegable de País.")
+        print("✓ Se seleccionó Colombia en el desplegable de País.")
         time.sleep(1)  # Esperar a que se cargue el departamento
 
         # Seleccionar Departamento: Cundinamarca
@@ -27,7 +27,7 @@ def llenar_formulario_ubicacion_residencia(driver):
         selector_departamento = Select(departamento)
         selector_departamento.select_by_visible_text('Cundinamarca')
         logging.info("Se seleccionó Cundinamarca en el desplegable de Departamento.")
-        print("✅ Se seleccionó Cundinamarca en el desplegable de Departamento.")
+        print("✓ Se seleccionó Cundinamarca en el desplegable de Departamento.")
         time.sleep(1)  # Esperar a que se cargue el municipio
 
         # Seleccionar Municipio: Mosquera
@@ -35,18 +35,18 @@ def llenar_formulario_ubicacion_residencia(driver):
         selector_municipio = Select(municipio)
         selector_municipio.select_by_visible_text('Mosquera')
         logging.info("Se seleccionó Mosquera en el desplegable de Municipio.")
-        print("✅ Se seleccionó Mosquera en el desplegable de Municipio.")
+        print("✓ Se seleccionó Mosquera en el desplegable de Municipio.")
 
         direccion_residencia_input = wait.until(EC.presence_of_element_located((By.ID, 'residenciaDireccion')))
         direccion_residencia_input.send_keys('MOSQUERA')
         logging.info("Se coloco Mosquea en el input")
-        print("✅ Mosquera ingresado en el input")
+        print("✓ Mosquera ingresado en el input")
 
         return True
 
     except Exception as e:
         error_msg = f"Error al llenar el formulario principal (residencia): {str(e)}"
         logging.error(error_msg)
-        print(f"❌ {error_msg}")
+        print(f"✗ {error_msg}")
         return False
     
