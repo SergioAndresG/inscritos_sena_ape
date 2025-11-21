@@ -25,11 +25,11 @@ def verificar_estudiante_con_CC_primero(tipo_doc, num_doc, nombres, apellidos, d
     original solo si no se encontró con CC."""
     if tipo_doc == "CC":
         # Si ya es CC, verificamos directamente
-        print("Tipo de documento ya es CC, verificando directamente...")
+        print(f"Verificando con CC: {num_doc}")
         return verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait, wait_rapido)
     else:
         # Primero intentamos con CC
-        print(f"Intentando verificar primero con CC para documento {num_doc}...")
+        print(f"Verificando primero con CC: {num_doc} (tipo original: {tipo_doc})")
         encontrado_con_cc = verificar_estudiante("CC", num_doc, nombres, apellidos, driver, wait, wait_rapido)
         
         # Si lo encontramos con CC, retornamos True
@@ -48,11 +48,10 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait, wa
     
     for intento in range(1, max_intentos + 1):
         try:
-            print(f"Intento {intento} - Abriendo URL: {URL_VERIFICACION}")
+            print(f"Intento {intento}")
             driver.get(URL_VERIFICACION)
             
             # Esperar a que la página cargue completamente
-            print("Esperando que la página cargue...")
             wait_rapido.until(EC.invisibility_of_element_located((By.ID, 'content-load')))
             wait_rapido.until(EC.visibility_of_element_located((By.ID, 'dropTipoIdentificacion')))
             print("Página cargada correctamente")
@@ -71,11 +70,11 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait, wa
             value_tipo_doc = TIPOS_DOCUMENTO.get(tipo_doc)
 
             if value_tipo_doc:
-                print(f"Seleccionando valor: {value_tipo_doc}")
                 selector.select_by_value(value_tipo_doc)
+                print(f"Tipo de documento: {tipo_doc} (valor: {value_tipo_doc})")
             else:
-                print(f"Seleccionando texto visible: {tipo_doc}")
                 selector.select_by_visible_text(tipo_doc)
+                print(f"Tipo de documento: {tipo_doc}")
                 
             campo_num_id = wait.until(EC.element_to_be_clickable((By.ID, 'numeroIdentificacion')))
             driver.execute_script("arguments[0].scrollIntoView(true);", campo_num_id)
@@ -87,7 +86,7 @@ def verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait, wa
             # Ingresar el documento
             campo_num_id.send_keys(str(num_doc))
 
-            # CORRECCIÓN: Verificar que el valor se ingresó correctamente
+            # Verificar que el valor se ingresó correctamente
             wait_rapido.until(lambda d: campo_num_id.get_attribute('value') == str(num_doc))
             print(f"Documento ingresado: {num_doc}")
 
