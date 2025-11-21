@@ -121,26 +121,60 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
         sys.stdout = QueueStream(progress_queue)
 
     try:
-        # ===== PREPARAR EXCEL =====
-        debug_log("Llamando a preparar_excel...", progress_queue)
-        df, wb, sheet, read_sheet, column_indices, header_row, programa_sin_perfil, RUTA_EXCEL = preparar_excel(ruta_excel_param)
-        debug_log("preparar_excel completado", progress_queue)
+        try:
+            resultado = preparar_excel(RUTA_EXCEL)
+            df, wb, sheet, read_sheet, column_indices, header_row, programa_sin_perfil, RUTA_EXCEL = resultado
+            debug_log("preparar_excel completado", progress_queue)
+            
+        except PerfilOcupacionalNoEncontrado as e:
+            nombre_programa = e.nombre_programa
+            logging.warning(f"Perfil no encontrado para: {nombre_programa}")
+            
+            if progress_queue:
+                progress_queue.put(("log", f"\n{'='*50}\n"))
+                progress_queue.put(("log", f" PERFIL OCUPACIONAL NO ENCONTRADO\n"))
+                progress_queue.put(("log", f"{'='*50}\n"))
+                progress_queue.put(("log", f" Programa: {nombre_programa}\n"))
+                progress_queue.put(("log", f"⏸ El proceso no puede continuar sin un perfil válido\n"))
+                progress_queue.put(("log", f" Por favor, configura el perfil ocupacional\n\n"))
+                
+                # Solicitar perfil (BLOQUEARÁ hasta que el usuario responda)
+                progress_queue.put(("solicitar_perfil", nombre_programa))
+            
+            # SALIR INMEDIATAMENTE - No continuar procesando
+            close_logger()
+            driver.quit()
+            return
         
-    except PerfilOcupacionalNoEncontrado as e:
-        nombre_programa = e.nombre_programa
-        logging.warning(f"Perfil no encontrado para: {nombre_programa}")
+        # Si llegamos aquí, preparar_excel fue exitoso
+        if RUTA_EXCEL != ruta_excel_param:
+            print(f" Ruta actualizada a: {RUTA_EXCEL}")
+            logging.info(f"Ruta de trabajo actualizada: {RUTA_EXCEL}")
         
-        if progress_queue:
-            progress_queue.put(("solicitar_perfil", nombre_programa))
-            progress_queue.put(("log", f"⚠️ Proceso detenido: falta perfil para '{nombre_programa}'\n"))
-            progress_queue.put(("log", f"📝 Ingresa el perfil ocupacional y reinicia el proceso\n"))
-            progress_queue.put(("finish", None))
-        close_logger()
-        return
-    
+        # ===== VERIFICAR QUE PERFIL ESTÁ EN DF =====
+        if 'Perfil Ocupacional' not in df.columns or df['Perfil Ocupacional'].isna().all():
+            error_msg = "✗ ERROR: No se pudo cargar el perfil ocupacional en el DataFrame"
+            logging.error(error_msg)
+            print(error_msg)
+            
+            if progress_queue:
+                progress_queue.put(("log", f"\n{error_msg}\n"))
+                progress_queue.put(("finish", None))
+            
+            close_logger()
+            driver.quit()
+            return
+        
     except (FileNotFoundError, Exception) as e:
         logging.error(f"Error fatal al preparar el archivo Excel: {e}")
-        print(f"❌ Error fatal al preparar el archivo Excel: {e}")
+        print(f"✗ Error fatal: {e}")
+        
+        if progress_queue:
+            progress_queue.put(("log", f"✗ Error fatal: {e}\n"))
+            progress_queue.put(("finish", None))
+        
+        close_logger()
+        driver.quit()
         return
 
     try:
@@ -188,13 +222,13 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
             # ===== VERIFICAR PAUSA =====
             if not pause_event.is_set():
                 print(f"\n{'='*50}")
-                print(f"⏸️ PROCESO PAUSADO")
+                print(f"⏸ PROCESO PAUSADO")
                 print(f"{'='*50}")
-                print(f"📍 Pausado en registro: {i + 1}/{total_registros}")
-                print(f"💡 Esperando reanudación...")
+                print(f" Pausado en registro: {i + 1}/{total_registros}")
+                print(f" Esperando reanudación...")
                 
                 if progress_queue:
-                    progress_queue.put(("log", f"\n⏸️ Pausado en registro {i + 1}/{total_registros}\n"))
+                    progress_queue.put(("log", f"\n⏸ Pausado en registro {i + 1}/{total_registros}\n"))
                 
                 # Esperar hasta que se reanude o se detenga
                 while not pause_event.is_set():
@@ -208,7 +242,7 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                 print(f"\n{'='*50}")
                 print(f"▶ PROCESO REANUDADO")
                 print(f"{'='*50}")
-                print(f"📍 Continuando desde registro: {i + 1}/{total_registros}\n")
+                print(f" Continuando desde registro: {i + 1}/{total_registros}\n")
                 
                 if progress_queue:
                     progress_queue.put(("log", f"\n▶ Reanudado desde registro {i + 1}/{total_registros}\n"))
@@ -268,7 +302,7 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                 
                 if existe is None:
                     logging.warning(f"Saltando estudiante debido a error en verificación: {nombres} {apellidos}")
-                    print(f"⚠️ Saltando estudiante debido a error en verificación")
+                    print(f"Saltando estudiante debido a error en verificación")
                     
                     for col_name, col_idx in column_indices.items():
                         try:
@@ -286,7 +320,7 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                 
                 if existe:
                     logging.info(f"El estudiante {nombres} {apellidos} ya existe en el sistema")
-                    print(f"✅ Estudiante ya existe en el sistema")
+                    print(f"✓ Estudiante ya existe en el sistema")
                     
                     for col_name, col_idx in column_indices.items():
                         try:
@@ -308,17 +342,17 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                     break
                 
                 logging.info(f"El estudiante {nombres} {apellidos} no existe. Procediendo con el registro.")
-                print(f"📝 Estudiante no existe. Procediendo con registro...")
+                print(f" Estudiante no existe. Procediendo con registro...")
                 
                 # ===== PROCESO DE REGISTRO (con verificaciones intercaladas) =====
                 if URL_VERIFICACION in driver.current_url:
-                    print("📄 Formulario de pre-inscripción detectado")
+                    print(" Formulario de pre-inscripción detectado")
                     
                     if stop_event.is_set():
                         break
                     
                     if llenar_datos_antes_de_inscripcion(nombres, apellidos, driver):
-                        print("✅ Pre-inscripción completada")
+                        print("✓ Pre-inscripción completada")
                         
                         wait.until(EC.invisibility_of_element_located((By.ID, "content-load")))
                         wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "well")))
@@ -330,7 +364,7 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                         
                         if ya_registrado:
                             logging.info(f"El estudiante {nombres} {apellidos} ya está registrado")
-                            print(f"✅ Estudiante ya registrado (meses de búsqueda > 1)")
+                            print(f"✓ Estudiante ya registrado (meses de búsqueda > 1)")
                             
                             for col_name, col_idx in column_indices.items():
                                 try:
@@ -352,7 +386,7 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                         
                         # ===== LLENAR FORMULARIO CON VERIFICACIONES =====
                         if driver.current_url == URL_FORMULARIO or "formulario" in driver.current_url.lower():
-                            print("📋 Llenando formulario completo...")
+                            print(" Llenando formulario completo...")
                             
                             # Cada función de llenado podría verificar stop_event internamente
                             llenar_formulario_ubicaciones(driver)
@@ -379,14 +413,14 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                             llenar_input_perfil_ocupacional(estado, driver)
                             if stop_event.is_set(): break
                             
-                            print("✅ Formulario con datos básicos llenado correctamente")
+                            print("✓ Formulario con datos básicos llenado correctamente")
                             
                             # Guardar información
                             botonGuardar = WebDriverWait(driver, 10).until(
                                 EC.element_to_be_clickable((By.ID, 'submitNewOft'))
                             )
                             botonGuardar.click()
-                            print("✅ Click en botón Guardar")
+                            print("✓ Click en botón Guardar")
                             logging.info("Se hizo click en el boton de Guardar")
                             
                             if stop_event.is_set():
@@ -406,7 +440,7 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                                     except:
                                         pass
                                 wb.save(RUTA_EXCEL)
-                                print(f"❌ Error en experiencia laboral")
+                                print(f"✗ Error en experiencia laboral")
                                 contador_errores += 1
                                 driver.get(URL_VERIFICACION)
                                 time.sleep(2)
@@ -424,11 +458,11 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                                 except:
                                     pass
                             wb.save(RUTA_EXCEL)
-                            print(f"✅ Registro completado exitosamente")
+                            print(f"✓ Registro completado exitosamente")
                             contador_procesados_exitosamente += 1
 
                         else:
-                            print(f"⚠️ No se detectó formulario completo. URL: {driver.current_url}")
+                            print(f" No se detectó formulario completo. URL: {driver.current_url}")
                             for col_name, col_idx in column_indices.items():
                                 try:
                                     valor = sheet.cell(row=excel_row + 1, column=col_idx + 1).value  # Para openpyxl las filas empiezan en 1
@@ -439,7 +473,7 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                             wb.save(RUTA_EXCEL)
                             contador_errores += 1
                     else:
-                        print("❌ No se pudo completar la pre-inscripción")
+                        print("✗ No se pudo completar la pre-inscripción")
                         for col_name, col_idx in column_indices.items():
                             try:
                                 if col_name in df.columns:
@@ -453,12 +487,12 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                         wb.save(RUTA_EXCEL)
                         contador_errores += 1
                 else:
-                    print(f"⚠️ No se redirigió al formulario. URL: {driver.current_url}")
+                    print(f" No se redirigió al formulario. URL: {driver.current_url}")
                     driver.get(URL_VERIFICACION)
-                    print("🔄 Reintentando verificación...")
+                    print(" Reintentando verificación...")
                     existe = verificar_estudiante(tipo_doc, num_doc, nombres, apellidos, driver, wait, wait_rapido)
                     if not existe:
-                        print("🔄 Reintentando llenar datos...")
+                        print(" Reintentando llenar datos...")
                         if llenar_datos_antes_de_inscripcion(nombres, apellidos, driver, wait):
                             for col_name, col_idx in column_indices.items():
                                 try:
@@ -481,7 +515,7 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                     
             except Exception as e:
                 logging.error(f"Error procesando estudiante {nombres} {apellidos}: {str(e)}")
-                print(f"❌ Error procesando estudiante: {str(e)}")
+                print(f"✗ Error procesando estudiante: {str(e)}")
                 
                 for col_name, col_idx in column_indices.items():
                     try:
@@ -496,9 +530,9 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                 
                 try:
                     wb.save(RUTA_EXCEL)
-                    print(f"📝 Excel actualizado: marcando como error")
+                    print(f" Excel actualizado: marcando como error")
                 except Exception as save_error:
-                    print(f"⚠️ Error al guardar Excel: {str(save_error)}")
+                    print(f" Error al guardar Excel: {str(save_error)}")
                 
                 contador_errores += 1
                 
@@ -506,7 +540,7 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
                     driver.get(URL_VERIFICACION)
                     time.sleep(2)
                 except Exception as nav_error:
-                    print(f"⚠️ Error al navegar: {str(nav_error)}")
+                    print(f" Error al navegar: {str(nav_error)}")
         
         # ===== RESUMEN FINAL =====
         try:
@@ -558,7 +592,7 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
         try:
             driver.quit()
             logging.info("Navegador cerrado")
-            print("🔒 Navegador cerrado")
+            print("Navegador cerrado...")
         except Exception as e:
             logging.error(f"Error al cerrar navegador: {e}")
         
