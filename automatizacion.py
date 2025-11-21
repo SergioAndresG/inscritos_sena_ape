@@ -592,13 +592,9 @@ def main(ruta_excel_param, progress_queue=None, username=None, password=None, st
         try:
             driver.quit()
             logging.info("Navegador cerrado")
-            print("Navegador cerrado...")
+            print("Navegador cerrado")
         except Exception as e:
             logging.error(f"Error al cerrar navegador: {e}")
-        
-        log_path = get_log_path()
-        if log_path:
-            print(f"\n Archivo de log guardado en:\n{log_path}")
         close_logger()
         
 if __name__ == "__main__":
