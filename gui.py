@@ -3,7 +3,7 @@ from tkinter import filedialog, messagebox
 import threading
 import queue
 import json
-import os
+import traceback
 from pathlib import Path
 from automatizacion import main
 from debug_exe import log
@@ -188,7 +188,7 @@ class App(ctk.CTk):
         file_card = ctk.CTkFrame(left_panel, fg_color=COLORS["terminal_bg"], corner_radius=8)
         file_card.pack(pady=15, padx=15, fill="x")
 
-        ctk.CTkLabel(file_card, text="📁 Archivo Excel", 
+        ctk.CTkLabel(file_card, text=" Archivo Excel", 
                     font=ctk.CTkFont(size=14, weight="bold")).pack(anchor="w", padx=10, pady=(10,5))
 
         path_frame = ctk.CTkFrame(file_card, fg_color="transparent")
@@ -213,7 +213,7 @@ class App(ctk.CTk):
 
         self.start_button = ctk.CTkButton(
             actions_frame,
-            text="▶️  Iniciar Proceso",
+            text="▶  Iniciar Proceso",
             command=self.start_process,
             height=45,
             width=200,
@@ -225,7 +225,7 @@ class App(ctk.CTk):
 
         self.stop_button = ctk.CTkButton(
             actions_frame,
-            text="⏹️  Detener",
+            text="⏹  Detener",
             command=self.stop_process,
             height=45,
             width=200,
@@ -238,7 +238,7 @@ class App(ctk.CTk):
 
         self.pause_button = ctk.CTkButton(
             actions_frame,
-            text="⏸️  Pausar",
+            text="⏸  Pausar",
             command=self.toggle_pause,
             height=45,
             width=200,
@@ -292,8 +292,8 @@ class App(ctk.CTk):
         """Obtiene el estado de las credenciales"""
         if self.credentials_manager.credentials_exist():
             username, _ = self.credentials_manager.load_credentials()
-            return f"✅ Credenciales configuradas (Usuario: {username})"
-        return "⚠️ Credenciales no configuradas"
+            return f"✓ Credenciales configuradas (Usuario: {username})"
+        return " Credenciales no configuradas"
     
     def open_credentials_dialog(self):
         """Abre el diálogo para configurar credenciales"""
@@ -320,15 +320,15 @@ class App(ctk.CTk):
             self.pause_event.clear()
             
             self.pause_button.configure(
-                text="▶️  Reanudar",
+                text="▶ Reanudar",
                 fg_color="#2CC985"  # Verde
             )
-            self.progress_label.configure(text="⏸️ Proceso pausado")
+            self.progress_label.configure(text="⏸ Proceso pausado")
             
             self.textbox.insert("end", "\n" + "="*50 + "\n")
-            self.textbox.insert("end", "⏸️ PROCESO PAUSADO\n")
+            self.textbox.insert("end", "⏸ PROCESO PAUSADO\n")
             self.textbox.insert("end", "="*50 + "\n")
-            self.textbox.insert("end", "💡 Presiona 'Reanudar' para continuar\n\n")
+            self.textbox.insert("end", " Presiona 'Reanudar' para continuar\n\n")
             self.textbox.see("end")
             
         else:
@@ -339,10 +339,10 @@ class App(ctk.CTk):
                 text="⏸️  Pausar",
                 fg_color="#FFA500"  # Naranja
             )
-            self.progress_label.configure(text="▶️ Reanudando proceso...")
+            self.progress_label.configure(text="▶ Reanudando proceso...")
             
             self.textbox.insert("end", "\n" + "="*50 + "\n")
-            self.textbox.insert("end", "▶️ PROCESO REANUDADO\n")
+            self.textbox.insert("end", "▶ PROCESO REANUDADO\n")
             self.textbox.insert("end", "="*50 + "\n\n")
             self.textbox.see("end")
 
@@ -398,9 +398,9 @@ class App(ctk.CTk):
         timestamp = datetime.now().strftime("%H:%M:%S")
         
         self.textbox.insert("end", f"{'='*50}\n")
-        self.textbox.insert("end", f"▶️ PROCESO INICIADO - {timestamp}\n")
+        self.textbox.insert("end", f"▶ PROCESO INICIADO - {timestamp}\n")
         self.textbox.insert("end", f"{'='*50}\n")
-        self.textbox.insert("end", f"📂 Archivo: {ruta}\n\n")
+        self.textbox.insert("end", f" Archivo: {ruta}\n\n")
         self.textbox.see("end")
         
         # Iniciar thread
@@ -420,15 +420,15 @@ class App(ctk.CTk):
         self.stop_event.set()
         
         # 2. Actualizar UI inmediatamente
-        self.stop_button.configure(state="disabled", text="⏹️ Deteniendo...")
+        self.stop_button.configure(state="disabled", text="⏹ Deteniendo...")
         self.progress_label.configure(text="Detención solicitada...")
         
         # Log detallado
         self.textbox.insert("end", "\n" + "="*50 + "\n")
-        self.textbox.insert("end", "⚠️ DETENCIÓN SOLICITADA\n")
+        self.textbox.insert("end", "DETENCIÓN SOLICITADA\n")
         self.textbox.insert("end", "="*50 + "\n")
-        self.textbox.insert("end", "⏳ Esperando que termine la tarea actual...\n")
-        self.textbox.insert("end", "💡 El proceso se detendrá en el próximo punto seguro\n\n")
+        self.textbox.insert("end", " Esperando que termine la tarea actual...\n")
+        self.textbox.insert("end", "El proceso se detendrá en el próximo punto seguro\n\n")
         self.textbox.see("end")
         
         # Deshabilitar inicio mientras se detiene
@@ -448,7 +448,7 @@ class App(ctk.CTk):
             self.after(500, self.check_stop_completion)
         else:
             # El thread terminó
-            self.textbox.insert("end", "✅ Proceso detenido correctamente\n\n")
+            self.textbox.insert("end", "✓  Proceso detenido correctamente\n\n")
             self.textbox.see("end")
             
             # Resetear UI
@@ -456,7 +456,7 @@ class App(ctk.CTk):
     
     def _reset_ui_after_dialog(self):
         """Resetea la UI después de cerrar el diálogo (SIN reiniciar proceso)"""
-        self.start_button.configure(state="normal", text="▶️  Iniciar Proceso")
+        self.start_button.configure(state="normal", text="▶ Iniciar Proceso")
         self.browse_button.configure(state="normal")
         self.config_credentials_button.configure(state="normal")
         self.stop_button.configure(state="disabled")
@@ -476,10 +476,11 @@ class App(ctk.CTk):
     def show_dialog_profile(self, nombre_programa):
         """Muestra el diálogo para solicitar un perfil ocupacional"""
         try:
-            # Deshabilitar botón de pausa mientras está el diálogo
+            # Deshabilitar botones de control
             self.pause_button.configure(state="disabled")
+            self.stop_button.configure(state="disabled")
             
-            # Crear y mostrar el diálogo
+            # Crear y mostrar el diálogo (BLOQUEA hasta que el usuario responda)
             dialogo = DialogoPerfilOcupacional(self, nombre_programa)
             self.wait_window(dialogo)
             
@@ -488,10 +489,9 @@ class App(ctk.CTk):
                 exito = agregar_perfil_a_json(nombre_programa, perfil_ingresado)
                 
                 if exito:
-                    self.textbox.insert("end", f"✅ Perfil agregado: {nombre_programa} -> {perfil_ingresado}\n")
+                    self.textbox.insert("end", f"Perfil agregado: {nombre_programa} -> {perfil_ingresado}\n")
                     self.textbox.see("end")
                     
-                    # Preguntar si desea reiniciar automáticamente
                     respuesta = messagebox.askyesno(
                         "Perfil Agregado",
                         f"El perfil '{perfil_ingresado}' ha sido agregado correctamente.\n\n"
@@ -499,25 +499,34 @@ class App(ctk.CTk):
                     )
                     
                     if respuesta:
-                        self.textbox.insert("end", f"🔄 Reiniciando proceso...\n")
+                        self.textbox.insert("end", f"Reiniciando proceso automáticamente...\n\n")
                         self.textbox.see("end")
+                        
+                        # Limpiar UI
                         self._reset_ui_for_restart()
-                        self.after(1000, self.start_process)
+                        
+                        # Reiniciar después de un breve delay
+                        self.after(500, self.start_process)
                     else:
-                        self.textbox.insert("end", f"ℹ️ Inicia el proceso manualmente cuando estés listo.\n")
+                        self.textbox.insert("end", f"ℹ Reinicia manualmente cuando estés listo.\n\n")
+                        self.textbox.see("end")
                         self._reset_ui_after_dialog()
                 else:
-                    self.textbox.insert("end", f"❌ Error al guardar el perfil\n")
-                    messagebox.showerror("Error", "No se pudo guardar el perfil")
-                    self._reset_ui_after_dialog()  
+                    self.textbox.insert("end", f" Error al guardar el perfil\n")
+                    messagebox.showerror("Error", "No se pudo guardar el perfil en el archivo JSON")
+                    self._reset_ui_after_dialog()
             else:
-                self.textbox.insert("end", f"⏭️ Proceso cancelado por el usuario\n")
-                self._reset_ui_after_dialog()  
+                # Usuario canceló
+                self.textbox.insert("end", f"⏭Configuración de perfil cancelada\n\n")
+                self.textbox.see("end")
+                self._reset_ui_after_dialog()
                 
         except Exception as e:
             import traceback
-            traceback.print_exc()
-            self._reset_ui_after_dialog()  
+            error_detail = traceback.format_exc()
+            self.textbox.insert("end", f"❌ Error en diálogo: {e}\n{error_detail}\n")
+            self.textbox.see("end")
+            self._reset_ui_after_dialog()
 
     """ MÉTODO run_main """
     def run_main(self, ruta, progress_queue, stop_event): 
@@ -531,11 +540,14 @@ class App(ctk.CTk):
             # Revisar el estado de detención para reportar el resultado final
             if stop_event.is_set():
                 progress_queue.put(("log", "🛑 Proceso detenido por el usuario.\n"))
+                progress_queue.put(("finish", None))
             else:
-                progress_queue.put(("log", "✅ Proceso completado correctamente\n"))
+                progress_queue.put(("log", "✓  Proceso completado correctamente\n"))
                 
         except Exception as e:
-            progress_queue.put(("log", f"❌ Error: {e}\n"))
+            error_msg = traceback.format_exc()
+            progress_queue.put(("log", f"✗ Error inesperado:\n{error_msg}\n"))
+            progress_queue.put(("finish", None))
         finally:
             progress_queue.put(("finish", None))
 
@@ -550,7 +562,6 @@ class App(ctk.CTk):
                     progress_value = current / total
                     percentage = int(progress_value * 100)
                     
-                    # Cambiar de modo indeterminado a determinado
                     if self.progress_bar.cget("mode") == "indeterminate":
                         self.progress_bar.stop()
                         self.progress_bar.configure(mode="determinate")
@@ -559,43 +570,58 @@ class App(ctk.CTk):
                     self.progress_percentage.configure(text=f"{percentage}%")
                     self.progress_label.configure(text=f"Procesando: {current} de {total}")
                     
-                    # Cambiar color según progreso
                     if percentage < 30:
                         self.progress_bar.configure(progress_color="#FF6B6B")
                     elif percentage < 70:
                         self.progress_bar.configure(progress_color="#FFD93D")
                     else:
                         self.progress_bar.configure(progress_color=COLORS["accent"])
-                        
+                            
                 elif message_type == "log":
                     self.textbox.insert("end", data)
                     self.textbox.see("end")
 
                 elif message_type == "solicitar_perfil":
-                    from debug_exe import log
                     nombre_programa = data
-                    self.show_dialog_profile(nombre_programa)
-
-                elif message_type == "finish":
-                    # Detener animación si está activa
+                    
+                    # Actualizar UI para mostrar que está esperando
+                    self.progress_label.configure(text=f"⏸ Esperando configuración de perfil...")
                     if self.progress_bar.cget("mode") == "indeterminate":
                         self.progress_bar.stop()
                         self.progress_bar.configure(mode="determinate")
                     
-                    # Deshabilitar TODOS los controles de proceso
+                    # Deshabilitar botones mientras se muestra el diálogo
+                    self.stop_button.configure(state="disabled")
                     self.pause_button.configure(state="disabled")
                     
-                    self.start_button.configure(state="normal", text="▶️  Iniciar Proceso")
+                    # Mostrar diálogo (ejecutado en el thread principal - correcto)
+                    self.show_dialog_profile(nombre_programa)
+                    
+                    # No continuar procesando mensajes - show_dialog_profile maneja el resto
+                    return
+
+                elif message_type == "finish":
+                    if self.progress_bar.cget("mode") == "indeterminate":
+                        self.progress_bar.stop()
+                        self.progress_bar.configure(mode="determinate")
+                    
+                    self.pause_button.configure(state="disabled")
+                    self.start_button.configure(state="normal", text="▶ Iniciar Proceso")
                     self.browse_button.configure(state="normal")
                     self.config_credentials_button.configure(state="normal")
                     self.stop_button.configure(state="disabled")
                     self.progress_label.configure(text="Proceso Finalizado")
-                    self.textbox.insert("end", f"\n{'='*50}\n✅ PROCESO FINALIZADO\n{'='*50}\n")
+                    
+                    self.textbox.insert("end", f"\n{'='*50}\n")
+                    self.textbox.insert("end", "✓ PROCESO FINALIZADO\n")
+                    self.textbox.insert("end", f"{'='*50}\n")
                     self.textbox.see("end")
                     return
-                    
+                        
         except queue.Empty:
             pass
+        
+        # Continuar verificando la cola
         self.after(100, self.check_progress_queue)
 
 if __name__ == "__main__":
