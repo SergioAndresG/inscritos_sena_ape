@@ -20,7 +20,6 @@ except:
 # Agregar archivos específicos del proyecto
 datas += [
     ('perfilesOcupacionales/perfiles_ocupacionales.json', 'perfilesOcupacionales'),
-    ('.env', '.'),  # Si tienes archivo .env
 ]
 
 # Iconos (si existen)
@@ -55,7 +54,7 @@ hiddenimports = [
     'webdriver_manager',
     'webdriver_manager.chrome',
     
-    # Excel - CRÍTICO
+    # Excel
     'openpyxl',
     'openpyxl.styles',
     'openpyxl.styles.fills',
@@ -88,7 +87,6 @@ hiddenimports = [
     
     # Módulos del proyecto
     'funciones_formularios',
-    'funciones_formularios.preparar_excel',
     'funciones_formularios.login',
     'funciones_formularios.verificacion',
     'funciones_formularios.pre_inscripcion',
@@ -105,6 +103,8 @@ hiddenimports = [
     
     'funciones_excel',
     'funciones_excel.conversion_excel',
+    'funciones_excel.extraccion_datos_excel',
+    'funciones_excel.preparar_excel',
     
     'funciones_loggs',
     'funciones_loggs.loggs_funciones',
