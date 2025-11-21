@@ -54,11 +54,9 @@ def preparar_excel(ruta_excel):
             
             if mapeo_perfiles:
                 logging.info(f"Mapeo cargado con {len(mapeo_perfiles)} programas")
-                print(f"✓ Mapeo de perfiles cargado")
-                
                 perfil_encontrado = buscar_perfil_ocupacional(nombre_programa, mapeo_perfiles)
                 
-                print(f"Debug - Perfil encontrado: {perfil_encontrado}")
+                print(f"✓ Perfil encontrado: {perfil_encontrado}")
                 
                 # VALIDACIÓN ESTRICTA ANTES DE CONVERTIR
                 if not perfil_encontrado or str(perfil_encontrado).strip() == '':
@@ -80,7 +78,7 @@ def preparar_excel(ruta_excel):
                 raise Exception(error_msg)
             
             # Si llegamos aquí, TODO está validado - AHORA SÍ convertir
-            print(f"✓ Validación exitosa - procediendo con conversión...")
+            print(f"✓ Procediendo con conversión...")
             ruta_excel = convertir_xls_a_xlsx(ruta_excel)
         
         # ===== CONFIGURAR PANDAS =====
