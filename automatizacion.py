@@ -5,7 +5,6 @@ import sys
 import threading
 import time
 # === LIBRERÍAS DE TERCEROS ===
-import xlwt
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
