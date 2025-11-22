@@ -97,28 +97,17 @@ Genera logs detallados de cada operación para auditoría
 
 **Opción A: Descarga directa**
 1. Ve a la sección [**📦 Releases**](https://github.com/SergioAndresG/inscritos_sena_ape/releases/latest)
-2. Descarga el archivo más reciente: `SENA_Automation_App_vX.X.X.zip`
+2. Descarga el archivo más reciente: `inscritos_automatizacion.zip`
 3. Extrae el contenido en una carpeta de tu preferencia
 
-**Opción B: Descarga rápida**
-```
-📥 Descarga directa: [Última versión estable]
-```
 
 #### 2️⃣ Contenido del Paquete
 
 Después de extraer el `.zip`, encontrarás:
 
 ```
-📁 SENA_Automation_App/
+📁 inscritos_automatizacion/
 ├── 📄 SENA_Automation_App.exe          ← Archivo principal (ejecutar este)
-├── 📁 funciones_formularios/           ← Módulos de la aplicación
-├── 📁 funciones_loggs/                 ← Sistema de registro
-├── 📁 perfilesOcupacionales/           ← Mapeo de programas
-├── 📁 Iconos/                          ← Recursos gráficos
-├── 📁 URLS/                            ← Configuración de enlaces
-├── 📄 README.md                        ← Este archivo
-└── 📄 plantilla_inscritos.xls         ← Plantilla Excel ejemplo
 ```
 
 #### 3️⃣ Ubicación Recomendada
@@ -127,10 +116,8 @@ Te sugerimos colocar la aplicación en una carpeta dedicada:
 
 ```
 📁 C:\Usuarios\TuNombre\Documentos\
-   └── 📁 Automatizacion_APE_SENA\
+   └── 📁 inscritos_automatizacion\
        ├── 📄 SENA_Automation_App.exe
-       ├── 📁 funciones_formularios\
-       ├── 📁 funciones_loggs\
        ├── 📁 Logs\                     (se crea automáticamente)
        └── 📁 config\                   (se crea automáticamente)
 ```
@@ -158,7 +145,7 @@ Te sugerimos colocar la aplicación en una carpeta dedicada:
 
 ### Configuración Inicial (Solo la primera vez)
 
-Al ejecutar la aplicación por primera vez, verás un asistente de configuración:
+Al ejecutar la aplicación por primera vez, verás un apartado de configuración de Credenciales:
 
 #### Paso 1: Credenciales de APE
 
@@ -192,7 +179,7 @@ La aplicación necesita relacionar los **programas de formación** con los **per
 
 **Ejemplo:**
 ```
-Programa: "TECNÓLOGO EN ANÁLISIS Y DESARROLLO DE SOFTWARE"
+Programa: "ANÁLISIS Y DESARROLLO DE SOFTWARE"
          ↓
 Perfil:   "Desarrollador de Software"
 ```
@@ -207,16 +194,7 @@ Este mapeo se guarda en `perfilesOcupacionales/mapeo_programas.json` para futuro
 
 Tu archivo Excel **DEBE** tener exactamente estas columnas (respeta mayúsculas y tildes):
 
-| Columna | Tipo de Dato | Ejemplo | Observaciones |
-|---------|--------------|---------|---------------|
-| **Tipo de Documento** | Texto | CC, TI, CE, PEP | Siglas sin puntos |
-| **Número de Documento** | Número | 1234567890 | Sin puntos, comas ni espacios |
-| **Nombres** | Texto | Juan Carlos | Nombres completos |
-| **Apellidos** | Texto | Pérez González | Apellidos completos |
-| **Programa de Formación** | Texto | TECNÓLOGO EN ANÁLISIS Y DESARROLLO DE SOFTWARE | Nombre completo y exacto |
-| **Empresa** | Texto | ABC Tecnología S.A.S. | Razón social completa |
-| **NIT Empresa** | Número | 900123456 | Sin dígito de verificación |
-| **Fecha de Ingreso** | Fecha | 15/01/2024 | Formato: DD/MM/AAAA |
+![Estructura de la Plantilla Excel](https://i.ibb.co/7xkbTrJ8/image.png)
 
 **📄 Descarga la plantilla:** [`plantilla_inscritos.xls`](./plantilla_inscritos.xls)
 
@@ -228,12 +206,11 @@ Tu archivo Excel **DEBE** tener exactamente estas columnas (respeta mayúsculas 
 
 2. **Cargar el archivo Excel:**
    - Clic en botón **"📂 Seleccionar archivo Excel"**
-   - Busca y selecciona tu archivo `.xls` o `.xlsx`
+   - Busca y selecciona tu archivo `.xls`
    - La aplicación validará la estructura automáticamente
 
 3. **Verificar configuración:**
    - Revisa que tus credenciales sean correctas
-   - Confirma que los programas estén mapeados
 
 4. **Iniciar automatización:**
    - Clic en botón **"▶️ Iniciar Proceso"**
@@ -246,42 +223,29 @@ Durante la ejecución verás:
 
 ```
 ┌────────────────────────────────────────────┐
-│  [████████████░░░░░░░░░░] 60%            │
-│                                            │
-│  📊 Registros procesados: 12/20            │
-│  ✅ Exitosos: 11                           │
-│  ❌ Fallidos: 1                            │
+│  [████████████░░░░░░░░░░] 60%              │
 │                                            │
 │  🔄 Procesando: PÉREZ, Juan Carlos         │
-│  ⏱️ Tiempo estimado: 5 minutos             │
 └────────────────────────────────────────────┘
 ```
 
 **Opciones disponibles:**
 - ⏸️ **Pausar**: Detiene temporalmente el proceso
-- ⏹️ **Cancelar**: Detiene completamente (puedes reanudar después)
+- ⏹️ **Detener**: Detiene completamente (puedes reanudar después)
 - 📋 **Ver Logs**: Muestra detalles técnicos en tiempo real
 
 ### Paso 4: Revisar Resultados
 
 Al finalizar, la aplicación mostrará:
 
-✅ **Resumen de Ejecución:**
+✅ **PROCESO FINALIZADO:**
 ```
-╔════════════════════════════════════════════╗
-║        PROCESO COMPLETADO                  ║
-╠════════════════════════════════════════════╣
-║  Total procesados:     20                  ║
-║  ✅ Exitosos:          18                  ║
-║  ❌ Fallidos:          2                   ║
-║  ⏱️ Tiempo total:       14 minutos         ║
-╚════════════════════════════════════════════╝
+Podras entrar al archivo que ingresaste y veras un resumen completo del proceso
 ```
 
 📄 **Archivos generados:**
 - `Logs/registro_YYYYMMDD_HHMMSS.log` → Log detallado
 - `Logs/errores_YYYYMMDD.xlsx` → Registros fallidos (si aplica)
-
 ---
 
 ## 📊 Estructura del Archivo Excel
@@ -294,25 +258,20 @@ Antes de iniciar, la aplicación verifica:
 |------------|-------------|
 | ✔️ **Columnas requeridas** | Todas las columnas obligatorias deben existir |
 | ✔️ **Celdas vacías** | No puede haber campos obligatorios vacíos |
-| ✔️ **Formato de fechas** | Debe ser DD/MM/AAAA (ej: 15/01/2024) |
 | ✔️ **Números de documento** | Solo números, sin puntos ni espacios |
 | ✔️ **Tipos de documento** | Solo valores válidos: CC, TI, CE, PEP, etc. |
-| ✔️ **NIT válido** | Solo números, sin dígito de verificación |
 
 ### Errores Comunes y Soluciones
 
 | ❌ Error | ✅ Solución |
 |---------|-----------|
 | "Columna 'X' no encontrada" | Verifica el nombre exacto (mayúsculas y tildes) |
-| "Fecha inválida en fila 5" | Usa formato DD/MM/AAAA (ej: 15/01/2024) |
-| "Documento inválido" | Elimina puntos, guiones y espacios |
-| "Celda vacía en columna 'Nombres'" | Completa todos los campos obligatorios |
 | "Programa no encontrado" | La app te pedirá el perfil ocupacional |
 
 ### Ejemplo de Registro Válido
 
 ```excel
-| CC | 1234567890 | Juan Carlos | Pérez González | TECNÓLOGO EN ANÁLISIS Y DESARROLLO DE SOFTWARE | Tech Solutions S.A.S. | 900123456 | 15/01/2024 |
+| CC | 1234567890 | Juan Carlos | Pérez González | 3101234567 | pepito123@gmail.com |ELECTRICIDAD BÁSICA | Auxiliar Electrico | <- Esta ultima se coloca automaticamente
 ```
 
 ---
@@ -354,7 +313,6 @@ La aplicación guarda el progreso automáticamente. Puedes:
 - ⚠️ **50-100 registros**: Recomendable dividir en lotes
 - ❌ **+100 registros**: Dividir en archivos más pequeños
 
-Procesar en lotes facilita la identificación de errores.
 </details>
 
 <details>
@@ -362,39 +320,18 @@ Procesar en lotes facilita la identificación de errores.
 
 **Sí.** Las credenciales:
 - Se almacenan **solo en tu equipo** (carpeta `config/`)
-- Usan encriptación básica
 - **Nunca** se envían a internet (excepto a APE para login)
 - No se comparten con servidores de terceros
 
 **Recomendación:** No compartas la carpeta `config/` con otras personas.
-</details>
 
-<details>
-<summary><strong>¿Puedo modificar el mapeo de programas manualmente?</strong></summary>
-
-**Sí.** Puedes editar el archivo:
-```
-perfilesOcupacionales/mapeo_programas.json
-```
-
-**Formato:**
-```json
-{
-  "NOMBRE DEL PROGRAMA": "Perfil Ocupacional",
-  "TECNÓLOGO EN ANÁLISIS Y DESARROLLO DE SOFTWARE": "Desarrollador de Software"
-}
-```
-
-Guarda y reinicia la aplicación.
-</details>
-
-<details>
 <summary><strong>¿Qué hago si un registro falla?</strong></summary>
 
 1. **Durante la ejecución:** La app continúa con los siguientes
 2. **Al finalizar:** Revisa el reporte de errores
 3. **En los logs:** Encuentra detalles específicos del error
 4. **Corrección:** Ajusta los datos y vuelve a procesar solo ese registro
+5. **Ultima Validación** Si sigue con fallos haz la validación manual el aplicativo a veces presneta problemas con algunos usuarios
 
 La aplicación genera un archivo Excel con los registros fallidos para facilitar su corrección.
 </details>
@@ -488,13 +425,7 @@ No hay límite de instalaciones.
    Logs/error_YYYYMMDD.log
    ```
 
-3. **Verifica que todas las carpetas estén presentes:**
-   - `funciones_formularios/`
-   - `funciones_loggs/`
-   - `perfilesOcupacionales/`
-   - `URLS/`
-
-4. **Reinstala desde cero:**
+3. **Reinstala desde cero:**
    - Descarga nuevamente el `.zip`
    - Extrae en una carpeta nueva
    - No copies archivos viejos
@@ -512,12 +443,12 @@ No hay límite de instalaciones.
 **Solución:**
 
 1. **Usa la plantilla proporcionada:**
-   - Descarga: `plantilla_colocados.xlsx`
+   - Descarga: `plantilla_colocados.xls`
    - Copia tus datos manteniendo los nombres de columnas
 
 2. **Verifica el formato del archivo:**
-   - Debe ser `.xls` o `.xlsx`
-   - No uses `.csv` o `.txt`
+   - Debe ser `.xls`, ya que son reportes desde Sofia Plus y el aplicativo maneja este tipo de archivo
+   
 
 3. **Cierra el archivo en Excel antes de procesarlo:**
    - Excel bloquea archivos abiertos
@@ -530,35 +461,8 @@ No hay límite de instalaciones.
 
 ---
 
-### Problema 5: Credenciales no se guardan
 
-**Síntomas:**
-- La app pide credenciales cada vez que se ejecuta
-- Error: "No se pudo guardar configuración"
-
-**Solución:**
-
-1. **Verifica permisos de escritura:**
-   - Clic derecho en la carpeta de la app
-   - Propiedades → Seguridad
-   - Tu usuario debe tener permisos de "Modificar"
-
-2. **Ejecuta como administrador (temporal):**
-   - Clic derecho en el `.exe`
-   - "Ejecutar como administrador"
-   - Ingresa credenciales
-   - Cierra y ejecuta normalmente
-
-3. **Verifica que la carpeta `config/` se haya creado:**
-   ```
-   SENA_Automation_App/
-   └── config/
-       └── credentials.json
-   ```
-
----
-
-### Problema 6: La página de APE no carga
+### Problema 5: La página de APE no carga
 
 **Síntomas:**
 - Timeout después de varios segundos
@@ -592,14 +496,9 @@ No hay límite de instalaciones.
    - Borra el antiguo `SENA_Automation_App.exe`
    - Copia el nuevo en la misma carpeta
 
-3. **⚠️ NO borres estas carpetas:**
-   - `config/` (contiene tus credenciales)
-   - `Logs/` (historial de ejecuciones)
-   - `perfilesOcupacionales/` (mapeos personalizados)
-
 ### Historial de Versiones
 
-#### v1.2.0 (Última estable)
+#### v1.1.1 (Última estable)
 - ✅ Mejoras en estabilidad de Selenium
 - ✅ Validación mejorada de archivos Excel
 - ✅ Interfaz gráfica optimizada
@@ -659,12 +558,21 @@ INSCRITOS_APE_CBA/
 │   ├── formulario_empresa.py
 │   └── formulario_fecha.py
 │
+├── funciones_excel/ # Módulos que manejan la preparación del archivo
+│   ├── conversion_excel.py
+│   ├── extraccion_datos_excel.py
+│   ├── preparar_excel.py
+│
 ├── funciones_loggs/                # Sistema de logging
 │   ├── __init__.py
 │   └── logger.py
 │
 ├── perfilesOcupacionales/          # Mapeo de programas
 │   └── mapeo_programas.json
+│   ├── dialogo_perfil.py
+│   ├── gestorDePerfilesOcupacionales.py
+│   ├── perfiles_ocupacionales.json
+│   ├── perfilExcepcion.py
 │
 ├── Iconos/                         # Recursos gráficos
 │   ├── app_icon.ico
@@ -725,13 +633,7 @@ pyinstaller SENA_Automation_App.spec
 
 - 🐛 **Reportar bugs**: [Issues del repositorio](https://github.com/SergioAndresG/inscritos_sena_ape/issues)
 - 💡 **Sugerencias**: [Discussions](https://github.com/SergioAndresG/inscritos_sena_ape/discussions)
-- 📧 **Contacto directo**: [tu-email@sena.edu.co]
-
-### Documentación Adicional
-
-- 📖 [Manual de Usuario Completo](docs/MANUAL_USUARIO.pdf) (PDF)
-- 🎥 [Video Tutorial](https://youtube.com/...) (Próximamente)
-- 📝 [FAQ Extendido](docs/FAQ.md)
+- 📧 **Contacto directo**: [sergiogarcia3421@gmail.com]
 
 ---
 
@@ -744,7 +646,7 @@ Desde su implementación:
 | ⏱️ **Tiempo ahorrado** | ~85% de reducción |
 | 📊 **Registros procesados** | +500 aprendices |
 | ✅ **Tasa de éxito** | 98% |
-| 👥 **Usuarios activos** | 15 funcionarios |
+| 👥 **Usuarios activos** | 7 funcionarios |
 
 ---
 
