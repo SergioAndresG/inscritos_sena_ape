@@ -6,7 +6,7 @@ import json
 import traceback
 from pathlib import Path
 from automatizacion import main
-from debug_exe import log
+from debug.debug_exe import log
 from perfilesOcupacionales.dialogo_perfil import DialogoPerfilOcupacional
 from perfilesOcupacionales.gestorDePerfilesOcupacionales import agregar_perfil_a_json
 

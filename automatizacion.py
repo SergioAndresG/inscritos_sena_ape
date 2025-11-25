@@ -36,7 +36,7 @@ from funciones_formularios.verificacion import (
 from funciones_loggs.loggs_funciones import loggs
 from perfilesOcupacionales.perfilExcepcion import PerfilOcupacionalNoEncontrado
 from URLS.urls import URL_FORMULARIO, URL_VERIFICACION
-from debug_exe import close_logger, get_log_path
+from debug.debug_exe import close_logger, get_log_path
 
 #Funcion que preapara los logs en un archivo y maneja su durabilidad en la aplicación
 loggs()
@@ -85,7 +85,7 @@ def debug_log(mensaje, progress_queue=None):
         progress_queue.put(("log", f"🔍 {mensaje}\n"))
 
 def main(ruta_excel_param, progress_queue=None, username=None, password=None, stop_event=threading.Event(), pause_event=None):
-    from debug_exe import init_logger, log, close_logger
+    from debug.debug_exe import init_logger, log, close_logger
     chrome_options = Options()
 
     # Descomentar la siguiente línea para modo headless (sin interfaz gráfica), para visualizar el funcionamiento del aplicativo
